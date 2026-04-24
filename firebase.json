@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "adyaanant-494318",
     "public": ".",
     "ignore": [
       "firebase.json",
@@ -7,6 +8,12 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "cleanUrls": true
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }
