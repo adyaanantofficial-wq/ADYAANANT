@@ -703,6 +703,29 @@
         // Initialize
         window.addEventListener('load', function() {
             console.log('Payment Page Ready!');
+            
+            // Handle URL parameters for product and amount
+            const urlParams = new URLSearchParams(window.location.search);
+            const product = urlParams.get('product');
+            const amount = urlParams.get('amount');
+            
+            if (product && amount) {
+                // Update page title and amount
+                document.title = `Pay for ${product.replace('-', ' ')} | ADYAANANT`;
+                setAmount(parseInt(amount));
+                
+                // Update subtitle to show product info
+                const subtitle = document.querySelector('.subtitle');
+                if (subtitle) {
+                    subtitle.textContent = `Complete payment for ${product.replace('-', ' ')}`;
+                }
+                
+                // Update header title
+                const headerTitle = document.querySelector('h1');
+                if (headerTitle) {
+                    headerTitle.textContent = `💳 Pay for ${product.replace('-', ' ')}`;
+                }
+            }
         });
     </script>
 </body>

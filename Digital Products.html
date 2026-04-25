@@ -738,7 +738,7 @@
                     <span class="product-type">📄 Digital Product</span>
                     <h2 class="product-title">Legend Star Bot</h2>
                     <div class="product-price">₹100</div>
-                    <button class="buy-button" tabindex="-1">Buy Now</button>
+                    <button class="buy-button" onclick="redirectToPayment(event)" tabindex="-1">Buy Now</button>
                 </div>
             </article>
 
@@ -951,8 +951,13 @@
 
         // Modal Controls
         function openPaymentModal() {
-            paymentModal.classList.add('active');
-            document.body.classList.add('modal-open');
+            // Redirect to payment page instead of opening modal
+            window.location.href = 'payment.html?product=legend-star-bot&amount=100';
+        }
+
+        function redirectToPayment(event) {
+            event.stopPropagation(); // Prevent card click event
+            window.location.href = 'payment.html?product=legend-star-bot&amount=100';
         }
 
         function closeModals() {
