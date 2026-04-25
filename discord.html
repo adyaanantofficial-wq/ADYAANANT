@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Discord Community | ADYAANANT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode.js/1.4.4/qrcode.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #050507;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.08);
+            --primary: #00c3ff;
+            --primary-glow: rgba(0, 195, 255, 0.6);
+            --secondary: #ffd700;
+            --secondary-glow: rgba(255, 215, 0, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #a0aab5;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(10, 10, 15, 0.7);
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, rgba(0,195,255,0.05) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .nav-bar {
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Discord Section */
+        .discord-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-bottom: 4rem;
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .discord-info h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .discord-info p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .discord-widget {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .discord-widget iframe {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 10px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(270deg, var(--primary), #0055ff, var(--primary));
+            background-size: 200% 200%;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 195, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 195, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: inset 0 0 15px rgba(0,195,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 195, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(0,195,255,0.05));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        .payment-section h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .payment-method {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .payment-method:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 195, 255, 0.2);
+        }
+
+        .payment-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-method h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .payment-method p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-payment {
+            background: var(--primary);
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-payment:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        /* QR Code Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: var(--surface);
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid var(--border);
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            color: var(--text-muted);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: var(--primary);
+        }
+
+        .qr-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        #qrCode {
+            display: inline-block;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .amount-selector {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .amount-selector label {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .amount-selector input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .amount-selector input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 195, 255, 0.3);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .modal-buttons button {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-buttons .btn-copy {
+            background: var(--primary);
+            color: #000;
+            flex: 1;
+        }
+
+        .modal-buttons .btn-close {
+            background: var(--surface-hover);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            flex: 1;
+        }
+
+        .modal-buttons button:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-buttons .btn-copy:hover {
+            background: var(--secondary);
+        }
+
+        .info-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #020203;
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-content a {
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        .footer-content a:hover {
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            
+            .discord-section {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 50% auto;
+                width: 95%;
+            }
+        }
+
+        .copy-feedback {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            animation: slideInRight 0.3s;
+            z-index: 2000;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(400px); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-bar">
+            <a href="index.html" class="nav-brand">
+                <span>ADYAANANT</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <h1>Join Our Discord Community</h1>
+        <p class="subtitle">Connect with thousands of members, get exclusive updates and support</p>
+    </header>
+
+    <main>
+        <!-- Discord Widget Section -->
+        <section class="discord-section">
+            <div class="discord-info">
+                <h2>Be Part of Our Community</h2>
+                <p>Welcome to the ADYAANANT Discord server! Here you can:</p>
+                <ul style="margin-left: 1.5rem; color: var(--text-muted);">
+                    <li>Get exclusive product announcements</li>
+                    <li>Connect with fellow members and enthusiasts</li>
+                    <li>Access customer support and help</li>
+                    <li>Participate in exciting giveaways and events</li>
+                    <li>Share ideas and feedback with our team</li>
+                </ul>
+                <div class="btn-group">
+                    <a href="https://discord.gg/adyaanant" target="_blank" class="btn btn-primary">
+                        🎮 Join Discord Server
+                    </a>
+                    <a href="#payment" class="btn btn-secondary">
+                        💳 Make a Payment
+                    </a>
+                </div>
+            </div>
+            <div class="discord-widget">
+                <iframe src="https://discord.com/widget?id=1427319799616245935&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            </div>
+        </section>
+
+        <!-- Payment Section -->
+        <section id="payment" class="payment-section">
+            <h2>💳 Payment Methods</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Choose your preferred payment method to proceed</p>
+            
+            <div class="payment-grid">
+                <!-- PhonePe -->
+                <div class="payment-method" onclick="handlePhonePe()">
+                    <div class="payment-icon">📱</div>
+                    <h3>PhonePe</h3>
+                    <p>Fast and secure payments via PhonePe app</p>
+                    <button class="btn-payment">Pay with PhonePe</button>
+                </div>
+
+                <!-- Google Pay -->
+                <div class="payment-method" onclick="handleGooglePay()">
+                    <div class="payment-icon">🔵</div>
+                    <h3>Google Pay</h3>
+                    <p>Pay directly from your Google Pay account</p>
+                    <button class="btn-payment">Pay with Google Pay</button>
+                </div>
+
+                <!-- QR Code -->
+                <div class="payment-method" onclick="openQRModal()">
+                    <div class="payment-icon">📲</div>
+                    <h3>QR Code</h3>
+                    <p>Scan QR code to pay via any UPI app</p>
+                    <button class="btn-payment">Generate QR Code</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeQRModal()">&times;</span>
+            <h2 style="text-align: center; color: var(--secondary); margin-bottom: 1rem;">Scan to Pay</h2>
+            
+            <div class="amount-selector">
+                <label for="upiAmount">Enter Amount (₹):</label>
+                <input type="number" id="upiAmount" placeholder="100" min="1" max="100000" value="100">
+            </div>
+
+            <div class="qr-container">
+                <div id="qrCode"></div>
+            </div>
+
+            <div style="text-align: center; margin: 1rem 0;">
+                <p style="color: var(--text-main); font-weight: 600;">UPI ID:</p>
+                <p id="upiDisplay" style="color: var(--primary); font-family: monospace; font-weight: 700; font-size: 1.1rem; word-break: break-all;">merchant@upi</p>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn-copy" onclick="copyUPI()">📋 Copy UPI ID</button>
+                <button class="btn-close" onclick="closeQRModal()">Close</button>
+            </div>
+
+            <div class="info-text">
+                <strong>How to pay:</strong><br>
+                1. Open any UPI app (PhonePe, Google Pay, BHIM, etc.)<br>
+                2. Scan this QR code<br>
+                3. Confirm the amount and complete payment<br>
+                Or copy the UPI ID and paste in your app
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 ADYAANANT. All Rights Reserved. | 
+            <a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a> | 
+            <a href="contact.html">Contact Us</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const UPI_ID = "merchant@upi"; // Replace with actual UPI ID
+        const AMOUNT = 100; // Default amount in rupees
+
+        // Detect if device is mobile and OS type
+        function detectDevice() {
+            const ua = navigator.userAgent;
+            const isAndroid = /Android/.test(ua);
+            const isIOS = /iPhone|iPad|iPod/.test(ua);
+            const isMobile = isAndroid || isIOS;
+            
+            return { isAndroid, isIOS, isMobile };
+        }
+
+        // PhonePe Handler
+        function handlePhonePe() {
+            const { isAndroid, isIOS, isMobile } = detectDevice();
+            const amount = AMOUNT;
+
+            if (!isMobile) {
+                alert('PhonePe works on mobile devices. Please use a mobile device to open this page.');
+                return;
+            }
+
+            // UPI Deep Link for PhonePe
+            // Format: upi://pay?pa=UPI_ID&pn=PAYEE_NAME&am=AMOUNT&tn=TRANSACTION_NOTE&tr=TRANSACTION_REF
+            const upiLink = `upi://pay?pa=${UPI_ID}&pn=ADYAANANT&am=${amount}&tn=Payment%20to%20ADYAANANT&tr=${generateTransactionRef()}`;
+
+            // Fallback to PhonePe specific deep link
+            const phonepeLink = isAndroid 
+                ? `intent://upi/pay?pa=${UPI_ID}&pn=ADYAANANT&am=${amount}#Intent;scheme=upi;package=com.phonepe.app;end`
+                : `phonepe://upi=${UPI_ID}?am=${amount}`;
+
+            try {
+                // Try standard UPI link first
+                window.location.href = upiLink;
+
+                // If it doesn't work, try PhonePe specific link after a timeout
+                setTimeout(() => {
+                    window.location.href = phonepeLink;
+                }, 500);
+            } catch (error) {
+                console.error('PhonePe Error:', error);
+                alert('PhonePe is not installed on your device. Please install it from the App Store / Play Store.');
+            }
+        }
+
+        // Google Pay Handler
+        function handleGooglePay() {
+            const { isAndroid, isIOS, isMobile } = detectDevice();
+            const amount = AMOUNT;
+
+            if (!isMobile) {
+                alert('Google Pay works on mobile devices. Please use a mobile device to open this page.');
+                return;
+            }
+
+            // UPI Deep Link for Google Pay
+            const upiLink = `upi://pay?pa=${UPI_ID}&pn=ADYAANANT&am=${amount}&tn=Payment%20to%20ADYAANANT&tr=${generateTransactionRef()}`;
+
+            // Google Pay specific deep link
+            const googlepayLink = isAndroid
+                ? `intent://upi/pay?pa=${UPI_ID}&pn=ADYAANANT&am=${amount}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`
+                : `googlepay://upi=${UPI_ID}?am=${amount}`;
+
+            try {
+                window.location.href = upiLink;
+
+                setTimeout(() => {
+                    window.location.href = googlepayLink;
+                }, 500);
+            } catch (error) {
+                console.error('Google Pay Error:', error);
+                alert('Google Pay is not installed on your device. Please install it from the App Store / Play Store.');
+            }
+        }
+
+        // QR Code Modal Functions
+        function openQRModal() {
+            const modal = document.getElementById('qrModal');
+            const amount = document.getElementById('upiAmount').value || AMOUNT;
+            generateQRCode(amount);
+            modal.style.display = 'block';
+        }
+
+        function closeQRModal() {
+            const modal = document.getElementById('qrModal');
+            modal.style.display = 'none';
+        }
+
+        // Generate QR Code
+        function generateQRCode(amount = AMOUNT) {
+            const qrContainer = document.getElementById('qrCode');
+            qrContainer.innerHTML = ''; // Clear previous QR
+
+            // Create UPI string for QR code
+            // Format: upi://pay?pa=UPI_ID&pn=PAYEE_NAME&am=AMOUNT&tn=TRANSACTION_NOTE
+            const upiString = `upi://pay?pa=${UPI_ID}&pn=ADYAANANT&am=${amount}&tn=Payment%20to%20ADYAANANT&tr=${generateTransactionRef()}`;
+
+            // Generate QR Code
+            new QRCode(qrContainer, {
+                text: upiString,
+                width: 250,
+                height: 250,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        // Update QR Code when amount changes
+        document.addEventListener('DOMContentLoaded', function() {
+            const amountInput = document.getElementById('upiAmount');
+            if (amountInput) {
+                amountInput.addEventListener('input', function() {
+                    if (document.getElementById('qrModal').style.display === 'block') {
+                        generateQRCode(this.value || AMOUNT);
+                    }
+                });
+            }
+        });
+
+        // Copy UPI ID to Clipboard
+        function copyUPI() {
+            const upiID = UPI_ID;
+            navigator.clipboard.writeText(upiID).then(() => {
+                // Show feedback
+                const feedback = document.createElement('div');
+                feedback.className = 'copy-feedback';
+                feedback.textContent = '✓ UPI ID Copied!';
+                document.body.appendChild(feedback);
+
+                setTimeout(() => {
+                    feedback.remove();
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy UPI ID. Please copy manually: ' + upiID);
+            });
+        }
+
+        // Generate unique transaction reference
+        function generateTransactionRef() {
+            return 'TXN' + Date.now() + Math.floor(Math.random() * 1000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('qrModal');
+            if (event.target === modal) {
+                closeQRModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeQRModal();
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            console.log('Discord & Payment Page Loaded Successfully!');
+        });
+    </script>
+</body>
+</html>

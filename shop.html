@@ -434,8 +434,9 @@
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="shop.html" class="active">Shop</a></li>
+                    <li><a href="payment.html">Payment</a></li>
+                    <li><a href="discord.html">Discord</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="ABOUT US.html">About Us</a></li>
                     <li><a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy</a></li>
                 </ul>
             </nav>
@@ -561,6 +562,20 @@
                             <span class="shop-now-btn">Shop Now <span aria-hidden="true">→</span></span>
                         </div>
                     `;
+                    
+                    // Add click handler for payment redirect
+                    card.addEventListener('click', function(e) {
+                        if (e.ctrlKey || e.metaKey || e.button === 1) {
+                            // Allow normal link behavior with Ctrl+click or middle click
+                            return;
+                        }
+                        // Redirect to payment page after short delay
+                        setTimeout(() => {
+                            window.location.href = 'payment.html?category=' + encodeURIComponent(cat.name);
+                        }, 300);
+                        e.preventDefault();
+                    });
+                    
                     fragment.appendChild(card);
                 });
 
