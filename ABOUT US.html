@@ -10,9 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS Variables for Corporate Luxury Theme */
+        /* ==========================================================================
+           NAVIGATION STYLES
+           ========================================================================== */
         :root {
+            --primary: #0071e3;
+            --primary-hover: #005bb5;
             --bg-color: #050505;
+            --surface: #111111;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border: #333333;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --font-family: 'Montserrat', sans-serif;
+            --header-bg: rgba(5, 5, 5, 0.95);
+            --bg-color-old: #050505;
             --surface-color: #111111;
             --surface-hover: #1a1a1a;
             --text-primary: #ffffff;
@@ -21,8 +34,109 @@
             --accent-gold-dim: rgba(197, 160, 89, 0.2);
             --font-heading: 'Cinzel', serif;
             --font-body: 'Montserrat', sans-serif;
-            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-old: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
+        .navbar {
+            background: var(--header-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+            color: var(--text-main);
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links li a:hover {
+            background: rgba(0, 113, 227, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links li a:hover::after {
+            width: 80%;
+        }
+
+        #nav-check {
+            display: none;
+        }
+
+        #nav-check:checked ~ .nav-links {
+            max-height: 400px;
+        }
+
+        /* ==========================================================================
+           EXISTING STYLES
+           ========================================================================== */
+        /* CSS Variables for Corporate Luxury Theme */
 
         /* Reset & Base Styles */
         * {
@@ -194,10 +308,69 @@
             header {
                 padding: 6rem 0 3rem;
             }
+
+            /* Navigation Mobile Styles */
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--header-bg);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+            }
+            .nav-links li {
+                text-align: center;
+                width: 100%;
+            }
+            .nav-links li a {
+                display: block;
+                padding: 1.5rem;
+                border-top: 1px solid rgba(255,255,255,0.05);
+            }
+            #nav-check:checked ~ nav .nav-links {
+                max-height: 400px;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+            .nav-brand {
+                font-size: 1.3rem;
+            }
+            .nav-logo {
+                width: 35px;
+                height: 35px;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <input type="checkbox" id="nav-check">
+        <label for="nav-check" class="menu-toggle">☰</label>
+        <a href="index.html" class="nav-brand">
+            <img src="logo.png" alt="ADYAANANT Logo" class="nav-logo">
+            <span>ADYAANANT</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="ABOUT US.html">About Us</a></li>
+            <li><a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a></li>
+            <li><a href="shop.html">Shop</a></li>
+        </ul>
+    </nav>
 
     <header>
         <div class="container text-center">
@@ -261,6 +434,64 @@
     <footer style="padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 2rem;">
         <p style="margin: 0 auto; font-size: 0.8rem; letter-spacing: 1px; color: #666;">&copy; ADYAANANT. ALL RIGHTS RESERVED.</p>
     </footer>
+
+    <script>
+        // Navigation functionality
+        const navCheck = document.getElementById('nav-check');
+        const navLinks = document.querySelector('.nav-links');
+        const menuToggle = document.querySelector('.menu-toggle');
+
+        if (menuToggle && navCheck) {
+            menuToggle.addEventListener('click', function() {
+                navCheck.checked = !navCheck.checked;
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navCheck.checked = false;
+                }
+            });
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Escape key closes mobile menu
+            if (e.key === 'Escape' && navCheck) {
+                navCheck.checked = false;
+            }
+        });
+
+        // Add page load animation
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+
+        // Check if we're on a local file system and warn about links
+        if (window.location.protocol === 'file:') {
+            console.warn('⚠️  WARNING: You are viewing this site as a local file. Links may not work properly. Please use a local server (see DEVELOPMENT.md)');
+            
+            // Add visual warning for development
+            const warning = document.createElement('div');
+            warning.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: #ff6f6f;
+                color: white;
+                text-align: center;
+                padding: 10px;
+                font-size: 14px;
+                z-index: 10000;
+                font-family: var(--font-family);
+            `;
+            warning.innerHTML = '⚠️ Development Mode: Use <code>start-server.bat</code> for proper functionality';
+            document.body.insertBefore(warning, document.body.firstChild);
+        }
+    </script>
 
 </body>
 </html>

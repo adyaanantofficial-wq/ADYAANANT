@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Premium Digital Products - Shop secure, reliable, and instant digital assets.">
+    <meta name="theme-color" content="#ffffff">
+    <title>Digital Products | Premium Store</title>
+    
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --primary: #0071e3;
+            --primary-hover: #005bb5;
+            --success: #34c759;
+            --bg-color: #f5f5f7;
+            --surface: #ffffff;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --border: #d2d2d7;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.04);
+            --shadow-md: 0 10px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --header-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body.modal-open {
+            overflow: hidden; /* Prevents background scrolling when modal is active */
+        }
+
+        /* ==========================================================================
+           NAVIGATION
+           ========================================================================== */
+        .navbar {
+            background: var(--header-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+            color: var(--text-main);
+        }
+
+        .menu-toggle:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links li a:hover {
+            background: rgba(0, 113, 227, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links li a:hover::after {
+            width: 80%;
+        }
+
+        #nav-check {
+            display: none;
+        }
+
+        #nav-check:checked ~ .nav-links {
+            max-height: 400px;
+        }
+
+        /* ==========================================================================
+           HEADER & SEARCH BAR
+           ========================================================================== */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1.5rem 5%;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .header-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 1rem 1.2rem 1rem 3.2rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            outline: none;
+            background: var(--surface);
+            transition: var(--transition);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        #searchInput:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+        }
+
+        /* ==========================================================================
+           MAIN CONTENT & PRODUCT GRID
+           ========================================================================== */
+        main {
+            flex: 1;
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            justify-content: center;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: var(--surface);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .product-card:hover, .product-card:focus-visible {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            outline: none;
+        }
+
+        .product-image-container {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: #e5e5ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image-container img {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .product-type {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 0.5rem;
+        }
+
+        .buy-button {
+            margin-top: 1rem;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .buy-button:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Empty State */
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 4rem 1rem;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* ==========================================================================
+           MODALS (PAYMENT & SUCCESS)
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            width: 100%;
+            max-width: 420px;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: #f1f1f2;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: background 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #e5e5ea;
+            color: var(--text-main);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .amount-display {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        /* UPI Details Box */
+        .upi-details {
+            background: #f8f9fa;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .upi-details p {
+            margin-bottom: 0.4rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .upi-details span {
+            color: var(--text-main);
+            font-weight: 600;
+            font-family: monospace;
+            font-size: 1rem;
+        }
+
+        /* Payment Buttons */
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+
+        .pay-btn {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pay-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: rgba(0, 113, 227, 0.05);
+        }
+
+        .pay-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        .pay-btn.processing .spinner {
+            display: inline-block;
+        }
+        
+        .pay-btn.processing .btn-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success Modal Specific */
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+            background: var(--surface);
+        }
+
+        /* ==========================================================================
+           MEDIA QUERIES
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--header-bg);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+            }
+            .nav-links li {
+                text-align: center;
+                width: 100%;
+            }
+            .nav-links li a {
+                display: block;
+                padding: 1.5rem;
+                border-top: 1px solid rgba(255,255,255,0.05);
+            }
+            #nav-check:checked ~ nav .nav-links {
+                max-height: 400px;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+            .nav-brand {
+                font-size: 1.3rem;
+            }
+            .nav-logo {
+                width: 35px;
+                height: 35px;
+            }
+
+            header {
+                padding: 1.5rem 1rem;
+            }
+            .header-title {
+                font-size: 1.5rem;
+            }
+            .search-container {
+                max-width: none;
+            }
+            #searchInput {
+                font-size: 1rem;
+                padding: 1rem 1rem 1rem 3rem;
+            }
+            .search-icon {
+                left: 1rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .product-card {
+                max-width: none;
+            }
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            .amount-display {
+                font-size: 2rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <input type="checkbox" id="nav-check">
+        <label for="nav-check" class="menu-toggle">☰</label>
+        <a href="index.html" class="nav-brand">
+            <img src="logo.png" alt="ADYAANANT Logo" class="nav-logo">
+            <span>ADYAANANT</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="ABOUT US.html">About Us</a></li>
+            <li><a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a></li>
+            <li><a href="shop.html">Shop</a></li>
+        </ul>
+    </nav>
+
+    <header role="banner">
+        <div class="header-title">
+            <span aria-hidden="true">💻</span> Digital Products
+        </div>
+        <div class="search-container" aria-label="Search section">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Search digital products..." 
+                aria-label="Search products"
+                autocomplete="off">
+        </div>
+    </header>
+
+    <main role="main">
+        <div id="productGrid" class="product-grid" role="list">
+            
+            <article 
+                class="product-card" 
+                role="listitem" 
+                tabindex="0" 
+                aria-label="View Legend Star Bot"
+                onclick="openPaymentModal()"
+                onkeypress="if(event.key==='Enter') openPaymentModal()">
+                
+                <div class="product-image-container">
+                    <img src="legendstar.png" alt="Legend Star Bot Image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23e5e5ea\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'20px\' fill=\'%2386868b\'%3EImage Placeholder%3C/text%3E%3C/svg%3E'">
+                </div>
+                <div class="product-details">
+                    <span class="product-type">📄 Digital Product</span>
+                    <h2 class="product-title">Legend Star Bot</h2>
+                    <div class="product-price">₹100</div>
+                    <button class="buy-button" tabindex="-1">Buy Now</button>
+                </div>
+            </article>
+
+        </div>
+
+        <div id="noResults" class="no-results" aria-live="polite">
+            <span style="font-size: 3rem;" aria-hidden="true">❌</span>
+            <h2>No digital product found</h2>
+            <p>Try searching for "Legend", "Star", or "Bot".</p>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2026 Premium Store. All rights reserved.</p>
+    </footer>
+
+    <div id="paymentModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModals()" aria-label="Close modal">❌</button>
+            
+            <div class="modal-header">
+                <h2 id="paymentTitle">🔐 Secure Payment</h2>
+                <div class="amount-display">₹100</div>
+            </div>
+
+            <div class="upi-details">
+                <p>Transfer To: <span>adyaanant.official@okhdfcbank</span></p>
+                <p>Amount: <span>₹100</span></p>
+                <p>Note: <span>Legend Star Bot Purchase</span></p>
+            </div>
+
+            <div class="payment-options">
+                <button class="pay-btn" onclick="processPayment(this)">
+                    <span class="btn-text">📱 Pay with PhonePe</span>
+                    <span class="spinner"></span>
+                </button>
+                <button class="pay-btn" onclick="processPayment(this)">
+                    <span class="btn-text">🟢 Pay with Google Pay</span>
+                    <span class="spinner"></span>
+                </button>
+                <button class="pay-btn" onclick="processPayment(this)">
+                    <span class="btn-text">💙 Pay with Paytm</span>
+                    <span class="spinner"></span>
+                </button>
+                <button class="pay-btn" onclick="processPayment(this)">
+                    <span class="btn-text">🔳 Show QR Code</span>
+                    <span class="spinner"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+        <div class="modal-content" style="text-align: center; padding: 3rem 2rem;">
+            <button class="close-btn" onclick="closeModals()" aria-label="Close modal">❌</button>
+            
+            <div class="success-icon" aria-hidden="true">✅</div>
+            <h2 id="successTitle" style="margin-bottom: 0.5rem;">Payment Successful</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Thank you for purchasing Legend Star Bot.</p>
+            
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">📝 Complete Your Purchase Form</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Please fill out the form to receive your digital asset.</p>
+            
+            <a href="https://forms.gle/L7sVQJZmHAnD91Jz5" target="_blank" class="btn-primary" onclick="closeModals()">
+                Open Google Form ↗
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const productGrid = document.getElementById('productGrid');
+        const noResults = document.getElementById('noResults');
+        const paymentModal = document.getElementById('paymentModal');
+        const successModal = document.getElementById('successModal');
+        
+        let isProcessing = false;
+
+        // Navigation functionality
+        const navCheck = document.getElementById('nav-check');
+        const navLinks = document.querySelector('.nav-links');
+        const menuToggle = document.querySelector('.menu-toggle');
+
+        if (menuToggle && navCheck) {
+            menuToggle.addEventListener('click', function() {
+                navCheck.checked = !navCheck.checked;
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navCheck.checked = false;
+                }
+            });
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Escape key closes mobile menu
+            if (e.key === 'Escape' && navCheck) {
+                navCheck.checked = false;
+            }
+        });
+
+        // Add page load animation
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+
+        // Check if we're on a local file system and warn about links
+        if (window.location.protocol === 'file:') {
+            console.warn('⚠️  WARNING: You are viewing this site as a local file. Links may not work properly. Please use a local server (see DEVELOPMENT.md)');
+            
+            // Add visual warning for development
+            const warning = document.createElement('div');
+            warning.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: #ff6f6f;
+                color: white;
+                text-align: center;
+                padding: 10px;
+                font-size: 14px;
+                z-index: 10000;
+                font-family: var(--font-family);
+            `;
+            warning.innerHTML = '⚠️ Development Mode: Use <code>start-server.bat</code> for proper functionality';
+            document.body.insertBefore(warning, document.body.firstChild);
+        }
+
+        // Digital Product Database (For Search Functionality)
+        const products = [
+            {
+                id: 'legend-star-bot',
+                title: 'Legend Star Bot',
+                keywords: ['legend', 'star', 'bot', 'digital', 'product', 'software', 'app']
+            }
+        ];
+
+        // Search Functionality
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query === '') {
+                productGrid.style.display = 'grid';
+                noResults.style.display = 'none';
+                return;
+            }
+
+            const isMatch = products.some(p => 
+                p.title.toLowerCase().includes(query) || 
+                p.keywords.some(kw => kw.includes(query))
+            );
+
+            if (isMatch) {
+                productGrid.style.display = 'grid';
+                noResults.style.display = 'none';
+            } else {
+                productGrid.style.display = 'none';
+                noResults.style.display = 'flex';
+            }
+        });
+
+        // Modal Controls
+        function openPaymentModal() {
+            paymentModal.classList.add('active');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeModals() {
+            if (isProcessing) return; // Prevent closing while processing payment
+            paymentModal.classList.remove('active');
+            successModal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModals();
+            });
+        });
+
+        // Payment Simulation Logic
+        function processPayment(buttonElement) {
+            if (isProcessing) return; // Prevent double clicks
+            isProcessing = true;
+
+            const allButtons = document.querySelectorAll('.pay-btn');
+            
+            // Disable all buttons to prevent multiple requests
+            allButtons.forEach(btn => btn.disabled = true);
+            
+            // Show loading state on clicked button
+            buttonElement.classList.add('processing');
+
+            // Simulate API Network Delay (2.5 seconds)
+            setTimeout(() => {
+                // Remove loading state
+                buttonElement.classList.remove('processing');
+                allButtons.forEach(btn => btn.disabled = false);
+                isProcessing = false;
+
+                // Hide payment modal, show success modal
+                paymentModal.classList.remove('active');
+                successModal.classList.add('active');
+
+                // Automatically trigger the Google Form in a new tab after a brief delay
+                setTimeout(() => {
+                    window.open('https://forms.gle/L7sVQJZmHAnD91Jz5', '_blank');
+                }, 800);
+
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
