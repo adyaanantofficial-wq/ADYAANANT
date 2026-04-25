@@ -520,14 +520,78 @@
             background: var(--primary-hover);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
-            margin-top: auto;
+        /* QR Code Modal */
+        .qr-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .qr-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .qr-content {
             background: var(--surface);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .qr-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .qr-code-container {
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: white;
+        }
+
+        .qr-instructions {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .payment-done-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .payment-done-btn:hover {
+            background: #28a745;
         }
 
         /* ==========================================================================
@@ -608,6 +672,15 @@
             }
             .amount-display {
                 font-size: 2rem;
+            }
+
+            .qr-content {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            .qr-code {
+                width: 150px;
+                height: 150px;
             }
         }
 
@@ -698,19 +771,19 @@
             </div>
 
             <div class="payment-options">
-                <button class="pay-btn" onclick="processPayment(this)">
+                <button class="pay-btn" onclick="openPhonePe()">
                     <span class="btn-text">📱 Pay with PhonePe</span>
                     <span class="spinner"></span>
                 </button>
-                <button class="pay-btn" onclick="processPayment(this)">
+                <button class="pay-btn" onclick="openGooglePay()">
                     <span class="btn-text">🟢 Pay with Google Pay</span>
                     <span class="spinner"></span>
                 </button>
-                <button class="pay-btn" onclick="processPayment(this)">
+                <button class="pay-btn" onclick="openPaytm()">
                     <span class="btn-text">💙 Pay with Paytm</span>
                     <span class="spinner"></span>
                 </button>
-                <button class="pay-btn" onclick="processPayment(this)">
+                <button class="pay-btn" onclick="showQRCode()">
                     <span class="btn-text">🔳 Show QR Code</span>
                     <span class="spinner"></span>
                 </button>
@@ -735,6 +808,31 @@
         </div>
     </div>
 
+    <div id="qrModal" class="qr-modal" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+        <div class="qr-content">
+            <button class="close-btn" onclick="closeQrModal()" aria-label="Close QR modal" style="position: absolute; top: 1rem; right: 1rem;">❌</button>
+            
+            <h2 id="qrTitle" class="qr-title">📱 Scan QR Code to Pay</h2>
+            
+            <div class="qr-code-container">
+                <canvas id="qrCodeCanvas" class="qr-code"></canvas>
+            </div>
+            
+            <div class="qr-instructions">
+                <p><strong>Amount:</strong> ₹100</p>
+                <p><strong>Payee:</strong> adyaanant.official@okhdfcbank</p>
+                <p><strong>Note:</strong> Legend Star Bot Purchase</p>
+                <br>
+                <p>Scan this QR code with any UPI app to complete your payment.</p>
+            </div>
+            
+            <button class="payment-done-btn" onclick="paymentCompleted()">
+                ✅ Payment Done - Continue
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
     <script>
         // DOM Elements
         const searchInput = document.getElementById('searchInput');
@@ -847,6 +945,11 @@
             document.body.classList.remove('modal-open');
         }
 
+        function closeQrModal() {
+            document.getElementById('qrModal').classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
         // Close modal when clicking outside
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', (e) => {
@@ -854,36 +957,115 @@
             });
         });
 
-        // Payment Simulation Logic
-        function processPayment(buttonElement) {
-            if (isProcessing) return; // Prevent double clicks
-            isProcessing = true;
+        // UPI Payment URLs
+        const upiData = {
+            payee: 'adyaanant.official@okhdfcbank',
+            amount: '100',
+            note: 'Legend Star Bot Purchase'
+        };
 
-            const allButtons = document.querySelectorAll('.pay-btn');
-            
-            // Disable all buttons to prevent multiple requests
-            allButtons.forEach(btn => btn.disabled = true);
-            
-            // Show loading state on clicked button
-            buttonElement.classList.add('processing');
+        // Generate UPI URL
+        function generateUPIUrl() {
+            return `upi://pay?pa=${upiData.payee}&pn=ADYAANANT&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+        }
 
-            // Simulate API Network Delay (2.5 seconds)
+        // Payment Functions
+        function openPhonePe() {
+            const upiUrl = generateUPIUrl();
+            // Try PhonePe specific URL first, fallback to generic UPI
+            const phonePeUrl = `tez://upi/pay?pa=${upiData.payee}&pn=ADYAANANT&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+            
+            // Try to open PhonePe, fallback to browser
+            window.location.href = phonePeUrl;
+            
+            // Fallback after a delay if app doesn't open
             setTimeout(() => {
-                // Remove loading state
-                buttonElement.classList.remove('processing');
-                allButtons.forEach(btn => btn.disabled = false);
-                isProcessing = false;
+                if (document.hasFocus()) {
+                    // App didn't open, try generic UPI
+                    window.location.href = upiUrl;
+                }
+            }, 2000);
+        }
 
-                // Hide payment modal, show success modal
-                paymentModal.classList.remove('active');
-                successModal.classList.add('active');
+        function openGooglePay() {
+            const upiUrl = generateUPIUrl();
+            // Try Google Pay specific URL
+            const gpayUrl = `tez://upi/pay?pa=${upiData.payee}&pn=ADYAANANT&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+            
+            window.location.href = gpayUrl;
+            
+            setTimeout(() => {
+                if (document.hasFocus()) {
+                    window.location.href = upiUrl;
+                }
+            }, 2000);
+        }
 
-                // Automatically trigger the Google Form in a new tab after a brief delay
-                setTimeout(() => {
-                    window.open('https://forms.gle/L7sVQJZmHAnD91Jz5', '_blank');
-                }, 800);
+        function openPaytm() {
+            const upiUrl = generateUPIUrl();
+            // Try Paytm specific URL
+            const paytmUrl = `paytmmp://pay?pa=${upiData.payee}&pn=ADYAANANT&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+            
+            window.location.href = paytmUrl;
+            
+            setTimeout(() => {
+                if (document.hasFocus()) {
+                    window.location.href = upiUrl;
+                }
+            }, 2000);
+        }
 
-            }, 2500);
+        function showQRCode() {
+            const qrModal = document.getElementById('qrModal');
+            const canvas = document.getElementById('qrCodeCanvas');
+            
+            // Generate UPI URL for QR code
+            const upiUrl = generateUPIUrl();
+            
+            // Generate QR Code
+            QRCode.toCanvas(canvas, upiUrl, {
+                width: 200,
+                height: 200,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            }, function (error) {
+                if (error) console.error(error);
+            });
+            
+            // Show modal
+            qrModal.classList.add('active');
+            document.body.classList.add('modal-open');
+        }
+
+        function paymentCompleted() {
+            // Close QR modal
+            closeQrModal();
+            
+            // Show success modal
+            successModal.classList.add('active');
+            document.body.classList.add('modal-open');
+            
+            // Automatically open Google Form after a brief delay
+            setTimeout(() => {
+                window.open('https://forms.gle/L7sVQJZmHAnD91Jz5', '_blank');
+            }, 800);
+        }
+
+        // Updated Payment Processing (for backward compatibility)
+        function processPayment(buttonElement) {
+            const buttonText = buttonElement.querySelector('.btn-text').textContent;
+            
+            if (buttonText.includes('PhonePe')) {
+                openPhonePe();
+            } else if (buttonText.includes('Google Pay')) {
+                openGooglePay();
+            } else if (buttonText.includes('Paytm')) {
+                openPaytm();
+            } else if (buttonText.includes('QR Code')) {
+                showQRCode();
+            }
         }
     </script>
 </body>
