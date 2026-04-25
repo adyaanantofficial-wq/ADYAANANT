@@ -1,0 +1,75 @@
+.help-fab {
+    position: fixed;
+    right: max(18px, env(safe-area-inset-right));
+    bottom: max(18px, env(safe-area-inset-bottom));
+    z-index: 2147483000;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+.help-fab__label {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(14, 18, 29, 0.94);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.help-fab__button {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #10d3ff 0%, #1f2937 100%);
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 1;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    box-shadow: 0 18px 38px rgba(16, 211, 255, 0.3);
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.help-fab:hover .help-fab__button,
+.help-fab:focus-visible .help-fab__button {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 22px 46px rgba(16, 211, 255, 0.38);
+    filter: saturate(1.08);
+}
+
+.help-fab:focus-visible {
+    outline: none;
+}
+
+.help-fab:focus-visible .help-fab__label {
+    border-color: rgba(16, 211, 255, 0.7);
+}
+
+@media (max-width: 640px) {
+    .help-fab {
+        right: max(14px, env(safe-area-inset-right));
+        bottom: max(14px, env(safe-area-inset-bottom));
+        gap: 8px;
+    }
+
+    .help-fab__label {
+        padding: 7px 11px;
+        font-size: 11px;
+    }
+
+    .help-fab__button {
+        width: 56px;
+        height: 56px;
+        font-size: 27px;
+    }
+}
