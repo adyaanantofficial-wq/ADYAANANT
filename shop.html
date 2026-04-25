@@ -73,7 +73,25 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            padding: 6px;
         }
 
         header h1 {
@@ -84,6 +102,45 @@
             align-items: center;
             gap: 0.75rem;
             letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .menu-toggle {
+            display: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        #nav-check {
+            display: none;
         }
 
         /* ==========================================================================
@@ -302,6 +359,36 @@
            MEDIA QUERIES
            ========================================================================== */
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--header-bg);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+            }
+            .nav-links li {
+                text-align: center;
+                width: 100%;
+            }
+            .nav-links li a {
+                display: block;
+                padding: 1.5rem;
+                border-top: 1px solid rgba(255,255,255,0.05);
+            }
+            #nav-check:checked ~ nav .nav-links {
+                max-height: 400px;
+            }
+
             main {
                 padding: 2rem 1rem;
             }
@@ -335,7 +422,23 @@
 
     <header role="banner">
         <div class="header-content">
-            <h1><span aria-hidden="true">🛍️</span> Shop by Category</h1>
+            <a href="index.html" class="nav-brand">
+                <img src="logo.png" alt="ADYAANANT Logo" class="nav-logo">
+                <span>ADYAANANT</span>
+            </a>
+
+            <input type="checkbox" id="nav-check">
+            <label for="nav-check" class="menu-toggle">☰</label>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html" class="active">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="ABOUT US.html">About Us</a></li>
+                    <li><a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -492,6 +595,62 @@
             // Auto-focus search on desktop
             if (window.innerWidth > 768) {
                 elements.input.focus();
+            }
+
+            // Add navigation functionality
+            const navCheck = document.getElementById('nav-check');
+            const navLinks = document.querySelector('.nav-links');
+            const menuToggle = document.querySelector('.menu-toggle');
+
+            if (menuToggle && navCheck) {
+                menuToggle.addEventListener('click', function() {
+                    navCheck.checked = !navCheck.checked;
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                        navCheck.checked = false;
+                    }
+                });
+            }
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // Escape key closes mobile menu
+                if (e.key === 'Escape' && navCheck) {
+                    navCheck.checked = false;
+                }
+            });
+
+            // Add page load animation
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+
+            // Check if we're on a local file system and warn about links
+            if (window.location.protocol === 'file:') {
+                console.warn('⚠️  WARNING: You are viewing this site as a local file. Links may not work properly. Please use a local server (see DEVELOPMENT.md)');
+                
+                // Add visual warning for development
+                const warning = document.createElement('div');
+                warning.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    background: #ff6f6f;
+                    color: white;
+                    text-align: center;
+                    padding: 10px;
+                    font-size: 14px;
+                    z-index: 10000;
+                    font-family: var(--font-family);
+                `;
+                warning.innerHTML = '⚠️ Development Mode: Use <code>start-server.bat</code> for proper functionality';
+                document.body.insertBefore(warning, document.body.firstChild);
             }
         });
     </script>

@@ -607,6 +607,135 @@
         <div class="copyright">&copy; 2026 ADYAANANT. All Rights Reserved.</div>
     </footer>
 
+    <script>
+        // Enhanced Navigation and Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            const anchorLinks = document.querySelectorAll('a[href^="#"]');
+            anchorLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const navCheck = document.getElementById('nav-check');
+            const navLinks = document.querySelector('.nav-links');
+            const menuToggle = document.querySelector('.menu-toggle');
+
+            if (menuToggle && navCheck) {
+                menuToggle.addEventListener('click', function() {
+                    navCheck.checked = !navCheck.checked;
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                        navCheck.checked = false;
+                    }
+                });
+            }
+
+            // Add loading animation to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.tagName === 'A' && this.href) {
+                        // Add click feedback
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                    }
+                });
+            });
+
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // Escape key closes mobile menu
+                if (e.key === 'Escape' && navCheck) {
+                    navCheck.checked = false;
+                }
+            });
+
+            // Add page load animation
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+
+            // Check if we're on a local file system and warn about links
+            if (window.location.protocol === 'file:') {
+                console.warn('⚠️  WARNING: You are viewing this site as a local file. Links may not work properly. Please use a local server (see DEVELOPMENT.md)');
+                
+                // Add visual warning for development
+                const warning = document.createElement('div');
+                warning.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    background: #ff6f6f;
+                    color: white;
+                    text-align: center;
+                    padding: 10px;
+                    font-size: 14px;
+                    z-index: 10000;
+                    font-family: var(--font-body);
+                `;
+                warning.innerHTML = '⚠️ Development Mode: Use <code>start-server.bat</code> for proper functionality';
+                document.body.insertBefore(warning, document.body.firstChild);
+            }
+        });
+
+        // Error handling for broken links
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'LINK' || e.target.tagName === 'SCRIPT') {
+                console.warn('Resource failed to load:', e.target.src || e.target.href);
+            }
+        });
+
+        // Service worker registration (for future PWA features)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Will add service worker later for offline functionality
+            });
+        }
+    </script>
+
 
 
 </body>
