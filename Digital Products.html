@@ -3,1128 +3,1658 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Premium Digital Products - Shop secure, reliable, and instant digital assets.">
-    <meta name="theme-color" content="#ffffff">
-    <title>Digital Products | Premium Store</title>
-    
+    <meta name="description" content="Shop premium Discord bots, combo packs, and custom digital builds from ADYAANANT.">
+    <meta name="theme-color" content="#111827">
+    <title>Digital Products | ADYAANANT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* ==========================================================================
-           CSS VARIABLES & RESET
-           ========================================================================== */
         :root {
-            --primary: #0071e3;
-            --primary-hover: #005bb5;
-            --success: #34c759;
-            --bg-color: #f5f5f7;
-            --surface: #ffffff;
-            --text-main: #1d1d1f;
-            --text-muted: #86868b;
-            --border: #d2d2d7;
-            --shadow-sm: 0 4px 6px rgba(0,0,0,0.04);
-            --shadow-md: 0 10px 20px rgba(0,0,0,0.08);
-            --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            --header-bg: rgba(255, 255, 255, 0.9);
+            --bg-main: #f4f5f7;
+            --bg-soft: #fff8ef;
+            --surface: rgba(255, 255, 255, 0.92);
+            --surface-strong: #ffffff;
+            --surface-dark: #101826;
+            --text-main: #151821;
+            --text-muted: #5c6576;
+            --text-soft: #8790a3;
+            --border: rgba(17, 24, 39, 0.09);
+            --brand: #ffb547;
+            --brand-deep: #f08a00;
+            --brand-soft: rgba(255, 181, 71, 0.16);
+            --accent: #1c4f88;
+            --accent-soft: rgba(28, 79, 136, 0.12);
+            --success: #0f9d77;
+            --danger: #d14c4c;
+            --shadow-sm: 0 12px 30px rgba(16, 24, 38, 0.06);
+            --shadow-md: 0 22px 50px rgba(16, 24, 38, 0.12);
+            --shadow-lg: 0 32px 80px rgba(16, 24, 38, 0.18);
+            --radius-lg: 28px;
+            --radius-md: 20px;
+            --radius-sm: 14px;
+            --transition: 220ms ease;
+            --font-display: "Space Grotesk", sans-serif;
+            --font-body: "Manrope", sans-serif;
         }
 
-        *, *::before, *::after {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: var(--font-family);
-            background-color: var(--bg-color);
-            color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: var(--font-body);
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top left, rgba(255, 181, 71, 0.18), transparent 26%),
+                radial-gradient(circle at top right, rgba(28, 79, 136, 0.12), transparent 22%),
+                linear-gradient(180deg, #fffaf3 0%, #f4f5f7 28%, #eef2f7 100%);
         }
 
         body.modal-open {
-            overflow: hidden; /* Prevents background scrolling when modal is active */
+            overflow: hidden;
         }
 
-        /* ==========================================================================
-           NAVIGATION
-           ========================================================================== */
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        .page-shell {
+            width: min(1380px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
         .navbar {
-            background: var(--header-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 1rem 5%;
-            box-shadow: var(--shadow-sm);
-            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+            background: rgba(16, 24, 38, 0.88);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+        }
+
+        .nav-shell {
+            min-height: 88px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
         }
 
         .nav-brand {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .nav-brand:hover {
-            transform: scale(1.02);
+            gap: 14px;
+            min-width: 0;
         }
 
         .nav-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
             object-fit: cover;
+            box-shadow: 0 10px 24px rgba(255, 181, 71, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .brand-copy {
+            display: grid;
+            gap: 2px;
+        }
+
+        .brand-eyebrow {
+            font-size: 0.76rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.58);
+        }
+
+        .brand-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.03em;
         }
 
         .menu-toggle {
             display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
             cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 6px;
-            transition: background 0.2s;
-            color: var(--text-main);
+            transition: transform var(--transition), background var(--transition);
         }
 
         .menu-toggle:hover {
-            background: rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .menu-icon {
+            position: relative;
+            width: 18px;
+            height: 2px;
+            background: currentColor;
+            border-radius: 999px;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 18px;
+            height: 2px;
+            background: currentColor;
+            border-radius: 999px;
+        }
+
+        .menu-icon::before {
+            top: -6px;
+        }
+
+        .menu-icon::after {
+            top: 6px;
         }
 
         .nav-links {
             display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links li a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links li a:hover {
-            background: rgba(0, 113, 227, 0.1);
-            color: var(--primary);
-        }
-
-        .nav-links li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-links li a:hover::after {
-            width: 80%;
-        }
-
-        #nav-check {
-            display: none;
-        }
-
-        #nav-check:checked ~ .nav-links {
-            max-height: 400px;
-        }
-
-        /* ==========================================================================
-           HEADER & SEARCH BAR
-           ========================================================================== */
-        header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1.5rem 5%;
-            box-shadow: var(--shadow-sm);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .header-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
             align-items: center;
             gap: 10px;
+            list-style: none;
         }
 
-        .search-container {
-            width: 100%;
-            max-width: 600px;
+        .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 18px;
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.88);
+            font-weight: 600;
+            transition: color var(--transition), background var(--transition), transform var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible,
+        .nav-links a.is-active {
+            color: #111827;
+            background: linear-gradient(135deg, var(--brand), #ffd37b);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .hero {
+            padding: 42px 0 22px;
+        }
+
+        .hero-panel {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
+            gap: 28px;
+            padding: 42px;
+            background:
+                linear-gradient(135deg, rgba(16, 24, 38, 0.96), rgba(16, 24, 38, 0.88)),
+                linear-gradient(135deg, rgba(255, 181, 71, 0.16), rgba(28, 79, 136, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 34px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-panel::before,
+        .hero-panel::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(6px);
+        }
+
+        .hero-panel::before {
+            width: 220px;
+            height: 220px;
+            right: -60px;
+            top: -40px;
+            background: rgba(255, 181, 71, 0.16);
+        }
+
+        .hero-panel::after {
+            width: 170px;
+            height: 170px;
+            left: 48%;
+            bottom: -80px;
+            background: rgba(28, 79, 136, 0.18);
+        }
+
+        .hero-copy,
+        .hero-aside {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-copy {
+            display: grid;
+            gap: 20px;
+            align-content: center;
+        }
+
+        .hero-kicker {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffe6b7;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .hero-copy h1 {
+            max-width: 13ch;
+            font-family: var(--font-display);
+            font-size: clamp(2.35rem, 4vw, 4.25rem);
+            line-height: 1.02;
+            letter-spacing: -0.05em;
+            color: #ffffff;
+        }
+
+        .hero-copy p {
+            max-width: 62ch;
+            color: rgba(255, 255, 255, 0.74);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .hero-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-highlights span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 0 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.09);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .hero-aside {
+            display: grid;
+            gap: 14px;
+            align-content: center;
+        }
+
+        .insight-card {
+            padding: 22px 22px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 24px;
+            color: #ffffff;
+        }
+
+        .insight-value {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #ffd891;
+        }
+
+        .insight-card p {
+            color: rgba(255, 255, 255, 0.74);
+            line-height: 1.7;
+        }
+
+        .toolbar {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .search-shell {
             position: relative;
         }
 
         .search-icon {
             position: absolute;
-            left: 1.2rem;
             top: 50%;
+            left: 22px;
             transform: translateY(-50%);
-            font-size: 1.2rem;
-            color: var(--text-muted);
+            font-size: 1.08rem;
+            color: var(--text-soft);
             pointer-events: none;
         }
 
         #searchInput {
             width: 100%;
-            padding: 1rem 1.2rem 1rem 3.2rem;
-            font-size: 1.1rem;
-            border: 2px solid var(--border);
-            border-radius: 50px;
-            outline: none;
-            background: var(--surface);
-            transition: var(--transition);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            min-height: 68px;
+            padding: 0 24px 0 58px;
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.88);
+            box-shadow: var(--shadow-sm);
+            color: var(--text-main);
+            font-size: 1.05rem;
+            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
         }
 
         #searchInput:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+            outline: none;
+            border-color: rgba(240, 138, 0, 0.32);
+            box-shadow: 0 0 0 5px rgba(255, 181, 71, 0.16), var(--shadow-sm);
+            transform: translateY(-1px);
         }
 
-        /* ==========================================================================
-           MAIN CONTENT & PRODUCT GRID
-           ========================================================================== */
-        main {
-            flex: 1;
-            padding: 3rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
+        .result-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 68px;
+            padding: 0 24px;
+            border-radius: 24px;
+            background: rgba(16, 24, 38, 0.94);
+            color: #ffffff;
+            box-shadow: var(--shadow-md);
+            font-weight: 700;
+        }
+
+        .catalog {
+            padding: 24px 0 76px;
+        }
+
+        .catalog-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .catalog-title-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .catalog-eyebrow {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .catalog-head h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 2vw, 2.6rem);
+            letter-spacing: -0.04em;
+        }
+
+        .catalog-head p {
+            color: var(--text-muted);
+            max-width: 58ch;
+            line-height: 1.8;
+        }
+
+        .catalog-note {
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(17, 24, 39, 0.07);
+            color: var(--text-muted);
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2.5rem;
-            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 26px;
         }
 
-        /* Product Card */
         .product-card {
-            background: var(--surface);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            cursor: pointer;
-            border: 1px solid var(--border);
+            position: relative;
             display: flex;
             flex-direction: column;
+            min-height: 100%;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9));
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+        }
+
+        .product-card:hover,
+        .product-card:focus-within {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(240, 138, 0, 0.2);
+        }
+
+        .product-media {
             position: relative;
-        }
-
-        .product-card:hover, .product-card:focus-visible {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-            outline: none;
-        }
-
-        .product-image-container {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: #e5e5ea;
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 250px;
+            padding: 22px;
+            background:
+                radial-gradient(circle at top right, rgba(255, 181, 71, 0.2), transparent 30%),
+                linear-gradient(160deg, #fef8ed 0%, #eef3fb 100%);
+            border-bottom: 1px solid rgba(17, 24, 39, 0.06);
             overflow: hidden;
         }
 
-        .product-image-container img {
-            width: 100%;
-            height: 100%;
+        .product-media::after {
+            content: "";
+            position: absolute;
+            inset: auto -32px -64px auto;
+            width: 160px;
+            height: 160px;
+            border-radius: 999px;
+            background: rgba(28, 79, 136, 0.08);
+        }
+
+        .product-media img {
+            position: relative;
+            z-index: 1;
+            width: min(100%, 260px);
+            height: 220px;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            border-radius: 24px;
+            box-shadow: 0 18px 40px rgba(16, 24, 38, 0.16);
         }
 
-        .product-card:hover .product-image-container img {
-            transform: scale(1.05);
+        .emoji-hero {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            place-items: center;
+            width: 132px;
+            height: 132px;
+            border-radius: 36px;
+            font-size: 4.8rem;
+            background: linear-gradient(135deg, #111827, #22324f);
+            box-shadow: 0 24px 48px rgba(16, 24, 38, 0.22);
         }
 
-        .product-details {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .product-type {
+        .product-badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: rgba(16, 24, 38, 0.88);
+            color: #ffffff;
             font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .product-body {
+            display: grid;
+            gap: 14px;
+            padding: 24px;
+            flex: 1;
+        }
+
+        .product-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary);
-            font-weight: 600;
         }
 
         .product-title {
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+        }
+
+        .product-summary {
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+
+        .product-features {
+            display: grid;
+            gap: 10px;
+            list-style: none;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
             color: var(--text-main);
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .product-features li::before {
+            content: "•";
+            color: var(--brand-deep);
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .product-footer {
+            margin-top: auto;
+            display: grid;
+            gap: 16px;
+        }
+
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(255, 181, 71, 0.14), rgba(28, 79, 136, 0.08));
         }
 
         .product-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-top: 0.5rem;
+            font-family: var(--font-display);
+            font-size: 1.7rem;
+            letter-spacing: -0.05em;
         }
 
-        .buy-button {
-            margin-top: 1rem;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .buy-button:hover {
-            background: var(--primary-hover);
-        }
-
-        /* Empty State */
-        .no-results {
-            display: none;
-            text-align: center;
-            padding: 4rem 1rem;
-            font-size: 1.2rem;
+        .product-price-note {
             color: var(--text-muted);
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        /* ==========================================================================
-           MODALS (PAYMENT & SUCCESS)
-           ========================================================================== */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            padding: 1rem;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: var(--surface);
-            width: 100%;
-            max-width: 420px;
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-            transform: translateY(20px) scale(0.95);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0) scale(1);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 1.2rem;
-            right: 1.2rem;
-            background: #f1f1f2;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            transition: background 0.2s;
-        }
-
-        .close-btn:hover {
-            background: #e5e5ea;
-            color: var(--text-main);
-        }
-
-        .modal-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-header h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .amount-display {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        /* UPI Details Box */
-        .upi-details {
-            background: #f8f9fa;
-            border: 1px dashed var(--border);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
             font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
-        .upi-details p {
-            margin-bottom: 0.4rem;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .upi-details span {
-            color: var(--text-main);
-            font-weight: 600;
-            font-family: monospace;
-            font-size: 1rem;
-        }
-
-        /* Payment Buttons */
-        .payment-options {
+        .action-stack {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.8rem;
+            gap: 10px;
         }
 
-        .pay-btn {
-            background: var(--surface);
-            border: 2px solid var(--border);
-            padding: 1rem;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            display: flex;
+        .btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            width: 100%;
+            min-height: 54px;
+            padding: 0 18px;
+            border: 0;
+            border-radius: 18px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
         }
 
-        .pay-btn:hover:not(:disabled) {
-            border-color: var(--primary);
-            background: rgba(0, 113, 227, 0.05);
+        .btn:hover,
+        .btn:focus-visible {
+            transform: translateY(-1px);
+            outline: none;
         }
 
-        .pay-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            filter: grayscale(1);
+        .btn-secondary {
+            background: rgba(17, 24, 39, 0.06);
+            color: var(--text-main);
+            border: 1px solid rgba(17, 24, 39, 0.08);
         }
 
-        /* Loading Spinner */
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0,0,0,0.1);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            display: none;
-        }
-
-        .pay-btn.processing .spinner {
-            display: inline-block;
-        }
-        
-        .pay-btn.processing .btn-text {
-            display: none;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Success Modal Specific */
-        .success-icon {
-            font-size: 4rem;
-            color: var(--success);
-            text-align: center;
-            margin-bottom: 1rem;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
+        .btn-secondary:hover,
+        .btn-secondary:focus-visible {
+            background: rgba(17, 24, 39, 0.09);
         }
 
         .btn-primary {
-            display: block;
-            width: 100%;
-            background: var(--primary);
-            color: white;
+            background: linear-gradient(135deg, var(--brand-deep), var(--brand));
+            color: #111827;
+            box-shadow: 0 14px 28px rgba(240, 138, 0, 0.22);
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus-visible {
+            box-shadow: 0 18px 36px rgba(240, 138, 0, 0.28);
+        }
+
+        .btn-contact {
+            background: linear-gradient(135deg, #111827, #233654);
+            color: #ffffff;
+            box-shadow: 0 14px 28px rgba(17, 24, 39, 0.2);
+        }
+
+        .btn-contact:hover,
+        .btn-contact:focus-visible {
+            box-shadow: 0 18px 38px rgba(17, 24, 39, 0.28);
+        }
+
+        .no-results {
+            display: grid;
+            place-items: center;
+            gap: 12px;
+            padding: 72px 24px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px dashed rgba(17, 24, 39, 0.12);
+            box-shadow: var(--shadow-sm);
             text-align: center;
-            padding: 1rem;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            margin-top: 1.5rem;
-            transition: background 0.2s;
         }
 
-        .btn-primary:hover {
-            background: var(--primary-hover);
+        .no-results[hidden] {
+            display: none;
         }
 
-        /* QR Code Modal */
-        .qr-modal {
+        .no-results h3 {
+            font-family: var(--font-display);
+            font-size: 1.55rem;
+        }
+
+        .no-results p {
+            max-width: 40ch;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .footer {
+            padding: 0 0 42px;
+        }
+
+        .footer-card {
+            display: grid;
+            gap: 14px;
+            padding: 28px;
+            border-radius: 30px;
+            background: #101826;
+            color: rgba(255, 255, 255, 0.72);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .footer-card strong {
+            color: #ffffff;
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            letter-spacing: -0.03em;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: #ffd891;
+            font-weight: 700;
+        }
+
+        .details-modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            padding: 24px;
+            background: rgba(8, 12, 20, 0.62);
+            backdrop-filter: blur(10px);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            pointer-events: none;
+            transition: opacity var(--transition), visibility var(--transition);
+            z-index: 1200;
         }
 
-        .qr-modal.active {
+        .details-modal.is-open {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
         }
 
-        .qr-content {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            position: relative;
+        .details-dialog {
+            width: min(920px, 100%);
+            max-height: min(86vh, 920px);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 252, 0.98));
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            border-radius: 32px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transform: translateY(18px) scale(0.98);
+            transition: transform var(--transition);
         }
 
-        .qr-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .details-modal.is-open .details-dialog {
+            transform: translateY(0) scale(1);
         }
 
-        .qr-code-container {
-            margin: 1.5rem 0;
+        .modal-topbar {
             display: flex;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 28px 28px 20px;
+            border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+            background: linear-gradient(135deg, rgba(255, 181, 71, 0.14), rgba(28, 79, 136, 0.08));
         }
 
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: white;
+        .modal-header-copy {
+            display: grid;
+            gap: 10px;
         }
 
-        .qr-instructions {
-            font-size: 0.9rem;
+        .modal-pill {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: rgba(16, 24, 38, 0.9);
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3vw, 2.7rem);
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+        }
+
+        .modal-summary {
             color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
+            line-height: 1.8;
+            max-width: 64ch;
         }
 
-        .payment-done-btn {
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
+        .modal-price {
+            font-family: var(--font-display);
+            font-size: 1.7rem;
+            color: var(--accent);
+        }
+
+        .modal-close {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.86);
+            color: var(--text-main);
             cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
+            transition: transform var(--transition), background var(--transition);
         }
 
-        .payment-done-btn:hover {
-            background: #28a745;
+        .modal-close:hover,
+        .modal-close:focus-visible {
+            background: #ffffff;
+            transform: translateY(-1px);
+            outline: none;
         }
 
-        /* ==========================================================================
-           MEDIA QUERIES
-           ========================================================================== */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
+        .modal-body {
+            overflow-y: auto;
+            padding: 0 28px 28px;
+        }
+
+        .modal-body-inner {
+            display: grid;
+            gap: 22px;
+            padding-top: 24px;
+        }
+
+        .detail-section {
+            display: grid;
+            gap: 14px;
+            padding: 22px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(17, 24, 39, 0.07);
+        }
+
+        .detail-section h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            letter-spacing: -0.04em;
+        }
+
+        .detail-section h4 {
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .detail-lead,
+        .detail-section p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .detail-list,
+        .detail-commands,
+        .detail-bullets {
+            display: grid;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .detail-list li,
+        .detail-commands li,
+        .detail-bullets li {
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(17, 24, 39, 0.04);
+            border: 1px solid rgba(17, 24, 39, 0.05);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        .detail-list strong,
+        .detail-commands strong,
+        .detail-bullets strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .detail-commands code {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 10px;
+            background: rgba(28, 79, 136, 0.1);
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 0.94rem;
+        }
+
+        .detail-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 28px 28px;
+            border-top: 1px solid rgba(17, 24, 39, 0.08);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .detail-footer-note {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .modal-action {
+            width: auto;
+            min-width: 190px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-panel {
+                grid-template-columns: 1fr;
             }
+
+            .catalog-head {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .page-shell {
+                width: min(100% - 24px, 1380px);
+            }
+
+            .nav-shell {
+                position: relative;
+                min-height: 78px;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
             .nav-links {
                 position: absolute;
-                top: 100%;
+                top: calc(100% + 12px);
                 left: 0;
-                width: 100%;
-                background: var(--header-bg);
-                backdrop-filter: blur(15px);
+                right: 0;
+                display: none;
                 flex-direction: column;
-                gap: 0;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease-out;
-            }
-            .nav-links li {
-                text-align: center;
-                width: 100%;
-            }
-            .nav-links li a {
-                display: block;
-                padding: 1.5rem;
-                border-top: 1px solid rgba(255,255,255,0.05);
-            }
-            #nav-check:checked ~ nav .nav-links {
-                max-height: 400px;
+                align-items: stretch;
+                gap: 8px;
+                padding: 14px;
+                border-radius: 22px;
+                background: rgba(16, 24, 38, 0.97);
+                box-shadow: var(--shadow-lg);
             }
 
-            .navbar {
-                padding: 1rem;
-            }
-            .nav-brand {
-                font-size: 1.3rem;
-            }
-            .nav-logo {
-                width: 35px;
-                height: 35px;
+            .nav-links.is-open {
+                display: flex;
             }
 
-            header {
-                padding: 1.5rem 1rem;
-            }
-            .header-title {
-                font-size: 1.5rem;
-            }
-            .search-container {
-                max-width: none;
-            }
-            #searchInput {
-                font-size: 1rem;
-                padding: 1rem 1rem 1rem 3rem;
-            }
-            .search-icon {
-                left: 1rem;
+            .nav-links a {
+                justify-content: flex-start;
+                min-height: 52px;
             }
 
-            main {
-                padding: 2rem 1rem;
+            .hero-panel {
+                padding: 28px 22px;
+                border-radius: 28px;
             }
-            .product-grid {
+
+            .toolbar {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            .product-card {
-                max-width: none;
-            }
-            .modal-content {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-            .amount-display {
-                font-size: 2rem;
             }
 
-            .qr-content {
-                margin: 1rem;
-                padding: 1.5rem;
+            .result-badge {
+                justify-content: flex-start;
             }
-            .qr-code {
-                width: 150px;
-                height: 150px;
+
+            .detail-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .modal-action {
+                width: 100%;
             }
         }
 
+        @media (max-width: 640px) {
+            .hero {
+                padding-top: 22px;
+            }
+
+            .hero-copy h1 {
+                max-width: none;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-media {
+                min-height: 220px;
+            }
+
+            .product-body {
+                padding: 20px;
+            }
+
+            .details-modal {
+                padding: 14px;
+            }
+
+            .details-dialog {
+                max-height: 92vh;
+                border-radius: 26px;
+            }
+
+            .modal-topbar,
+            .modal-body,
+            .detail-footer {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            .modal-topbar {
+                padding-top: 18px;
+                padding-bottom: 16px;
+            }
+
+            .detail-section {
+                padding: 18px;
+                border-radius: 20px;
+            }
+        }
     </style>
 </head>
 <body>
+    <nav class="navbar" aria-label="Primary">
+        <div class="page-shell nav-shell">
+            <a href="index.html" class="nav-brand" aria-label="ADYAANANT Home">
+                <img src="logo.png" alt="ADYAANANT logo" class="nav-logo">
+                <span class="brand-copy">
+                    <span class="brand-eyebrow">Premium Store</span>
+                    <span class="brand-title">ADYAANANT</span>
+                </span>
+            </a>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <input type="checkbox" id="nav-check">
-        <label for="nav-check" class="menu-toggle">☰</label>
-        <a href="index.html" class="nav-brand">
-            <img src="logo.png" alt="ADYAANANT Logo" class="nav-logo">
-            <span>ADYAANANT</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="ABOUT US.html">About Us</a></li>
-            <li><a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a></li>
-            <li><a href="shop.html">Shop</a></li>
-        </ul>
+            <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation menu">
+                <span class="menu-icon" aria-hidden="true"></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="ABOUT US.html">About Us</a></li>
+                <li><a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a></li>
+                <li><a href="shop.html" class="is-active">Shop</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <header role="banner">
-        <div class="header-title">
-            <span aria-hidden="true">💻</span> Digital Products
-        </div>
-        <div class="search-container" aria-label="Search section">
-            <span class="search-icon" aria-hidden="true">🔍</span>
-            <input 
-                type="text" 
-                id="searchInput" 
-                placeholder="Search digital products..." 
-                aria-label="Search products"
-                autocomplete="off">
+    <header class="hero">
+        <div class="page-shell">
+            <section class="hero-panel" aria-labelledby="heroTitle">
+                <div class="hero-copy">
+                    <span class="hero-kicker">Live Catalog • Digital Delivery</span>
+                    <h1 id="heroTitle">Premium bots, combo packs, and custom builds.</h1>
+                    <p>
+                        Explore ready-to-buy Discord products, command-driven study tools, and on-demand custom development.
+                        This storefront keeps everything easy to compare, easy to open, and ready for fast action.
+                    </p>
+
+                    <div class="hero-highlights" aria-label="Store highlights">
+                        <span>⚡ Instant products</span>
+                        <span>🛡️ Security-first setups</span>
+                        <span>🎯 Custom work on demand</span>
+                    </div>
+                </div>
+
+                <div class="hero-aside" aria-label="Store insights">
+                    <article class="insight-card">
+                        <span class="insight-value">6</span>
+                        <p>Curated products and services, split between instant delivery items and custom project work.</p>
+                    </article>
+                    <article class="insight-card">
+                        <span class="insight-value">24/7</span>
+                        <p>Search, compare details, and jump straight to payment or contact from the same product card.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="toolbar" aria-label="Catalog tools">
+                <div class="search-shell">
+                    <span class="search-icon" aria-hidden="true">🔎</span>
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search digital products, bots, combos, and custom services..."
+                        aria-label="Search digital products"
+                        autocomplete="off">
+                </div>
+                <div class="result-badge">
+                    <span>Items Live</span>
+                    <strong id="resultCount">6</strong>
+                </div>
+            </section>
         </div>
     </header>
 
-    <main role="main">
-        <div id="productGrid" class="product-grid" role="list">
-            
-            <article 
-                class="product-card" 
-                role="listitem" 
-                tabindex="0" 
-                aria-label="View Legend Star Bot"
-                onclick="openPaymentModal()"
-                onkeypress="if(event.key==='Enter') openPaymentModal()">
-                
-                <div class="product-image-container">
-                    <img src="legendstar.png" alt="Legend Star Bot Image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23e5e5ea\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'20px\' fill=\'%2386868b\'%3EImage Placeholder%3C/text%3E%3C/svg%3E'">
+    <main class="catalog">
+        <div class="page-shell">
+            <section class="catalog-head">
+                <div class="catalog-title-group">
+                    <span class="catalog-eyebrow">Digital Storefront</span>
+                    <h2>Browse the full ADYAANANT catalog</h2>
+                    <p>Every card includes a dedicated details popup above the main action button, so visitors can review features before they buy or contact you.</p>
                 </div>
-                <div class="product-details">
-                    <span class="product-type">📄 Digital Product</span>
-                    <h2 class="product-title">Legend Star Bot</h2>
-                    <div class="product-price">₹100</div>
-                    <button class="buy-button" onclick="redirectToPayment(event)" tabindex="-1">Buy Now</button>
+                <div class="catalog-note">Details button first. Buy or contact second. Clean and fully functional.</div>
+            </section>
+
+            <section aria-label="Digital products list">
+                <div id="productGrid" class="product-grid" role="list"></div>
+                <div id="noResults" class="no-results" hidden>
+                    <h3>No matching product found</h3>
+                    <p>Try searching for terms like <strong>Legend</strong>, <strong>Firewall</strong>, <strong>Custom</strong>, or <strong>Website</strong>.</p>
                 </div>
-            </article>
-
-        </div>
-
-        <div id="noResults" class="no-results" aria-live="polite">
-            <span style="font-size: 3rem;" aria-hidden="true">❌</span>
-            <h2>No digital product found</h2>
-            <p>Try searching for "Legend", "Star", or "Bot".</p>
+            </section>
         </div>
     </main>
 
-    <footer role="contentinfo">
-        <p>&copy; 2026 Premium Store. All rights reserved.</p>
+    <footer class="footer">
+        <div class="page-shell">
+            <div class="footer-card">
+                <strong>ADYAANANT Digital Products</strong>
+                <p>Professional digital product storefront for instant purchases, combo offerings, and custom service inquiries.</p>
+                <div class="footer-links">
+                    <a href="contact.html">Contact</a>
+                    <a href="ABOUT US.html">About Us</a>
+                    <a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a>
+                    <a href="shop.html">Shop Categories</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <div id="paymentModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModals()" aria-label="Close modal">❌</button>
-            
-            <div class="modal-header">
-                <h2 id="paymentTitle">🔐 Secure Payment</h2>
-                <div class="amount-display">₹100</div>
+    <div class="details-modal" id="detailsModal" aria-hidden="true">
+        <div class="details-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-topbar">
+                <div class="modal-header-copy">
+                    <span class="modal-pill" id="modalPill">Product Details</span>
+                    <h2 class="modal-title" id="modalTitle">Product Title</h2>
+                    <p class="modal-summary" id="modalSummary"></p>
+                    <div class="modal-price" id="modalPrice"></div>
+                </div>
+                <button class="modal-close" id="modalClose" type="button" aria-label="Close details modal">✕</button>
             </div>
 
-            <div class="upi-details">
-                <p>Transfer To: <span>adyaanant.official@okhdfcbank</span></p>
-                <p>Amount: <span>₹100</span></p>
-                <p>Note: <span>Legend Star Bot Purchase</span></p>
+            <div class="modal-body">
+                <div class="modal-body-inner" id="modalBody"></div>
             </div>
 
-            <div class="payment-options">
-                <button class="pay-btn" onclick="openPhonePe()">
-                    <span class="btn-text">📱 Pay with PhonePe</span>
-                    <span class="spinner"></span>
-                </button>
-                <button class="pay-btn" onclick="openGooglePay()">
-                    <span class="btn-text">🟢 Pay with Google Pay</span>
-                    <span class="spinner"></span>
-                </button>
-                <button class="pay-btn" onclick="openPaytm()">
-                    <span class="btn-text">💙 Pay with Paytm</span>
-                    <span class="spinner"></span>
-                </button>
-                <button class="pay-btn" onclick="showQRCode()">
-                    <span class="btn-text">🔳 Show QR Code</span>
-                    <span class="spinner"></span>
-                </button>
+            <div class="detail-footer">
+                <p class="detail-footer-note" id="modalFooterNote"></p>
+                <a href="contact.html" class="btn btn-primary modal-action" id="modalAction">Buy Now</a>
             </div>
         </div>
     </div>
 
-    <div id="successModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="successTitle">
-        <div class="modal-content" style="text-align: center; padding: 3rem 2rem;">
-            <button class="close-btn" onclick="closeModals()" aria-label="Close modal">❌</button>
-            
-            <div class="success-icon" aria-hidden="true">✅</div>
-            <h2 id="successTitle" style="margin-bottom: 0.5rem;">Payment Successful</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Thank you for purchasing Legend Star Bot.</p>
-            
-            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">📝 Complete Your Purchase Form</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Please fill out the form to receive your digital asset.</p>
-            
-            <a href="https://forms.gle/L7sVQJZmHAnD91Jz5" target="_blank" class="btn-primary" onclick="closeModals()">
-                Open Google Form ↗
-            </a>
-        </div>
-    </div>
-
-    <div id="qrModal" class="qr-modal" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
-        <div class="qr-content">
-            <button class="close-btn" onclick="closeQrModal()" aria-label="Close QR modal" style="position: absolute; top: 1rem; right: 1rem;">❌</button>
-            
-            <h2 id="qrTitle" class="qr-title">📱 Scan QR Code to Pay</h2>
-            
-            <div class="qr-code-container">
-                <canvas id="qrCodeCanvas" class="qr-code"></canvas>
-            </div>
-            
-            <div class="qr-instructions">
-                <p><strong>Amount:</strong> ₹100</p>
-                <p><strong>Payee:</strong> adyaanant.official@okhdfcbank</p>
-                <p><strong>Note:</strong> Legend Star Bot Purchase</p>
-                <br>
-                <p>Scan this QR code with any UPI app to complete your payment.</p>
-            </div>
-            
-            <button class="payment-done-btn" onclick="paymentCompleted()">
-                ✅ Payment Done - Continue
-            </button>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
     <script>
-        // Fallback QR code generation if library fails
-        function generateFallbackQR(canvas, upiUrl) {
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw a simple placeholder
-            ctx.fillStyle = '#f0f0f0';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#333';
-            ctx.font = '14px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('QR Code', canvas.width/2, canvas.height/2 - 20);
-            ctx.fillText('Not Available', canvas.width/2, canvas.height/2);
-            ctx.font = '12px Arial';
-            ctx.fillText('Use payment buttons above', canvas.width/2, canvas.height/2 + 20);
-        }
-        // DOM Elements
-        const searchInput = document.getElementById('searchInput');
-        const productGrid = document.getElementById('productGrid');
-        const noResults = document.getElementById('noResults');
-        const paymentModal = document.getElementById('paymentModal');
-        const successModal = document.getElementById('successModal');
-        const PAYMENT_PAGE = 'paypent.html';
-        
-        let isProcessing = false;
+        const PAYMENT_PAGE = "paypent.html";
+        const CONTACT_PAGE = "contact.html";
+        const imageFallback = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='480' viewBox='0 0 640 480'%3E%3Crect width='640' height='480' fill='%23edf1f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235c6576' font-family='Arial, sans-serif' font-size='28'%3EImage unavailable%3C/text%3E%3C/svg%3E";
 
-        // Navigation functionality
-        const navCheck = document.getElementById('nav-check');
-        const navLinks = document.querySelector('.nav-links');
-        const menuToggle = document.querySelector('.menu-toggle');
-
-        if (menuToggle && navCheck) {
-            menuToggle.addEventListener('click', function() {
-                navCheck.checked = !navCheck.checked;
-            });
-
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                    navCheck.checked = false;
-                }
-            });
-        }
-
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            // Escape key closes mobile menu
-            if (e.key === 'Escape' && navCheck) {
-                navCheck.checked = false;
-            }
-        });
-
-        // Add page load animation
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => {
-            document.body.style.opacity = '1';
-        }, 100);
-
-        // Check if we're on a local file system and warn about links
-        if (window.location.protocol === 'file:') {
-            console.warn('⚠️  WARNING: You are viewing this site as a local file. Links may not work properly. Please use a local server (see DEVELOPMENT.md)');
-            
-            // Add visual warning for development
-            const warning = document.createElement('div');
-            warning.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                background: #ff6f6f;
-                color: white;
-                text-align: center;
-                padding: 10px;
-                font-size: 14px;
-                z-index: 10000;
-                font-family: var(--font-family);
-            `;
-            warning.innerHTML = '⚠️ Development Mode: Use <code>start-server.bat</code> for proper functionality';
-            document.body.insertBefore(warning, document.body.firstChild);
-        }
-
-        // Digital Product Database (For Search Functionality)
         const products = [
             {
-                id: 'legend-star-bot',
-                title: 'Legend Star Bot',
-                keywords: ['legend', 'star', 'bot', 'digital', 'product', 'software', 'app']
+                id: "legend-star-bot",
+                slug: "legend-star-bot",
+                title: "Legend Star Bot",
+                type: "Discord Security Bot",
+                badge: "Best Seller",
+                price: 100,
+                priceLabel: "Instant delivery",
+                summary: "A premium protection and control bot with a full firewall matrix, moderation response layers, study commands, and temp voice automation.",
+                features: [
+                    "12 active firewall layers for server defense",
+                    "Important commands for study and activity tracking",
+                    "Advanced temp voice channel creation and control"
+                ],
+                keywords: ["legend", "star", "bot", "firewall", "security", "commands", "temp voice", "discord"],
+                visual: {
+                    type: "image",
+                    src: "legendstar.png",
+                    alt: "Legend Star Bot artwork"
+                },
+                action: {
+                    type: "buy",
+                    label: "Buy Now"
+                },
+                footerNote: "Buy Now keeps the same payment flow and opens the secure payment page with the correct amount.",
+                detailHtml: `
+                    <section class="detail-section">
+                        <h3>DEFENSE FIREWALL MATRIX</h3>
+                        <p class="detail-lead">Individual Protection Layers (Active)</p>
+                        <ul class="detail-list">
+                            <li><strong>🧱 Layer 1 — Anti-Spam Firewall</strong> Instantly crushes message floods, fast spam, and repeated text attacks.</li>
+                            <li><strong>🧱 Layer 2 — Anti-Ping Firewall</strong> Neutralizes @everyone, @here, and mass-mention abuse before it spreads.</li>
+                            <li><strong>🧱 Layer 3 — Anti-Raid Firewall</strong> Detects sudden join waves and activity spikes. Raids end at the gate.</li>
+                            <li><strong>🧱 Layer 4 — Anti-Bot Firewall</strong> Blocks unauthorized and shadow bots. Only trusted machines may enter.</li>
+                            <li><strong>🧱 Layer 5 — Anti-Webhook Firewall</strong> Hunts and destroys ghost webhooks and hidden backdoors in real time.</li>
+                            <li><strong>🧱 Layer 6 — Anti-Nuke Firewall</strong> Stops channel wipes, role destruction, and ban-abuse instantly.</li>
+                            <li><strong>🧱 Layer 7 — Malware Protection Firewall</strong> Eliminates dangerous files (.exe, .bat, .msi, etc.) on detection.</li>
+                            <li><strong>🧱 Layer 8 — Auto-Recovery Firewall</strong> Rebuilds destroyed channels automatically. Damage is reversed in moments.</li>
+                            <li><strong>🧱 Layer 9 — Emergency Lockdown Firewall</strong> If a threat resists removal, the entire server freezes instantly.</li>
+                            <li><strong>🧱 Layer 10 — Human-Error Control Firewall</strong> Smart strike system: warning, timeout, then permanent ban.</li>
+                            <li><strong>🧱 Layer 11 — VC Abuse Firewall</strong> Shuts down voice-channel hopping and join/leave disruption.</li>
+                            <li><strong>🧱 Layer 12 — Audit-Log Monitoring Firewall</strong> Watches admin actions constantly. Betrayal leaves no trace unnoticed.</li>
+                        </ul>
+                    </section>
+                    <section class="detail-section">
+                        <h3>FINAL SECURITY STATUS</h3>
+                        <ul class="detail-bullets">
+                            <li><strong>🛡️ Total Active Firewall Layers: 12</strong> Full stack protection remains active across the server.</li>
+                            <li><strong>⚔️ Mode: Zero-Trust | Always Watching | Instant Response</strong> Every action is monitored. Every threat is isolated. Every attack ends here.</li>
+                        </ul>
+                    </section>
+                    <section class="detail-section">
+                        <h3>ALL IMPORTANT COMMANDS</h3>
+                        <ul class="detail-commands">
+                            <li><strong><code>/rank</code></strong> Show your rank in VC.</li>
+                            <li><strong><code>/mystatus</code></strong> Your daily study time count for cam off or cam on with LegendBot.</li>
+                            <li><strong><code>/lb</code></strong> Show the top 10 students for cam off or cam on with LegendBot.</li>
+                            <li><strong><code>/ylb</code></strong> Yesterday leaderboard with LegendBot.</li>
+                            <li><strong><code>/yst</code></strong> Your previous day study time count for cam off or cam on with LegendBot.</li>
+                            <li><strong><code>/afk</code></strong> Set and manage AFK status with Dyno.</li>
+                            <li><strong><code>/my-stats</code></strong> Your full daily detailed status with VoiceVisor.</li>
+                            <li><strong><code>/stats user</code></strong> Full growth view with graphical representation through Statbot.</li>
+                        </ul>
+                    </section>
+                    <section class="detail-section">
+                        <h3>ADVANCED TEMP VOICE SYSTEM</h3>
+                        <p class="detail-lead">Powered by LEGEND STAR. Create, control, and dominate your own voice channel.</p>
+                        <ul class="detail-bullets">
+                            <li><strong>🔊 Create Channel</strong> Join to create your VC with auto move enabled instantly.</li>
+                            <li><strong>👑 Owner Controls</strong> Lock, unlock, hide, unhide, limit, rename, permit, deny, claim, transfer, bitrate, and region controls.</li>
+                            <li><strong>⚡ Voice Commands</strong> <code>/create</code>, <code>/delete</code>, <code>/rename</code>, <code>/limit</code>, <code>/lock</code>, <code>/unlock</code>, <code>/permit</code>, and <code>/deny</code>.</li>
+                            <li><strong>🤖 Auto System</strong> Instant VC creation, auto move, auto delete when empty, and owner-only control.</li>
+                        </ul>
+                    </section>
+                `
+            },
+            {
+                id: "legendbot",
+                slug: "legendbot",
+                title: "LegendBot",
+                type: "Study Tracker Bot",
+                badge: "New",
+                price: 30,
+                priceLabel: "Instant delivery",
+                summary: "A lightweight study-stat bot focused on daily status, leaderboards, and yesterday insights for active student communities.",
+                features: [
+                    "Daily study time tracking",
+                    "Current and yesterday leaderboard commands",
+                    "Simple command-first utility for focused servers"
+                ],
+                keywords: ["legendbot", "study", "leaderboard", "mystatus", "lb", "ylb", "yst"],
+                visual: {
+                    type: "image",
+                    src: "legendstar.png",
+                    alt: "LegendBot product artwork"
+                },
+                action: {
+                    type: "buy",
+                    label: "Buy Now"
+                },
+                footerNote: "This product uses the same payment route, now configured for the LegendBot name and Rs 30 pricing.",
+                detailHtml: `
+                    <section class="detail-section">
+                        <h3>LEGENDBOT COMMAND DETAILS</h3>
+                        <p class="detail-lead">Study tracking and leaderboard essentials for cam off and cam on communities.</p>
+                        <ul class="detail-commands">
+                            <li><strong><code>/mystatus</code></strong> Your daily study time count for cam off or cam on.</li>
+                            <li><strong><code>/lb</code></strong> Show the top 10 students for cam off or cam on.</li>
+                            <li><strong><code>/ylb</code></strong> Yesterday leaderboard.</li>
+                            <li><strong><code>/yst</code></strong> Your previous day study time count for cam off or cam on.</li>
+                        </ul>
+                    </section>
+                `
+            },
+            {
+                id: "legend-meta-super-legend-combo",
+                slug: "legend-meta-super-legend-combo",
+                title: "Legend Meta + Super Legend Combo",
+                type: "Security Combo Pack",
+                badge: "Combo",
+                price: 100,
+                priceLabel: "Instant delivery",
+                summary: "A combo-focused protection package centered on the full Defense Firewall Matrix for communities that want aggressive, always-on server security.",
+                features: [
+                    "12-layer zero-trust defense stack",
+                    "Raid, nuke, malware, and webhook protection",
+                    "Fast-response security posture for high-risk servers"
+                ],
+                keywords: ["legend meta", "super legend", "combo", "firewall", "anti raid", "anti nuke", "security"],
+                visual: {
+                    type: "image",
+                    src: "legendstar.png",
+                    alt: "Legend Meta and Super Legend combo artwork"
+                },
+                action: {
+                    type: "buy",
+                    label: "Buy Now"
+                },
+                footerNote: "Buy Now opens the same payment flow with the combo product slug and Rs 100 amount already set.",
+                detailHtml: `
+                    <section class="detail-section">
+                        <h3>DEFENSE FIREWALL MATRIX</h3>
+                        <p class="detail-lead">Individual Protection Layers (Active)</p>
+                        <ul class="detail-list">
+                            <li><strong>🧱 Layer 1 — Anti-Spam Firewall</strong> Instantly crushes message floods, fast spam, and repeated text attacks.</li>
+                            <li><strong>🧱 Layer 2 — Anti-Ping Firewall</strong> Neutralizes @everyone, @here, and mass-mention abuse before it spreads.</li>
+                            <li><strong>🧱 Layer 3 — Anti-Raid Firewall</strong> Detects sudden join waves and activity spikes. Raids end at the gate.</li>
+                            <li><strong>🧱 Layer 4 — Anti-Bot Firewall</strong> Blocks unauthorized and shadow bots. Only trusted machines may enter.</li>
+                            <li><strong>🧱 Layer 5 — Anti-Webhook Firewall</strong> Hunts and destroys ghost webhooks and hidden backdoors in real time.</li>
+                            <li><strong>🧱 Layer 6 — Anti-Nuke Firewall</strong> Stops channel wipes, role destruction, and ban-abuse instantly.</li>
+                            <li><strong>🧱 Layer 7 — Malware Protection Firewall</strong> Eliminates dangerous files (.exe, .bat, .msi, etc.) on detection.</li>
+                            <li><strong>🧱 Layer 8 — Auto-Recovery Firewall</strong> Rebuilds destroyed channels automatically. Damage is reversed in moments.</li>
+                            <li><strong>🧱 Layer 9 — Emergency Lockdown Firewall</strong> If a threat resists removal, the entire server freezes instantly.</li>
+                            <li><strong>🧱 Layer 10 — Human-Error Control Firewall</strong> Smart strike system: warning, timeout, then permanent ban.</li>
+                            <li><strong>🧱 Layer 11 — VC Abuse Firewall</strong> Shuts down voice-channel hopping and join/leave disruption.</li>
+                            <li><strong>🧱 Layer 12 — Audit-Log Monitoring Firewall</strong> Watches admin actions constantly. Betrayal leaves no trace unnoticed.</li>
+                        </ul>
+                    </section>
+                    <section class="detail-section">
+                        <h3>FINAL SECURITY STATUS</h3>
+                        <ul class="detail-bullets">
+                            <li><strong>🛡️ Total Active Firewall Layers: 12</strong> Every action is monitored. Every threat is isolated.</li>
+                            <li><strong>⚔️ Mode: Zero-Trust | Always Watching | Instant Response</strong> Built for communities that want attacks to stop at the gate.</li>
+                        </ul>
+                    </section>
+                `
+            },
+            {
+                id: "custom-bot",
+                slug: "custom-bot",
+                title: "Custom Bot",
+                type: "On-Demand Build",
+                badge: "On Demand",
+                price: 500,
+                priceLabel: "Custom quote start",
+                summary: "Need a bot built for your own workflow? Get a custom command system, moderation logic, utility tools, and tailored automation.",
+                features: [
+                    "Big custom build planning for your exact community",
+                    "Command, moderation, and automation design",
+                    "Contact-first flow for scope, features, and delivery"
+                ],
+                keywords: ["custom bot", "bot development", "discord bot", "automation", "on demand"],
+                visual: {
+                    type: "emoji",
+                    value: "🤖"
+                },
+                action: {
+                    type: "contact",
+                    label: "Contact Us"
+                },
+                footerNote: "This is an on-demand service, so the primary action sends visitors to Contact Us instead of payment.",
+                detailHtml: `
+                    <section class="detail-section">
+                        <h3>🤖 CUSTOM BOT DEVELOPMENT</h3>
+                        <p class="detail-lead">Built on demand for servers, teams, and communities that need something more specific than an off-the-shelf bot.</p>
+                        <ul class="detail-bullets">
+                            <li><strong>Tailored feature mapping</strong> We can plan moderation, ticketing, utility, leaderboard, study, or workflow-focused bot systems.</li>
+                            <li><strong>Command-first design</strong> Slash commands, permission structure, role logic, and user journeys are shaped around your needs.</li>
+                            <li><strong>Deployment support</strong> Contact flow helps define scope, budget, delivery timeline, and follow-up requirements.</li>
+                        </ul>
+                    </section>
+                `
+            },
+            {
+                id: "custom-website",
+                slug: "custom-website",
+                title: "Custom Website",
+                type: "On-Demand Build",
+                badge: "On Demand",
+                price: 1000,
+                priceLabel: "Custom quote start",
+                summary: "A branded, responsive website built around your business, portfolio, community, or product launch goals.",
+                features: [
+                    "Modern landing pages and multi-section sites",
+                    "Mobile-first layout and polished presentation",
+                    "Contact-driven custom planning and revisions"
+                ],
+                keywords: ["custom website", "web design", "landing page", "responsive site", "on demand"],
+                visual: {
+                    type: "emoji",
+                    value: "🌐"
+                },
+                action: {
+                    type: "contact",
+                    label: "Contact Us"
+                },
+                footerNote: "Contact Us replaces Buy Now for custom website work so scope and requirements can be discussed properly.",
+                detailHtml: `
+                    <section class="detail-section">
+                        <h3>🌐 CUSTOM WEBSITE DEVELOPMENT</h3>
+                        <p class="detail-lead">Professional website design and development for brands that want a cleaner, stronger digital presence.</p>
+                        <ul class="detail-bullets">
+                            <li><strong>Visual direction</strong> Layouts, branding, typography, and sections can be crafted around your niche and audience.</li>
+                            <li><strong>Responsive build</strong> Desktop and mobile presentation stays clean, intentional, and launch ready.</li>
+                            <li><strong>Project scoping</strong> Use the contact flow to discuss pages, functionality, pricing, and delivery schedule.</li>
+                        </ul>
+                    </section>
+                `
+            },
+            {
+                id: "custom-webapp",
+                slug: "custom-webapp",
+                title: "Custom WebApp",
+                type: "On-Demand Build",
+                badge: "On Demand",
+                price: 1000,
+                priceLabel: "Custom quote start",
+                summary: "For interactive tools, dashboards, admin panels, and workflow systems that need more than a static website.",
+                features: [
+                    "App-style flows, forms, and dashboards",
+                    "Practical UX for internal or customer-facing tools",
+                    "Contact-first process to plan features and timelines"
+                ],
+                keywords: ["custom webapp", "web app", "dashboard", "admin panel", "software", "on demand"],
+                visual: {
+                    type: "emoji",
+                    value: "🚀"
+                },
+                action: {
+                    type: "contact",
+                    label: "Contact Us"
+                },
+                footerNote: "This service uses Contact Us instead of direct checkout because web apps need requirements and scope confirmation first.",
+                detailHtml: `
+                    <section class="detail-section">
+                        <h3>🚀 CUSTOM WEBAPP DEVELOPMENT</h3>
+                        <p class="detail-lead">Ideal for portals, dashboards, workflow tools, and application-style experiences that need real functionality.</p>
+                        <ul class="detail-bullets">
+                            <li><strong>Functional product thinking</strong> We can shape forms, roles, internal tools, dashboards, or customer-facing experiences.</li>
+                            <li><strong>Scalable structure</strong> Built with future expansion in mind, not just one static page.</li>
+                            <li><strong>Consultative contact flow</strong> Reach out first so the build can be aligned with requirements, integrations, and delivery expectations.</li>
+                        </ul>
+                    </section>
+                `
             }
         ];
 
-        // Search Functionality
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            
-            if (query === '') {
-                productGrid.style.display = 'grid';
-                noResults.style.display = 'none';
+        const searchInput = document.getElementById("searchInput");
+        const resultCount = document.getElementById("resultCount");
+        const productGrid = document.getElementById("productGrid");
+        const noResults = document.getElementById("noResults");
+        const detailsModal = document.getElementById("detailsModal");
+        const modalPill = document.getElementById("modalPill");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalSummary = document.getElementById("modalSummary");
+        const modalPrice = document.getElementById("modalPrice");
+        const modalBody = document.getElementById("modalBody");
+        const modalAction = document.getElementById("modalAction");
+        const modalFooterNote = document.getElementById("modalFooterNote");
+        const modalClose = document.getElementById("modalClose");
+        const navLinks = document.getElementById("navLinks");
+        const menuToggle = document.getElementById("menuToggle");
+        let lastFocusedElement = null;
+
+        function formatPrice(price) {
+            return `₹${price}`;
+        }
+
+        function getActionHref(product) {
+            if (product.action.type === "buy") {
+                return `${PAYMENT_PAGE}?product=${encodeURIComponent(product.slug)}&amount=${encodeURIComponent(product.price)}`;
+            }
+
+            return `${CONTACT_PAGE}?service=${encodeURIComponent(product.slug)}`;
+        }
+
+        function createVisual(product) {
+            if (product.visual.type === "image") {
+                return `<img src="${product.visual.src}" alt="${product.visual.alt}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${imageFallback}'">`;
+            }
+
+            return `<div class="emoji-hero" aria-hidden="true">${product.visual.value}</div>`;
+        }
+
+        function renderProducts(list) {
+            resultCount.textContent = String(list.length);
+
+            if (!list.length) {
+                productGrid.innerHTML = "";
+                noResults.hidden = false;
                 return;
             }
 
-            const isMatch = products.some(p => 
-                p.title.toLowerCase().includes(query) || 
-                p.keywords.some(kw => kw.includes(query))
-            );
+            noResults.hidden = true;
+            productGrid.innerHTML = list.map((product) => `
+                <article class="product-card" role="listitem" aria-label="${product.title}">
+                    <div class="product-media">
+                        <span class="product-badge">${product.badge}</span>
+                        ${createVisual(product)}
+                    </div>
+                    <div class="product-body">
+                        <span class="product-kicker">${product.type}</span>
+                        <h3 class="product-title">${product.title}</h3>
+                        <p class="product-summary">${product.summary}</p>
+                        <ul class="product-features">
+                            ${product.features.map((feature) => `<li>${feature}</li>`).join("")}
+                        </ul>
+                        <div class="product-footer">
+                            <div class="product-price-row">
+                                <div>
+                                    <div class="product-price">${formatPrice(product.price)}</div>
+                                </div>
+                                <div class="product-price-note">${product.priceLabel}</div>
+                            </div>
+                            <div class="action-stack">
+                                <button class="btn btn-secondary" type="button" data-details-id="${product.id}">Details</button>
+                                <a class="btn ${product.action.type === "buy" ? "btn-primary" : "btn-contact"}" href="${getActionHref(product)}">${product.action.label}</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `).join("");
+        }
 
-            if (isMatch) {
-                productGrid.style.display = 'grid';
-                noResults.style.display = 'none';
-            } else {
-                productGrid.style.display = 'none';
-                noResults.style.display = 'flex';
+        function openModal(productId) {
+            const product = products.find((item) => item.id === productId);
+            if (!product) {
+                return;
             }
-        });
 
-        // Modal Controls
-        function getPaymentUrl(productId, amount) {
-            return `${PAYMENT_PAGE}?product=${encodeURIComponent(productId)}&amount=${encodeURIComponent(amount)}`;
+            lastFocusedElement = document.activeElement;
+            modalPill.textContent = product.type;
+            modalTitle.textContent = product.title;
+            modalSummary.textContent = product.summary;
+            modalPrice.textContent = `${formatPrice(product.price)} • ${product.priceLabel}`;
+            modalBody.innerHTML = product.detailHtml;
+            modalAction.textContent = product.action.label;
+            modalAction.href = getActionHref(product);
+            modalAction.className = `btn modal-action ${product.action.type === "buy" ? "btn-primary" : "btn-contact"}`;
+            modalFooterNote.textContent = product.footerNote;
+            detailsModal.classList.add("is-open");
+            detailsModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+            modalClose.focus();
         }
 
-        function openPaymentModal() {
-            window.location.href = getPaymentUrl('legend-star-bot', 100);
+        function closeModal() {
+            detailsModal.classList.remove("is-open");
+            detailsModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+
+            if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+                lastFocusedElement.focus();
+            }
         }
 
-        function redirectToPayment(event) {
-            event.stopPropagation();
-            window.location.href = getPaymentUrl('legend-star-bot', 100);
-        }
+        function filterProducts(query) {
+            const normalizedQuery = query.trim().toLowerCase();
 
-        function closeModals() {
-            if (isProcessing) return; // Prevent closing while processing payment
-            paymentModal.classList.remove('active');
-            successModal.classList.remove('active');
-            document.body.classList.remove('modal-open');
-        }
+            if (!normalizedQuery) {
+                renderProducts(products);
+                return;
+            }
 
-        function closeQrModal() {
-            document.getElementById('qrModal').classList.remove('active');
-            document.body.classList.remove('modal-open');
-        }
+            const filtered = products.filter((product) => {
+                const searchFields = [
+                    product.title,
+                    product.type,
+                    product.summary,
+                    product.features.join(" "),
+                    product.keywords.join(" "),
+                    product.detailHtml.replace(/<[^>]+>/g, " ")
+                ].join(" ").toLowerCase();
 
-        // Close modal when clicking outside
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModals();
+                return searchFields.includes(normalizedQuery);
             });
+
+            renderProducts(filtered);
+        }
+
+        if (menuToggle) {
+            menuToggle.addEventListener("click", () => {
+                const isOpen = navLinks.classList.toggle("is-open");
+                menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            });
+        }
+
+        document.addEventListener("click", (event) => {
+            const detailButton = event.target.closest("[data-details-id]");
+            if (detailButton) {
+                openModal(detailButton.getAttribute("data-details-id"));
+                return;
+            }
+
+            if (navLinks.classList.contains("is-open") && !navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                navLinks.classList.remove("is-open");
+                menuToggle.setAttribute("aria-expanded", "false");
+            }
         });
 
-        // UPI Payment URLs
-        const upiData = {
-            payee: 'adyaanant.official@okhdfcbank',
-            amount: '100',
-            note: 'Legend Star Bot Purchase',
-            payeeName: 'ADYAANANT'
-        };
+        searchInput.addEventListener("input", (event) => {
+            filterProducts(event.target.value);
+        });
 
-        // Generate UPI URL
-        function generateUPIUrl() {
-            const baseUrl = `upi://pay?pa=${upiData.payee}&pn=${encodeURIComponent(upiData.payeeName)}&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
-            console.log('Generated UPI URL:', baseUrl);
-            return baseUrl;
-        }
+        modalClose.addEventListener("click", closeModal);
 
-        // Enhanced Payment Functions with better fallbacks
-        function openPaymentApp(appUrl, fallbackUrl) {
-            try {
-                // Try to open the app
-                window.location.href = appUrl;
-                
-                // Set a timeout to check if app opened
-                setTimeout(() => {
-                    // If we're still here, app didn't open, try fallback
-                    if (document.hasFocus()) {
-                        console.log('App not detected, trying fallback URL');
-                        window.location.href = fallbackUrl;
-                        
-                        // Final fallback - try to open in new tab
-                        setTimeout(() => {
-                            if (document.hasFocus()) {
-                                window.open(fallbackUrl, '_blank');
-                            }
-                        }, 1000);
-                    }
-                }, 2000);
-            } catch (error) {
-                console.error('Error opening payment app:', error);
-                // Fallback to browser
-                window.open(fallbackUrl, '_blank');
+        detailsModal.addEventListener("click", (event) => {
+            if (event.target === detailsModal) {
+                closeModal();
             }
-        }
+        });
 
-        function openPhonePe() {
-            const upiUrl = generateUPIUrl();
-            const phonePeUrl = `tez://upi/pay?pa=${upiData.payee}&pn=${encodeURIComponent(upiData.payeeName)}&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
-            
-            console.log('Opening PhonePe with URL:', phonePeUrl);
-            openPaymentApp(phonePeUrl, upiUrl);
-        }
-
-        function openGooglePay() {
-            const upiUrl = generateUPIUrl();
-            const gpayUrl = `tez://upi/pay?pa=${upiData.payee}&pn=${encodeURIComponent(upiData.payeeName)}&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
-            
-            console.log('Opening Google Pay with URL:', gpayUrl);
-            openPaymentApp(gpayUrl, upiUrl);
-        }
-
-        function openPaytm() {
-            const upiUrl = generateUPIUrl();
-            const paytmUrl = `paytmmp://pay?pa=${upiData.payee}&pn=${encodeURIComponent(upiData.payeeName)}&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
-            
-            console.log('Opening Paytm with URL:', paytmUrl);
-            openPaymentApp(paytmUrl, upiUrl);
-        }
-
-        function showQRCode() {
-            const qrModal = document.getElementById('qrModal');
-            const canvas = document.getElementById('qrCodeCanvas');
-            
-            try {
-                // Generate UPI URL for QR code
-                const upiUrl = generateUPIUrl();
-                console.log('Generating QR code for:', upiUrl);
-                
-                // Clear previous QR code
-                const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Check if QRCode library is available
-                if (typeof QRCode !== 'undefined') {
-                    // Generate QR Code
-                    QRCode.toCanvas(canvas, upiUrl, {
-                        width: 200,
-                        height: 200,
-                        color: {
-                            dark: '#000000',
-                            light: '#FFFFFF'
-                        },
-                        errorCorrectionLevel: 'M'
-                    }, function (error) {
-                        if (error) {
-                            console.error('QR Code generation error:', error);
-                            generateFallbackQR(canvas, upiUrl);
-                        } else {
-                            console.log('QR Code generated successfully');
-                        }
-                    });
-                } else {
-                    console.warn('QRCode library not loaded, using fallback');
-                    generateFallbackQR(canvas, upiUrl);
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                if (detailsModal.classList.contains("is-open")) {
+                    closeModal();
+                    return;
                 }
-                
-                // Show modal
-                qrModal.classList.add('active');
-                document.body.classList.add('modal-open');
-                
-            } catch (error) {
-                console.error('Error in showQRCode:', error);
-                alert('Unable to generate QR code. Please try again or use direct payment links.');
-            }
-        }
 
-        function paymentCompleted() {
-            // Close QR modal
-            closeQrModal();
-            
-            // Show success modal
-            successModal.classList.add('active');
-            document.body.classList.add('modal-open');
-            
-            // Automatically open Google Form after a brief delay
-            setTimeout(() => {
-                window.open('https://forms.gle/L7sVQJZmHAnD91Jz5', '_blank');
-            }, 800);
-        }
-
-        // Updated Payment Processing (for backward compatibility)
-        function processPayment(buttonElement) {
-            const buttonText = buttonElement.querySelector('.btn-text').textContent;
-            
-            if (buttonText.includes('PhonePe')) {
-                openPhonePe();
-            } else if (buttonText.includes('Google Pay')) {
-                openGooglePay();
-            } else if (buttonText.includes('Paytm')) {
-                openPaytm();
-            } else if (buttonText.includes('QR Code')) {
-                showQRCode();
+                if (navLinks.classList.contains("is-open")) {
+                    navLinks.classList.remove("is-open");
+                    menuToggle.setAttribute("aria-expanded", "false");
+                }
             }
-        }
+        });
+
+        renderProducts(products);
     </script>
 </body>
 </html>

@@ -235,6 +235,203 @@
             color: #000;
         }
 
+        .qr-showcase-section,
+        .verification-section {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .section-heading {
+            font-family: var(--font-display);
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-copy {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .qr-showcase-grid {
+            display: grid;
+            grid-template-columns: minmax(260px, 320px) 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .qr-image-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .qr-image-card img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 14px;
+            background: #fff;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .qr-caption {
+            margin-top: 1rem;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .qr-points {
+            list-style: none;
+            display: grid;
+            gap: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .qr-points li {
+            color: var(--text-main);
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .qr-actions,
+        .verification-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-soft {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.9rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-soft:hover {
+            background: rgba(0, 195, 255, 0.1);
+        }
+
+        .verification-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+        }
+
+        .verification-status strong {
+            color: var(--text-main);
+        }
+
+        .verification-status.pending {
+            border-color: rgba(255, 215, 0, 0.25);
+        }
+
+        .verification-status.ready {
+            border-color: rgba(0, 195, 255, 0.35);
+            background: rgba(0, 195, 255, 0.1);
+        }
+
+        .verification-status.verified {
+            border-color: rgba(76, 175, 80, 0.45);
+            background: rgba(76, 175, 80, 0.12);
+            color: #8ff0a4;
+        }
+
+        .verification-form {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .verification-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .field {
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .field span {
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .field input,
+        .field select {
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            font-size: 0.98rem;
+            width: 100%;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 195, 255, 0.16);
+        }
+
+        .field input::placeholder {
+            color: #90a4b5;
+        }
+
+        .verification-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .verification-check input {
+            width: 18px;
+            height: 18px;
+            margin-top: 0.2rem;
+            accent-color: var(--primary);
+            flex: 0 0 auto;
+        }
+
+        .proof-file {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .verification-note {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -296,11 +493,13 @@
             border-radius: 10px;
         }
 
-        #qrCode {
-            display: inline-block;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
+        .qr-modal-image {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 16px;
+            background: #fff;
+            display: block;
+            margin: 0 auto;
         }
 
         .upi-display {
@@ -418,6 +617,9 @@
             .modal-content { margin: 30% auto; width: 95%; }
             .amount-input { flex-direction: column; }
             .amount-input input { width: 100%; }
+            .qr-showcase-grid,
+            .verification-grid { grid-template-columns: 1fr; }
+            .verification-status { align-items: flex-start; flex-direction: column; }
         }
 
         .copy-feedback {
@@ -505,8 +707,89 @@
                 <div class="payment-icon">📲</div>
                 <h3>QR Code</h3>
                 <p>Scan with any UPI app (PhonePe, BHIM, Paytm, etc.)</p>
-                <button class="btn-pay" onclick="openQRModal()">Generate QR Code</button>
+                <button class="btn-pay" onclick="openQRModal()">Open QR Payment</button>
             </div>
+        </section>
+
+        <section class="qr-showcase-section">
+            <h2 class="section-heading">QR Payment Section</h2>
+            <p class="section-copy">Use the provided QR image for UPI payment. After sending the amount, complete the verification step below so the delivery form opens in the right flow.</p>
+            <div class="qr-showcase-grid">
+                <div class="qr-image-card">
+                    <img src="qrpay.jpeg" alt="ADYAANANT payment QR code">
+                    <p class="qr-caption">This is your official payment QR. Confirm the final amount in your UPI app before approving the payment.</p>
+                </div>
+                <div>
+                    <ul class="qr-points">
+                        <li>UPI ID: <strong>adyaanant.official@okhdfcbank</strong></li>
+                        <li>Current payable amount: <strong id="currentAmountDisplay">Rs 100</strong></li>
+                        <li>Keep your transaction ID or UTR ready for verification after payment.</li>
+                    </ul>
+                    <div class="qr-actions">
+                        <button type="button" class="btn-pay" onclick="openQRModal()">View QR Popup</button>
+                        <button type="button" class="btn-soft" onclick="copyUPI()">Copy UPI ID</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="verification-section" id="verificationSection">
+            <h2 class="section-heading">Payment Verification</h2>
+            <p class="section-copy">Once payment is completed, fill these details and confirm. This acts as an on-page verification checkpoint before the Google Form opens.</p>
+            <div id="verificationStatus" class="verification-status pending" aria-live="polite">
+                <strong>Awaiting payment</strong>
+                <span>Start a payment method, then submit your payment details here.</span>
+            </div>
+            <form id="paymentVerificationForm" class="verification-form" novalidate>
+                <div class="verification-grid">
+                    <label class="field">
+                        <span>Your name</span>
+                        <input type="text" id="payerName" placeholder="Enter your full name">
+                    </label>
+                    <label class="field">
+                        <span>Payment method</span>
+                        <select id="paymentMethod">
+                            <option value="">Select method</option>
+                            <option value="PhonePe">PhonePe</option>
+                            <option value="Google Pay">Google Pay</option>
+                            <option value="QR Payment">QR Payment</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Transaction ID / UTR</span>
+                        <input type="text" id="transactionId" placeholder="Example: 412345678901">
+                    </label>
+                    <label class="field">
+                        <span>Amount to verify</span>
+                        <input type="text" id="verificationAmount" value="Rs 100" readonly>
+                    </label>
+                    <label class="field">
+                        <span>Proof screenshot (optional)</span>
+                        <input type="file" id="paymentProof" accept=".png,.jpg,.jpeg,.webp">
+                    </label>
+                    <div class="field">
+                        <span>Selected proof</span>
+                        <div class="proof-file" id="proofFileName">No screenshot selected yet</div>
+                    </div>
+                </div>
+
+                <label class="verification-check">
+                    <input type="checkbox" id="paymentConfirmed">
+                    <span>I confirm the payment has been sent for the exact amount shown above.</span>
+                </label>
+
+                <label class="verification-check">
+                    <input type="checkbox" id="detailsConfirmed">
+                    <span>I will submit the same name and transaction details in the Google Form for manual review.</span>
+                </label>
+
+                <div class="verification-actions">
+                    <button type="button" class="btn-pay" onclick="verifyPayment()">Payment Done - Verify & Open Form</button>
+                    <button type="button" class="btn-soft" onclick="scrollToVerification()">Go To Verification</button>
+                </div>
+
+                <p class="verification-note">This page records customer confirmation only. Final approval still depends on the details submitted in the Google Form.</p>
+            </form>
         </section>
     </main>
 
@@ -517,8 +800,8 @@
             <h2>Scan to Pay via QR Code</h2>
             
             <div class="qr-container">
-                <p style="color: var(--text-muted); margin-bottom: 1rem;">Scan this code with any UPI app</p>
-                <div id="qrCode"></div>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">Scan this QR with any UPI app and confirm the amount before completing payment.</p>
+                <img src="qrpay.jpeg" alt="ADYAANANT payment QR code" class="qr-modal-image">
             </div>
 
             <div class="upi-display">
@@ -528,6 +811,7 @@
 
             <div class="modal-buttons">
                 <button class="btn-copy" onclick="copyUPI()">📋 Copy UPI ID</button>
+                <button class="btn-copy" onclick="markQrPaid()">I Have Paid</button>
                 <button class="btn-close" onclick="closeQRModal()">Close</button>
             </div>
 
@@ -535,7 +819,7 @@
                 <strong>Steps to pay:</strong><br>
                 1. Open your preferred UPI app<br>
                 2. Tap "Scan QR" option<br>
-                3. Point camera at the QR code<br>
+                3. Scan the QR shown above<br>
                 4. Confirm amount: <span id="modalAmount" style="color: var(--primary); font-weight: 700;">₹100</span><br>
                 5. Complete the payment
             </div>
@@ -553,7 +837,9 @@
     <script>
         // Configuration
         const UPI_ID = "adyaanant.official@okhdfcbank";
+        const VERIFICATION_FORM_URL = "https://forms.gle/3Qp32Wj25Wv3RUaFA";
         let CURRENT_AMOUNT = 100;
+        let selectedPaymentMethod = "";
 
         // Detect device type
         function detectDevice() {
@@ -564,28 +850,54 @@
             return { isAndroid, isIOS, isMobile };
         }
 
+        function updateDisplayedAmount() {
+            const amountLabel = 'Rs ' + CURRENT_AMOUNT;
+            document.getElementById('currentAmountDisplay').textContent = amountLabel;
+            document.getElementById('verificationAmount').value = amountLabel;
+            document.getElementById('modalAmount').textContent = amountLabel;
+        }
+
+        function setVerificationStatus(state, title, message) {
+            const status = document.getElementById('verificationStatus');
+            status.className = `verification-status ${state}`;
+            status.innerHTML = `<strong>${title}</strong><span>${message}</span>`;
+        }
+
+        function setPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            document.getElementById('paymentMethod').value = method;
+            setVerificationStatus('ready', `${method} selected`, 'Complete the payment, then verify your details below.');
+        }
+
+        function scrollToVerification() {
+            document.getElementById('verificationSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         // Set amount
         function setAmount(amount) {
             CURRENT_AMOUNT = amount;
             document.getElementById('paymentAmount').value = amount;
+            updateDisplayedAmount();
             
             // Update quick amount buttons
             document.querySelectorAll('.quick-amount').forEach(btn => {
                 btn.classList.remove('active');
-                if (parseInt(btn.textContent) === amount) {
+                const buttonAmount = parseInt(btn.textContent.replace(/\D/g, ''), 10);
+                if (buttonAmount === amount) {
                     btn.classList.add('active');
                 }
             });
         }
 
         // Update amount from input
-        document.getElementById('paymentAmount').addEventListener('change', function() {
-            CURRENT_AMOUNT = parseInt(this.value) || 100;
+        document.getElementById('paymentAmount').addEventListener('input', function() {
+            setAmount(parseInt(this.value, 10) || 100);
         });
 
         // PhonePe Handler
         function initiatePhonePe() {
             const { isAndroid, isIOS, isMobile } = detectDevice();
+            setPaymentMethod('PhonePe');
 
             if (!isMobile) {
                 alert('PhonePe works best on mobile. Please use this link on your phone.');
@@ -613,6 +925,7 @@
         // Google Pay Handler
         function initiateGooglePay() {
             const { isAndroid, isIOS, isMobile } = detectDevice();
+            setPaymentMethod('Google Pay');
 
             if (!isMobile) {
                 alert('Google Pay works best on mobile. Please use this link on your phone.');
@@ -638,7 +951,7 @@
 
         // QR Code Modal Functions
         function openQRModal() {
-            generateQRCode(CURRENT_AMOUNT);
+            setPaymentMethod('QR Payment');
             document.getElementById('qrModal').style.display = 'block';
             document.getElementById('modalAmount').textContent = '₹' + CURRENT_AMOUNT;
         }
@@ -647,21 +960,22 @@
             document.getElementById('qrModal').style.display = 'none';
         }
 
+        function markQrPaid() {
+            closeQRModal();
+            setPaymentMethod('QR Payment');
+            setVerificationStatus('ready', 'QR payment marked as completed', 'Enter your transaction ID and confirm the verification details.');
+            scrollToVerification();
+        }
+
+        const originalOpenQRModal = openQRModal;
+        openQRModal = function() {
+            originalOpenQRModal();
+            updateDisplayedAmount();
+        };
+
         // Generate QR Code
         function generateQRCode(amount) {
-            const qrContainer = document.getElementById('qrCode');
-            qrContainer.innerHTML = '';
-
-            const upiString = `upi://pay?pa=${UPI_ID}&pn=ADYAANANT&am=${amount}&tn=Payment%20to%20ADYAANANT&tr=${generateTransactionRef()}`;
-
-            new QRCode(qrContainer, {
-                text: upiString,
-                width: 250,
-                height: 250,
-                colorDark: '#000000',
-                colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.H
-            });
+            return amount;
         }
 
         // Copy UPI ID
@@ -691,12 +1005,69 @@
                 .join(' ');
         }
 
+        function verifyPayment() {
+            const payerName = document.getElementById('payerName').value.trim();
+            const paymentMethod = document.getElementById('paymentMethod').value.trim() || selectedPaymentMethod;
+            const transactionId = document.getElementById('transactionId').value.trim();
+            const paymentConfirmed = document.getElementById('paymentConfirmed').checked;
+            const detailsConfirmed = document.getElementById('detailsConfirmed').checked;
+
+            if (!payerName) {
+                alert('Please enter your name before confirming payment.');
+                return;
+            }
+
+            if (!paymentMethod) {
+                alert('Please choose the payment method you used.');
+                return;
+            }
+
+            if (transactionId.length < 6) {
+                alert('Please enter a valid transaction ID or UTR.');
+                return;
+            }
+
+            if (!paymentConfirmed || !detailsConfirmed) {
+                alert('Please confirm both verification checkboxes before continuing.');
+                return;
+            }
+
+            localStorage.setItem('adyaanantPaymentVerification', JSON.stringify({
+                payerName,
+                paymentMethod,
+                transactionId,
+                amount: CURRENT_AMOUNT,
+                proofFile: document.getElementById('paymentProof').files[0]?.name || '',
+                verifiedAt: new Date().toISOString()
+            }));
+
+            setVerificationStatus('verified', 'Verification captured', `Payment marked done for ${payerName}. Opening Google Form now.`);
+
+            const formWindow = window.open(VERIFICATION_FORM_URL, '_blank', 'noopener,noreferrer');
+            if (!formWindow) {
+                window.location.href = VERIFICATION_FORM_URL;
+            }
+        }
+
         // Show success message
         function showSuccess() {
             const msg = document.getElementById('successMessage');
             msg.classList.add('show');
+            setVerificationStatus('ready', 'Payment flow started', 'Once payment is complete, enter your transaction details below to continue.');
             setTimeout(() => msg.classList.remove('show'), 4000);
         }
+
+        document.getElementById('paymentMethod').addEventListener('change', function() {
+            selectedPaymentMethod = this.value;
+            if (this.value) {
+                setVerificationStatus('ready', `${this.value} selected`, 'Complete the payment and verify the transaction details.');
+            }
+        });
+
+        document.getElementById('paymentProof').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'No screenshot selected yet';
+            document.getElementById('proofFileName').textContent = fileName;
+        });
 
         // Modal controls
         window.onclick = function(event) {
@@ -711,6 +1082,7 @@
         // Initialize
         window.addEventListener('load', function() {
             console.log('Payment Page Ready!');
+            updateDisplayedAmount();
             
             // Handle URL parameters for product and amount
             const urlParams = new URLSearchParams(window.location.search);
@@ -738,6 +1110,24 @@
                 if (headerTitle) {
                     headerTitle.textContent = `💳 Pay for ${formattedSubject}`;
                 }
+            }
+        });
+
+        window.addEventListener('load', function() {
+            const savedVerification = localStorage.getItem('adyaanantPaymentVerification');
+            if (!savedVerification) return;
+
+            try {
+                const parsed = JSON.parse(savedVerification);
+                if (parsed.payerName) document.getElementById('payerName').value = parsed.payerName;
+                if (parsed.paymentMethod) {
+                    document.getElementById('paymentMethod').value = parsed.paymentMethod;
+                    selectedPaymentMethod = parsed.paymentMethod;
+                }
+                if (parsed.transactionId) document.getElementById('transactionId').value = parsed.transactionId;
+                if (parsed.proofFile) document.getElementById('proofFileName').textContent = parsed.proofFile;
+            } catch (error) {
+                console.warn('Unable to restore saved verification data.', error);
             }
         });
     </script>
