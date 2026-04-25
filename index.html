@@ -212,6 +212,86 @@
             background: rgba(255,255,255,0.05);
             color: #fff;
             font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+
+        .auth-field::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .auth-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 15px rgba(0, 195, 255, 0.3), inset 0 0 10px rgba(0, 195, 255, 0.1);
+        }
+
+        .auth-field:focus::placeholder {
+            color: rgba(255,255,255,0.2);
+        }
+
+        .auth-field.error {
+            border-color: #ff6f6f;
+            background: rgba(255,111,111,0.05);
+        }
+
+        .auth-field.error:focus {
+            box-shadow: 0 0 15px rgba(255,111,111,0.3), inset 0 0 10px rgba(255,111,111,0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        .auth-field-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .password-strength {
+            margin-top: -0.8rem;
+            margin-bottom: 1rem;
+            height: 3px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.1);
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .password-strength-bar.weak {
+            width: 33%;
+            background: #ff6f6f;
+        }
+
+        .password-strength-bar.medium {
+            width: 66%;
+            background: var(--secondary);
+        }
+
+        .password-strength-bar.strong {
+            width: 100%;
+            background: #4ade80;
         }
 
         .auth-actions {
@@ -227,6 +307,50 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             min-height: 1.2rem;
+            animation: fadeIn 0.3s ease;
+            border-radius: 10px;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.02);
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .auth-status.success {
+            color: #4ade80;
+            border-left-color: #4ade80;
+            background: rgba(74,222,128,0.05);
+        }
+
+        .auth-status.error {
+            color: #ff6f6f;
+            border-left-color: #ff6f6f;
+            background: rgba(255,111,111,0.05);
+        }
+
+        .auth-status.loading {
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .btn.loading::after {
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-left: 8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .btn-signout {
@@ -234,6 +358,13 @@
             border: 1px solid rgba(255,255,255,0.12);
             color: #fff;
             box-shadow: inset 0 0 10px rgba(255,255,255,0.04);
+        }
+
+        .btn-signout:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #ff6f6f;
+            color: #ff6f6f;
+            box-shadow: inset 0 0 15px rgba(255,111,111,0.2), 0 0 10px rgba(255,111,111,0.2);
         }
 
         .hidden {
@@ -622,8 +753,16 @@
 
         <div class="auth-card">
             <h3>Member Login</h3>
-            <input id="emailInput" type="email" class="auth-field" placeholder="Email address">
-            <input id="passwordInput" type="password" class="auth-field" placeholder="Password">
+            <div class="auth-field-wrapper">
+                <input id="emailInput" type="email" class="auth-field" placeholder="Email address" autocomplete="email">
+            </div>
+            <div class="auth-field-wrapper">
+                <input id="passwordInput" type="password" class="auth-field" placeholder="Password" autocomplete="current-password">
+                <button type="button" id="togglePassword" class="password-toggle" title="Toggle password visibility">👁️</button>
+            </div>
+            <div id="passwordStrength" class="password-strength" style="display: none;">
+                <div id="passwordStrengthBar" class="password-strength-bar"></div>
+            </div>
             <div class="auth-actions">
                 <button id="signInBtn" class="btn btn-shop">Sign In</button>
                 <button id="signUpBtn" class="btn btn-legend">Create Account</button>
@@ -674,7 +813,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBM20qywRuNaPXlQnKUo4ByEVsy06R8vsY",
@@ -689,73 +828,251 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const auth = getAuth(app);
+        
+        // Enable persistence
+        setPersistence(auth, browserLocalPersistence).catch(err => console.log("Persistence error:", err));
 
         const emailInput = document.getElementById('emailInput');
         const passwordInput = document.getElementById('passwordInput');
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        const passwordStrengthDiv = document.getElementById('passwordStrength');
+        const passwordStrengthBar = document.getElementById('passwordStrengthBar');
         const signInBtn = document.getElementById('signInBtn');
         const signUpBtn = document.getElementById('signUpBtn');
         const signOutBtn = document.getElementById('signOutBtn');
         const authStatus = document.getElementById('authStatus');
 
-        const setStatus = (message, isError = false) => {
+        // Utility functions
+        const validateEmail = (email) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        };
+
+        const checkPasswordStrength = (password) => {
+            if (password.length < 6) return 'weak';
+            if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) return 'medium';
+            return 'strong';
+        };
+
+        const setStatus = (message, isError = false, isLoading = false) => {
             authStatus.textContent = message;
-            authStatus.style.color = isError ? '#ff6f6f' : '#a0aab5';
+            authStatus.classList.remove('success', 'error', 'loading');
+            if (isError) {
+                authStatus.classList.add('error');
+            } else if (isLoading) {
+                authStatus.classList.add('loading');
+            } else {
+                authStatus.classList.add('success');
+            }
+        };
+
+        const setButtonLoading = (btn, isLoading) => {
+            if (isLoading) {
+                btn.classList.add('loading');
+                btn.disabled = true;
+            } else {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
         };
 
         const clearFields = () => {
             emailInput.value = '';
             passwordInput.value = '';
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+            passwordStrengthDiv.style.display = 'none';
+            passwordStrengthBar.className = 'password-strength-bar';
         };
 
+        const clearErrors = () => {
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+        };
+
+        // Password visibility toggle
+        togglePasswordBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            togglePasswordBtn.textContent = type === 'password' ? '👁️' : '🔒';
+        });
+
+        // Password strength indicator
+        passwordInput.addEventListener('input', () => {
+            if (passwordInput.value.length === 0) {
+                passwordStrengthDiv.style.display = 'none';
+                return;
+            }
+            
+            passwordStrengthDiv.style.display = 'block';
+            const strength = checkPasswordStrength(passwordInput.value);
+            passwordStrengthBar.className = `password-strength-bar ${strength}`;
+        });
+
+        // Email validation on blur
+        emailInput.addEventListener('blur', () => {
+            if (emailInput.value && !validateEmail(emailInput.value)) {
+                emailInput.classList.add('error');
+            } else {
+                emailInput.classList.remove('error');
+            }
+        });
+
+        // Form submission on Enter key
+        const handleEnter = (e, callback) => {
+            if (e.key === 'Enter') {
+                callback();
+            }
+        };
+
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                signInBtn.click();
+            }
+        });
+
+        // Sign Up
         signUpBtn.addEventListener('click', async () => {
+            clearErrors();
             const email = emailInput.value.trim();
             const password = passwordInput.value.trim();
-            if (!email || !password) {
-                return setStatus('Enter a valid email and password.', true);
+
+            // Validation
+            if (!email) {
+                emailInput.classList.add('error');
+                return setStatus('Please enter an email address.', true);
             }
+
+            if (!validateEmail(email)) {
+                emailInput.classList.add('error');
+                return setStatus('Please enter a valid email address.', true);
+            }
+
+            if (!password) {
+                passwordInput.classList.add('error');
+                return setStatus('Please enter a password.', true);
+            }
+
+            if (password.length < 6) {
+                passwordInput.classList.add('error');
+                return setStatus('Password must be at least 6 characters long.', true);
+            }
+
             try {
+                setStatus('Creating account...', false, true);
+                setButtonLoading(signUpBtn, true);
+                setButtonLoading(signInBtn, true);
+
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                setStatus(`Welcome, ${userCredential.user.email}. Account created.`);
-                signOutBtn.classList.remove('hidden');
+                setStatus(`✓ Account created successfully! Welcome, ${userCredential.user.email}`);
                 clearFields();
             } catch (error) {
-                setStatus(error.message, true);
+                let errorMessage = error.message;
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = 'Email already in use. Try signing in instead.';
+                    emailInput.classList.add('error');
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = 'Password is too weak. Please choose a stronger password.';
+                    passwordInput.classList.add('error');
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Invalid email address.';
+                    emailInput.classList.add('error');
+                }
+                setStatus(errorMessage, true);
+            } finally {
+                setButtonLoading(signUpBtn, false);
+                setButtonLoading(signInBtn, false);
             }
         });
 
+        // Sign In
         signInBtn.addEventListener('click', async () => {
+            clearErrors();
             const email = emailInput.value.trim();
             const password = passwordInput.value.trim();
-            if (!email || !password) {
-                return setStatus('Enter your email and password.', true);
+
+            // Validation
+            if (!email) {
+                emailInput.classList.add('error');
+                return setStatus('Please enter an email address.', true);
             }
+
+            if (!validateEmail(email)) {
+                emailInput.classList.add('error');
+                return setStatus('Please enter a valid email address.', true);
+            }
+
+            if (!password) {
+                passwordInput.classList.add('error');
+                return setStatus('Please enter your password.', true);
+            }
+
             try {
+                setStatus('Signing in...', false, true);
+                setButtonLoading(signInBtn, true);
+                setButtonLoading(signUpBtn, true);
+
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                setStatus(`Signed in as ${userCredential.user.email}.`);
-                signOutBtn.classList.remove('hidden');
+                setStatus(`✓ Signed in successfully as ${userCredential.user.email}`);
                 clearFields();
             } catch (error) {
-                setStatus(error.message, true);
+                let errorMessage = error.message;
+                if (error.code === 'auth/user-not-found') {
+                    errorMessage = 'Email not found. Please create an account first.';
+                    emailInput.classList.add('error');
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessage = 'Incorrect password. Please try again.';
+                    passwordInput.classList.add('error');
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Invalid email address.';
+                    emailInput.classList.add('error');
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage = 'Too many failed login attempts. Please try again later.';
+                } else if (error.code === 'auth/user-disabled') {
+                    errorMessage = 'This account has been disabled.';
+                }
+                setStatus(errorMessage, true);
+            } finally {
+                setButtonLoading(signInBtn, false);
+                setButtonLoading(signUpBtn, false);
             }
         });
 
+        // Sign Out
         signOutBtn.addEventListener('click', async () => {
             try {
+                setStatus('Signing out...', false, true);
+                setButtonLoading(signOutBtn, true);
+                
                 await signOut(auth);
-                setStatus('Signed out successfully.');
-                signOutBtn.classList.add('hidden');
+                setStatus('✓ Signed out successfully.');
+                clearFields();
             } catch (error) {
-                setStatus(error.message, true);
+                setStatus('Error signing out: ' + error.message, true);
+            } finally {
+                setButtonLoading(signOutBtn, false);
             }
         });
 
+        // Monitor auth state
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                setStatus(`Logged in as ${user.email}.`);
+                setStatus(`✓ Logged in as ${user.email}`);
+                signInBtn.classList.add('hidden');
+                signUpBtn.classList.add('hidden');
                 signOutBtn.classList.remove('hidden');
+                emailInput.disabled = true;
+                passwordInput.disabled = true;
+                togglePasswordBtn.disabled = true;
             } else {
-                setStatus('You are not signed in.');
+                setStatus('Not signed in');
+                signInBtn.classList.remove('hidden');
+                signUpBtn.classList.remove('hidden');
                 signOutBtn.classList.add('hidden');
+                emailInput.disabled = false;
+                passwordInput.disabled = false;
+                togglePasswordBtn.disabled = false;
             }
         });
     </script>
