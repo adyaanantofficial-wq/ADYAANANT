@@ -834,6 +834,23 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
     <script>
+        // Fallback QR code generation if library fails
+        function generateFallbackQR(canvas, upiUrl) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw a simple placeholder
+            ctx.fillStyle = '#f0f0f0';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('QR Code', canvas.width/2, canvas.height/2 - 20);
+            ctx.fillText('Not Available', canvas.width/2, canvas.height/2);
+            ctx.font = '12px Arial';
+            ctx.fillText('Use payment buttons above', canvas.width/2, canvas.height/2 + 20);
+        }
         // DOM Elements
         const searchInput = document.getElementById('searchInput');
         const productGrid = document.getElementById('productGrid');
@@ -961,82 +978,114 @@
         const upiData = {
             payee: 'adyaanant.official@okhdfcbank',
             amount: '100',
-            note: 'Legend Star Bot Purchase'
+            note: 'Legend Star Bot Purchase',
+            payeeName: 'ADYAANANT'
         };
 
         // Generate UPI URL
         function generateUPIUrl() {
-            return `upi://pay?pa=${upiData.payee}&pn=ADYAANANT&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+            const baseUrl = `upi://pay?pa=${upiData.payee}&pn=${encodeURIComponent(upiData.payeeName)}&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+            console.log('Generated UPI URL:', baseUrl);
+            return baseUrl;
         }
 
-        // Payment Functions
+        // Enhanced Payment Functions with better fallbacks
+        function openPaymentApp(appUrl, fallbackUrl) {
+            try {
+                // Try to open the app
+                window.location.href = appUrl;
+                
+                // Set a timeout to check if app opened
+                setTimeout(() => {
+                    // If we're still here, app didn't open, try fallback
+                    if (document.hasFocus()) {
+                        console.log('App not detected, trying fallback URL');
+                        window.location.href = fallbackUrl;
+                        
+                        // Final fallback - try to open in new tab
+                        setTimeout(() => {
+                            if (document.hasFocus()) {
+                                window.open(fallbackUrl, '_blank');
+                            }
+                        }, 1000);
+                    }
+                }, 2000);
+            } catch (error) {
+                console.error('Error opening payment app:', error);
+                // Fallback to browser
+                window.open(fallbackUrl, '_blank');
+            }
+        }
+
         function openPhonePe() {
             const upiUrl = generateUPIUrl();
-            // Try PhonePe specific URL first, fallback to generic UPI
-            const phonePeUrl = `tez://upi/pay?pa=${upiData.payee}&pn=ADYAANANT&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+            const phonePeUrl = `tez://upi/pay?pa=${upiData.payee}&pn=${encodeURIComponent(upiData.payeeName)}&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
             
-            // Try to open PhonePe, fallback to browser
-            window.location.href = phonePeUrl;
-            
-            // Fallback after a delay if app doesn't open
-            setTimeout(() => {
-                if (document.hasFocus()) {
-                    // App didn't open, try generic UPI
-                    window.location.href = upiUrl;
-                }
-            }, 2000);
+            console.log('Opening PhonePe with URL:', phonePeUrl);
+            openPaymentApp(phonePeUrl, upiUrl);
         }
 
         function openGooglePay() {
             const upiUrl = generateUPIUrl();
-            // Try Google Pay specific URL
-            const gpayUrl = `tez://upi/pay?pa=${upiData.payee}&pn=ADYAANANT&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+            const gpayUrl = `tez://upi/pay?pa=${upiData.payee}&pn=${encodeURIComponent(upiData.payeeName)}&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
             
-            window.location.href = gpayUrl;
-            
-            setTimeout(() => {
-                if (document.hasFocus()) {
-                    window.location.href = upiUrl;
-                }
-            }, 2000);
+            console.log('Opening Google Pay with URL:', gpayUrl);
+            openPaymentApp(gpayUrl, upiUrl);
         }
 
         function openPaytm() {
             const upiUrl = generateUPIUrl();
-            // Try Paytm specific URL
-            const paytmUrl = `paytmmp://pay?pa=${upiData.payee}&pn=ADYAANANT&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
+            const paytmUrl = `paytmmp://pay?pa=${upiData.payee}&pn=${encodeURIComponent(upiData.payeeName)}&am=${upiData.amount}&cu=INR&tn=${encodeURIComponent(upiData.note)}`;
             
-            window.location.href = paytmUrl;
-            
-            setTimeout(() => {
-                if (document.hasFocus()) {
-                    window.location.href = upiUrl;
-                }
-            }, 2000);
+            console.log('Opening Paytm with URL:', paytmUrl);
+            openPaymentApp(paytmUrl, upiUrl);
         }
 
         function showQRCode() {
             const qrModal = document.getElementById('qrModal');
             const canvas = document.getElementById('qrCodeCanvas');
             
-            // Generate UPI URL for QR code
-            const upiUrl = generateUPIUrl();
-            
-            // Generate QR Code
-            QRCode.toCanvas(canvas, upiUrl, {
-                width: 200,
-                height: 200,
-                color: {
-                    dark: '#000000',
-                    light: '#FFFFFF'
+            try {
+                // Generate UPI URL for QR code
+                const upiUrl = generateUPIUrl();
+                console.log('Generating QR code for:', upiUrl);
+                
+                // Clear previous QR code
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Check if QRCode library is available
+                if (typeof QRCode !== 'undefined') {
+                    // Generate QR Code
+                    QRCode.toCanvas(canvas, upiUrl, {
+                        width: 200,
+                        height: 200,
+                        color: {
+                            dark: '#000000',
+                            light: '#FFFFFF'
+                        },
+                        errorCorrectionLevel: 'M'
+                    }, function (error) {
+                        if (error) {
+                            console.error('QR Code generation error:', error);
+                            generateFallbackQR(canvas, upiUrl);
+                        } else {
+                            console.log('QR Code generated successfully');
+                        }
+                    });
+                } else {
+                    console.warn('QRCode library not loaded, using fallback');
+                    generateFallbackQR(canvas, upiUrl);
                 }
-            }, function (error) {
-                if (error) console.error(error);
-            });
-            
-            // Show modal
-            qrModal.classList.add('active');
-            document.body.classList.add('modal-open');
+                
+                // Show modal
+                qrModal.classList.add('active');
+                document.body.classList.add('modal-open');
+                
+            } catch (error) {
+                console.error('Error in showQRCode:', error);
+                alert('Unable to generate QR code. Please try again or use direct payment links.');
+            }
         }
 
         function paymentCompleted() {
