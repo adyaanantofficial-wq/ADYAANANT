@@ -857,6 +857,7 @@
         const noResults = document.getElementById('noResults');
         const paymentModal = document.getElementById('paymentModal');
         const successModal = document.getElementById('successModal');
+        const PAYMENT_PAGE = 'paypent.html';
         
         let isProcessing = false;
 
@@ -950,14 +951,17 @@
         });
 
         // Modal Controls
+        function getPaymentUrl(productId, amount) {
+            return `${PAYMENT_PAGE}?product=${encodeURIComponent(productId)}&amount=${encodeURIComponent(amount)}`;
+        }
+
         function openPaymentModal() {
-            // Redirect to payment page instead of opening modal
-            window.location.href = 'payment.html?product=legend-star-bot&amount=100';
+            window.location.href = getPaymentUrl('legend-star-bot', 100);
         }
 
         function redirectToPayment(event) {
-            event.stopPropagation(); // Prevent card click event
-            window.location.href = 'payment.html?product=legend-star-bot&amount=100';
+            event.stopPropagation();
+            window.location.href = getPaymentUrl('legend-star-bot', 100);
         }
 
         function closeModals() {

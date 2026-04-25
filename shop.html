@@ -563,19 +563,6 @@
                         </div>
                     `;
                     
-                    // Add click handler for payment redirect
-                    card.addEventListener('click', function(e) {
-                        if (e.ctrlKey || e.metaKey || e.button === 1) {
-                            // Allow normal link behavior with Ctrl+click or middle click
-                            return;
-                        }
-                        // Redirect to payment page after short delay
-                        setTimeout(() => {
-                            window.location.href = 'payment.html?category=' + encodeURIComponent(cat.name);
-                        }, 300);
-                        e.preventDefault();
-                    });
-                    
                     fragment.appendChild(card);
                 });
 

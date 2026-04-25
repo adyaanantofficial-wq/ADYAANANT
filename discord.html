@@ -132,6 +132,25 @@
             font-size: 1rem;
         }
 
+        .discord-highlights {
+            margin-left: 1.5rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        .discord-status {
+            margin-top: 1.5rem;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .discord-status strong {
+            color: var(--text-main);
+        }
+
         .discord-widget {
             background: rgba(0,0,0,0.3);
             padding: 1.5rem;
@@ -280,18 +299,21 @@
     <main>
         <!-- Discord Widget Section -->
         <section class="discord-section">
-            <div class="discord-info">
+            <div class="discord-info" id="discord-info">
                 <h2>Be Part of Our Community</h2>
                 <p>Welcome to the ADYAANANT Discord server! Here you can:</p>
-                <ul style="margin-left: 1.5rem; color: var(--text-muted);">
+                <ul class="discord-highlights">
                     <li>Get exclusive product announcements</li>
                     <li>Connect with fellow members and enthusiasts</li>
                     <li>Access customer support and help</li>
                     <li>Participate in exciting giveaways and events</li>
                     <li>Share ideas and feedback with our team</li>
                 </ul>
+                <div class="discord-status" id="discordStatus" aria-live="polite">
+                    <strong>Invite status:</strong> Preparing your join link...
+                </div>
                 <div class="btn-group">
-                    <a href="https://discord.com/invite/1427319799616245935" target="_blank" class="btn btn-primary">
+                    <a href="https://discord.com/channels/1427319799616245935" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="discordJoinBtn">
                         🎮 Join Discord Server
                     </a>
                     <a href="#discord-info" class="btn btn-secondary">
@@ -314,8 +336,40 @@
     </footer>
 
     <script>
-        // Initialize on page load
+        const DISCORD_GUILD_ID = '1427319799616245935';
+        const DISCORD_WIDGET_URL = `https://discord.com/api/guilds/${DISCORD_GUILD_ID}/widget.json`;
+        const joinButton = document.getElementById('discordJoinBtn');
+        const statusBox = document.getElementById('discordStatus');
+
+        async function loadDiscordInvite() {
+            try {
+                const response = await fetch(DISCORD_WIDGET_URL, { cache: 'no-store' });
+
+                if (!response.ok) {
+                    throw new Error(`Discord widget request failed with ${response.status}`);
+                }
+
+                const widget = await response.json();
+                const inviteUrl = widget.instant_invite;
+                const onlineCount = typeof widget.presence_count === 'number' ? widget.presence_count : null;
+
+                if (inviteUrl) {
+                    joinButton.href = inviteUrl;
+                    joinButton.setAttribute('aria-label', 'Join the ADYAANANT Discord server');
+                }
+
+                statusBox.innerHTML = onlineCount !== null
+                    ? `<strong>Live status:</strong> ${onlineCount} members online right now.`
+                    : '<strong>Live status:</strong> Discord community link is ready.';
+            } catch (error) {
+                console.error('Unable to load Discord invite link:', error);
+                joinButton.href = `https://discord.com/widget?id=${DISCORD_GUILD_ID}&theme=dark`;
+                statusBox.innerHTML = '<strong>Invite status:</strong> Direct invite is unavailable right now, but the live widget is still available below.';
+            }
+        }
+
         window.addEventListener('load', function() {
+            loadDiscordInvite();
             console.log('Discord Community Page Loaded Successfully!');
         });
     </script>
