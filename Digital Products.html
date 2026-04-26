@@ -232,6 +232,9 @@
             }
 
             function getOrderHref(product) {
+                if (product.externalLink) {
+                    return product.externalLink;
+                }
                 return ORDER_PAGE + "?product=" + encodeURIComponent(product.title) + "&price=" + encodeURIComponent(product.price);
             }
 
@@ -241,6 +244,14 @@
                 }
 
                 return "<div class=\"thumb-fallback\" aria-hidden=\"true\">" + product.visual.value + "</div>";
+            }
+
+            function getOrderLinkAttrs(product) {
+                var attrs = "href=\"" + getOrderHref(product) + "\"";
+                if (product.externalLink) {
+                    attrs += " target=\"_blank\" rel=\"noopener noreferrer\"";
+                }
+                return attrs;
             }
 
             function renderProducts(list) {
@@ -272,7 +283,7 @@
                         "</div>",
                         "<div class=\"card-actions\">",
                         "<button class=\"action-btn\" type=\"button\" data-details-id=\"" + product.id + "\">Details</button>",
-                        "<a class=\"action-btn action-btn--primary\" href=\"" + getOrderHref(product) + "\">GIVE ORDER</a>",
+                        "<a class=\"action-btn action-btn--primary\" " + getOrderLinkAttrs(product) + ">GIVE ORDER</a>",
                         "</div>",
                         "</article>"
                     ].join("");
@@ -294,8 +305,19 @@
                 modalSummary.textContent = product.summary;
                 modalPrice.textContent = "Price " + formatCurrency(product.originalPrice) + " | Discount " + product.discountPercent + "% | Sell " + formatCurrency(product.price);
                 modalBody.innerHTML = product.detailHtml;
-                modalFooterNote.textContent = "Details opens first. GIVE ORDER sends " + product.title + " and the sell price into the order form.";
-                modalAction.href = getOrderHref(product);
+                
+                if (product.externalLink) {
+                    modalFooterNote.textContent = "Details opens first. GIVE ORDER opens the external platform in a new tab.";
+                    modalAction.href = getOrderHref(product);
+                    modalAction.target = "_blank";
+                    modalAction.rel = "noopener noreferrer";
+                } else {
+                    modalFooterNote.textContent = "Details opens first. GIVE ORDER sends " + product.title + " and the sell price into the order form.";
+                    modalAction.href = getOrderHref(product);
+                    modalAction.target = "";
+                    modalAction.rel = "";
+                }
+                
                 detailsModal.classList.add("is-open");
                 detailsModal.setAttribute("aria-hidden", "false");
                 document.body.classList.add("modal-open");

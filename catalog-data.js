@@ -282,6 +282,84 @@
                 "</ul>",
                 "</section>"
             ].join("")
+        },
+        {
+            id: "docterhome",
+            group: "Digital",
+            title: "Medico AI Home",
+            type: "Medical AI platform",
+            badge: "External",
+            originalPrice: 0,
+            price: 0,
+            externalLink: "https://sites.google.com/view/medicoaihome/home",
+            summary: "Access Medico AI Home - an AI-powered medical information platform.",
+            features: [
+                "AI-powered medical insights",
+                "Easy to access and navigate",
+                "External platform access"
+            ],
+            keywords: [
+                "medico",
+                "ai",
+                "medical",
+                "health",
+                "doctor",
+                "home"
+            ],
+            visual: {
+                type: "text",
+                value: "DOC"
+            },
+            detailHtml: [
+                "<section class=\"detail-section\">",
+                "<h3>About Medico AI Home</h3>",
+                "<p>Medico AI Home is an external platform providing AI-powered medical information and insights.</p>",
+                "<ul class=\"detail-list\">",
+                "<li>Access to medical information powered by AI.</li>",
+                "<li>User-friendly interface for easy navigation.</li>",
+                "<li>Visit the platform directly for more details.</li>",
+                "</ul>",
+                "</section>"
+            ].join("")
+        },
+        {
+            id: "imagetools",
+            group: "Digital",
+            title: "Compress Image Super Fast",
+            type: "Image compression tool",
+            badge: "Tool",
+            originalPrice: 0,
+            price: 0,
+            externalLink: "https://sites.google.com/view/compressimagesuperfast/home",
+            summary: "Compress images super fast with this online image optimization tool.",
+            features: [
+                "Fast image compression",
+                "Easy to use online tool",
+                "Optimize images instantly"
+            ],
+            keywords: [
+                "image",
+                "compress",
+                "tool",
+                "optimization",
+                "fast",
+                "image compression"
+            ],
+            visual: {
+                type: "text",
+                value: "IMG"
+            },
+            detailHtml: [
+                "<section class=\"detail-section\">",
+                "<h3>About Compress Image Super Fast</h3>",
+                "<p>A fast and efficient online tool for compressing and optimizing images.</p>",
+                "<ul class=\"detail-list\">",
+                "<li>Compress images to smaller file sizes instantly.</li>",
+                "<li>Simple web-based interface requires no installation.</li>",
+                "<li>Maintain image quality while reducing file size.</li>",
+                "</ul>",
+                "</section>"
+            ].join("")
         }
     ];
 
