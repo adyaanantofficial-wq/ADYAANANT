@@ -2,794 +2,392 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADYAANANT | Innovation • Strength • Infinite Possibilities</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Search every ADYAANANT product in one place, including digital items and real products.">
+    <meta name="theme-color" content="#15803d">
+    <title>ADYAANANT | Product Storefront</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="catalog-store.css">
     <link rel="stylesheet" href="help-widget.css">
-    <style>
-        :root {
-            --bg-color: #050507;
-            --surface: rgba(255, 255, 255, 0.03);
-            --surface-hover: rgba(255, 255, 255, 0.08);
-            --primary: #00c3ff;
-            --primary-glow: rgba(0, 195, 255, 0.6);
-            --secondary: #ffd700;
-            --secondary-glow: rgba(255, 215, 0, 0.4);
-            --text-main: #ffffff;
-            --text-muted: #a0aab5;
-            --border: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(10, 10, 15, 0.7);
-            --font-display: 'Orbitron', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 15px var(--primary-glow); }
-            50% { box-shadow: 0 0 35px var(--primary-glow), 0 0 10px var(--primary); }
-            100% { box-shadow: 0 0 15px var(--primary-glow); }
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Top Header */
-        .top-header {
-            text-align: center;
-            padding: 2rem 1rem 1.5rem;
-            background: linear-gradient(180deg, rgba(0,195,255,0.05) 0%, transparent 100%);
-            border-bottom: 1px solid var(--border);
-            position: relative;
-        }
-
-        .top-header::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-        }
-
-        .brand-name {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 195, 255, 0.3);
-            margin-bottom: 0.5rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .brand-tagline {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: fadeIn 1.2s ease-out;
-        }
-
-        /* Navbar */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-links li a {
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s;
-        }
-
-        .nav-links li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background: var(--primary);
-            transition: width 0.3s ease;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        .nav-links li a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links li a:hover::after {
-            width: 100%;
-        }
-
-        .menu-toggle {
-            display: none;
-            color: var(--text-main);
-            font-size: 0;
-            cursor: pointer;
-        }
-
-        .menu-toggle::before {
-            content: 'MENU';
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-right: auto;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .nav-logo {
-            width: 42px;
-            height: 42px;
-            object-fit: contain;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.12);
-            background: rgba(255,255,255,0.04);
-            padding: 6px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        #nav-check {
-            display: none;
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            min-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 4rem 1rem;
-            overflow: hidden;
-        }
-
-        /* Ambient Background Orbs */
-        .hero::before, .hero::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(120px);
-            opacity: 0.4;
-        }
-
-        .hero::before {
-            top: 10%;
-            left: 10%;
-            width: 400px;
-            height: 400px;
-            background: var(--primary);
-            animation: float 8s infinite alternate ease-in-out;
-        }
-
-        .hero::after {
-            bottom: 10%;
-            right: 10%;
-            width: 350px;
-            height: 350px;
-            background: var(--secondary);
-            animation: float 10s infinite alternate-reverse ease-in-out;
-        }
-
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: 4vw;
-            min-font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            animation: fadeIn 1s ease-out forwards;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 4rem;
-            letter-spacing: 1px;
-            animation: fadeIn 1.5s ease-out forwards;
-        }
-
-        /* Action Buttons Area */
-        .action-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            width: 100%;
-            align-items: center;
-        }
-
-        .action-area {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            width: 100%;
-            max-width: 1000px;
-            z-index: 10;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase;
-        }
-
-        .btn-shop {
-            background: linear-gradient(270deg, var(--primary), #0055ff, var(--primary));
-            background-size: 200% 200%;
-            color: #fff;
-            border: none;
-            box-shadow: 0 10px 30px rgba(0, 195, 255, 0.4);
-            animation: gradientShift 5s ease infinite;
-        }
-
-        .btn-shop:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 195, 255, 0.6);
-        }
-
-        .btn-shop .emoji {
-            font-size: 1.5rem;
-        }
-
-        .btn-legend {
-            background: var(--surface);
-            backdrop-filter: blur(5px);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            box-shadow: inset 0 0 15px rgba(0,195,255,0.2), 0 0 15px rgba(0,195,255,0.2);
-            animation: float 5s infinite ease-in-out;
-        }
-
-        .btn-legend:hover {
-            background: rgba(0, 195, 255, 0.1);
-            color: #fff;
-            box-shadow: inset 0 0 25px rgba(0,195,255,0.5), 0 0 25px rgba(0,195,255,0.5);
-            border-color: #fff;
-            transform: scale(1.05);
-        }
-
-        .btn-legend .emoji {
-            font-size: 1.5rem;
-        }
-
-        .quick-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            width: 100%;
-        }
-
-        .btn-quick {
-            min-width: 170px;
-            padding: 1rem 1.6rem;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-main);
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 14px 30px rgba(0, 0, 0, 0.22);
-        }
-
-        .btn-quick:hover {
-            transform: translateY(-6px);
-            border-color: rgba(0, 195, 255, 0.4);
-            background: rgba(0, 195, 255, 0.08);
-            box-shadow: 0 18px 36px rgba(0, 195, 255, 0.16);
-        }
-
-        /* Features Section */
-        .features-section {
-            padding: 6rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .feature-card {
-            background: var(--surface);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: var(--surface-hover);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(0, 195, 255, 0.1);
-            border-color: rgba(0, 195, 255, 0.3);
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-card h3 {
-            font-family: var(--font-display);
-            color: var(--secondary);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 6rem 5%;
-            text-align: center;
-            background: linear-gradient(0deg, rgba(0,195,255,0.05) 0%, transparent 100%);
-            border-top: 1px solid var(--border);
-        }
-
-        .contact-section h2 {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-section p {
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn-contact {
-            background: transparent;
-            color: #fff;
-            border: 1px solid var(--border);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-contact::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-contact:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-
-        .btn-contact:hover::before {
-            left: 100%;
-        }
-
-        /* Footer */
-        .footer {
-            background: #020203;
-            border-top: 1px solid var(--border);
-            padding: 4rem 5% 2rem;
-            text-align: center;
-        }
-
-        .footer-brand {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--primary), #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-tagline {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-            text-shadow: 0 0 8px var(--primary-glow);
-        }
-
-        .separator {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border), transparent);
-            margin: 0 auto 2rem;
-            max-width: 800px;
-        }
-
-        .copyright {
-            color: #555;
-            font-size: 0.8rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .hero h1 { font-size: 3rem; }
-            .action-area { flex-direction: column; gap: 1.5rem; }
-            .btn { width: 100%; max-width: 350px; }
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--glass-bg);
-                backdrop-filter: blur(15px);
-                flex-direction: column;
-                gap: 0;
-                border-bottom: 1px solid var(--border);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease-out;
-            }
-            .nav-links li {
-                text-align: center;
-                width: 100%;
-            }
-            .nav-links li a {
-                display: block;
-                padding: 1.5rem;
-                border-top: 1px solid rgba(255,255,255,0.05);
-            }
-            #nav-check:checked ~ .nav-links {
-                max-height: 400px;
-            }
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1rem; padding: 0 1rem; }
-            .action-area,
-            .quick-links { gap: 1rem; }
-            .btn,
-            .btn-quick { width: 100%; }
-            .features-grid { grid-template-columns: 1fr; }
-            .footer-links { gap: 1rem; flex-direction: column; }
-        }
-    </style>
 </head>
 <body>
+    <nav class="store-nav" aria-label="Primary navigation">
+        <div class="store-page store-nav__inner">
+            <a class="store-brand" href="index.html">
+                <img class="store-brand__logo" src="logo.png" alt="ADYAANANT logo">
+                <span class="store-brand__copy">
+                    <span class="store-brand__eyebrow">ADYAANANT</span>
+                    <span class="store-brand__title">Storefront</span>
+                </span>
+            </a>
 
-    <header class="top-header">
-        <div class="brand-name">ADYAANANT</div>
-        <div class="brand-tagline">Innovation • Strength • Infinite Possibilities</div>
-    </header>
-
-    <nav class="navbar">
-        <input type="checkbox" id="nav-check">
-        <label for="nav-check" class="menu-toggle">☰</label>
-        <a href="index.html" class="nav-brand">
-            <img src="logo.png" alt="ADYAANANT Logo" class="nav-logo">
-            <span>ADYAANANT</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="discord.html">Discord</a></li>
-            <li><a href="payment.html">Payment</a></li>
-            <li><a href="shop.html">Shop</a></li>
-        </ul>
+            <div class="store-nav__links">
+                <a href="Digital Products.html">Digital Products</a>
+                <a href="Real Products.html">Real Products</a>
+                <a href="order.html">Order</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
     </nav>
 
-    <section id="home" class="hero">
-        <h1>Welcome to ADYAANANT</h1>
-        <p>Innovation • Strength • Infinite Possibilities</p>
-        
-        <div class="action-area">
-            <a href="shop.html" class="btn btn-shop">
-                <span class="emoji">🛒</span> SHOP NOW
-            </a>
-            <a href="discord.html" class="btn btn-legend">
-                <span class="emoji">🎮</span> JOIN DISCORD
-            </a>
-        </div>
-        <div class="quick-links">
-            <a href="govupdates.html" class="btn btn-quick">Gov Updates</a>
-            <a href="knowledge.html" class="btn btn-quick">Knowledge</a>
-            <a href="news.html" class="btn btn-quick">News</a>
-            <a href="STUDY.html" class="btn btn-quick">Study</a>
-        </div>
-    </section>
+    <main class="store-page store-main">
+        <section class="quick-actions" aria-label="Main shortcuts">
+            <a class="quick-action quick-action--primary" href="shop.html">Shop</a>
+            <a class="quick-action quick-action--dark" href="discord.html">Discord</a>
+            <a class="quick-action" href="STUDY.html">Study</a>
+            <a class="quick-action" href="govupdates.html">Gov Updates</a>
+            <a class="quick-action" href="knowledge.html">Knowledge</a>
+            <a class="quick-action" href="news.html">News</a>
+        </section>
 
-    <section class="features-section">
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Global Vision</h3>
-                <p>ADYAANANT builds innovative solutions for the future, breaking boundaries and redefining industry standards globally.</p>
+        <section class="store-toolbar">
+            <div class="search-card">
+                <div class="search-wrap">
+                    <span class="search-icon" aria-hidden="true">&#128269;</span>
+                    <input
+                        class="search-input"
+                        id="searchInput"
+                        type="search"
+                        placeholder="Search all digital and real products by name, model, feature, keyword, or category..."
+                        aria-label="Search all products"
+                        autocomplete="off">
+                </div>
+
+                <div class="toolbar-meta">
+                    <div class="toolbar-copy">
+                        <span class="toolbar-eyebrow">Sensitive Search</span>
+                        <p>Search works across both digital and real products, including product names, model numbers, features, and detailed keywords.</p>
+                    </div>
+
+                    <div class="result-pill">
+                        <span>Live Products</span>
+                        <strong id="resultCount">0</strong>
+                    </div>
+                </div>
             </div>
-            <div class="feature-card">
-                <h3>Secure Services</h3>
-                <p>Trusted systems designed for reliability. Experience enterprise-grade security architecture protecting your digital assets.</p>
+
+            <div class="category-strip" aria-label="Category pages">
+                <a class="category-link is-active" href="index.html">
+                    <span class="category-link__icon">AP</span>
+                    <span>All Products</span>
+                </a>
+                <a class="category-link" href="Digital Products.html">
+                    <span class="category-link__icon">DG</span>
+                    <span>Digital Products</span>
+                </a>
+                <a class="category-link" href="Real Products.html">
+                    <span class="category-link__icon">RL</span>
+                    <span>Real Products</span>
+                </a>
+                <a class="category-link" href="STUDY.html">
+                    <span class="category-link__icon">ST</span>
+                    <span>Study</span>
+                </a>
+                <a class="category-link" href="sci3D.html">
+                    <span class="category-link__icon">3D</span>
+                    <span>Sci3D</span>
+                </a>
+                <a class="category-link" href="govupdates.html">
+                    <span class="category-link__icon">GV</span>
+                    <span>Gov Updates</span>
+                </a>
+                <a class="category-link" href="knowledge.html">
+                    <span class="category-link__icon">KN</span>
+                    <span>Knowledge</span>
+                </a>
+                <a class="category-link" href="news.html">
+                    <span class="category-link__icon">NW</span>
+                    <span>News</span>
+                </a>
             </div>
-            <div class="feature-card">
-                <h3>Customer First</h3>
-                <p>Focused on long-term trust and satisfaction. We prioritize seamless user experiences and dedicated client support.</p>
+        </section>
+
+        <section class="section-card">
+            <div class="section-head">
+                <div class="section-copy">
+                    <span class="section-kicker">Combined Catalog</span>
+                    <h1 class="section-title">All store products in one responsive grid.</h1>
+                    <p>This home page now lists every product from the site. Desktop shows 5 cards in a row, tablet shows 4, and smartphone shows 3.</p>
+                </div>
+            </div>
+
+            <div id="productGrid" class="product-grid" role="list"></div>
+            <div id="noResults" class="no-results" hidden>
+                <h3>No matching product found</h3>
+                <p>Try searching for Legend, Ronald, M19, gaming, waterproof, website, or custom.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="store-page store-footer">
+        <div class="store-footer__card">
+            <strong>ADYAANANT Main Store</strong>
+            <p>The combined storefront keeps digital products and real products searchable in one place while preserving the same Details and GIVE ORDER flow.</p>
+            <div class="store-footer__links">
+                <a href="Digital Products.html">Digital Products</a>
+                <a href="Real Products.html">Real Products</a>
+                <a href="shop.html">Shop Categories</a>
+                <a href="contact.html">Contact</a>
             </div>
         </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <h2>Contact Us</h2>
-        <p>For full details and support, please visit our official contact page. Our team is ready to assist you with any inquiries.</p>
-        <a href="contact.html" class="btn-contact">Contact Us &rarr;</a>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-brand">ADYAANANT</div>
-        <div class="footer-tagline">Building innovation with strength and infinite vision.</div>
-        
-        <ul class="footer-links">
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="discord.html">Discord</a></li>
-            <li><a href="payment.html">Payment</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="govupdates.html">Gov Updates</a></li>
-            <li><a href="knowledge.html">Knowledge</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="STUDY.html">Study</a></li>
-        </ul>
-        
-        <div class="separator"></div>
-        <div class="copyright">&copy; 2026 ADYAANANT. All Rights Reserved.</div>
     </footer>
 
+    <div class="details-modal" id="detailsModal" aria-hidden="true">
+        <div class="details-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="details-header">
+                <div class="details-header__copy">
+                    <span class="modal-pill" id="modalPill">Product Details</span>
+                    <h2 class="details-title" id="modalTitle">Product Title</h2>
+                    <p class="details-summary" id="modalSummary"></p>
+                    <p class="details-price" id="modalPrice"></p>
+                </div>
+                <button class="modal-close" id="modalClose" type="button" aria-label="Close details modal">X</button>
+            </div>
+
+            <div class="modal-body">
+                <div id="modalBody"></div>
+            </div>
+
+            <div class="details-footer">
+                <p class="detail-footer-note" id="modalFooterNote"></p>
+                <a class="action-btn action-btn--primary" id="modalAction" href="order.html">GIVE ORDER</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="catalog-data.js"></script>
     <script>
-        // Enhanced Navigation and Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scrolling for anchor links
-            const anchorLinks = document.querySelectorAll('a[href^="#"]');
-            anchorLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
+        (function () {
+            const ORDER_PAGE = "order.html";
+            const products = window.ADYAANANT_CATALOG.allProducts.slice();
 
-            // Mobile menu toggle
-            const navCheck = document.getElementById('nav-check');
-            const navLinks = document.querySelector('.nav-links');
-            const menuToggle = document.querySelector('.menu-toggle');
+            const searchInput = document.getElementById("searchInput");
+            const resultCount = document.getElementById("resultCount");
+            const productGrid = document.getElementById("productGrid");
+            const noResults = document.getElementById("noResults");
+            const detailsModal = document.getElementById("detailsModal");
+            const modalPill = document.getElementById("modalPill");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalSummary = document.getElementById("modalSummary");
+            const modalPrice = document.getElementById("modalPrice");
+            const modalBody = document.getElementById("modalBody");
+            const modalAction = document.getElementById("modalAction");
+            const modalFooterNote = document.getElementById("modalFooterNote");
+            const modalClose = document.getElementById("modalClose");
+            let lastFocusedElement = null;
 
-            if (menuToggle && navCheck) {
-                menuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navCheck.checked = !navCheck.checked;
-                });
-
-                // Close mobile menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                        navCheck.checked = false;
-                    }
-                });
+            function formatCurrency(value) {
+                return "Rs " + Number(value || 0);
             }
 
-            // Add loading animation to buttons
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (this.tagName === 'A' && this.href) {
-                        // Add click feedback
-                        this.style.transform = 'scale(0.95)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 150);
-                    }
-                });
+            function normalizeText(value) {
+                return String(value || "")
+                    .toLowerCase()
+                    .normalize("NFKD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[^a-z0-9]+/g, " ")
+                    .trim();
+            }
+
+            function getSearchBlob(product) {
+                return normalizeText([
+                    product.group,
+                    product.title,
+                    product.type,
+                    product.summary,
+                    product.features.join(" "),
+                    product.keywords.join(" "),
+                    product.detailHtml.replace(/<[^>]+>/g, " ")
+                ].join(" "));
+            }
+
+            const indexedProducts = products.map(function (product) {
+                const searchBlob = getSearchBlob(product);
+                const searchWords = new Set(searchBlob.split(/\s+/).filter(Boolean));
+                return {
+                    ...product,
+                    searchBlob: searchBlob,
+                    searchWords: searchWords
+                };
             });
 
-            // Add intersection observer for animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+            function scoreProduct(product, query) {
+                if (!query) {
+                    return 1;
+                }
 
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                const normalizedQuery = normalizeText(query);
+                const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+                let score = 0;
+                let matchedTerms = 0;
+
+                if (product.searchBlob.includes(normalizedQuery)) {
+                    score += 12;
+                }
+
+                tokens.forEach(function (token) {
+                    if (product.searchWords.has(token)) {
+                        score += 6;
+                        matchedTerms += 1;
+                    } else if ([...product.searchWords].some(function (word) { return word.indexOf(token) === 0; })) {
+                        score += 4;
+                        matchedTerms += 1;
+                    } else if (product.searchBlob.includes(token)) {
+                        score += 2;
+                        matchedTerms += 1;
                     }
                 });
-            }, observerOptions);
 
-            // Observe feature cards
-            const featureCards = document.querySelectorAll('.feature-card');
-            featureCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
-            });
+                if (tokens.length > 1 && matchedTerms < Math.ceil(tokens.length * 0.6) && !product.searchBlob.includes(normalizedQuery)) {
+                    return 0;
+                }
 
-            // Add keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                // Escape key closes mobile menu
-                if (e.key === 'Escape' && navCheck) {
-                    navCheck.checked = false;
+                return score;
+            }
+
+            function getOrderHref(product) {
+                return ORDER_PAGE + "?product=" + encodeURIComponent(product.title) + "&price=" + encodeURIComponent(product.price);
+            }
+
+            function getDiscount(product) {
+                return product.discountPercent > 0 ? product.discountPercent + "%" : "0%";
+            }
+
+            function getVisualMarkup(product) {
+                if (product.visual.type === "image") {
+                    return "<img src=\"" + product.visual.src + "\" alt=\"" + product.visual.alt + "\" loading=\"lazy\" decoding=\"async\">";
+                }
+
+                return "<div class=\"thumb-fallback\" aria-hidden=\"true\">" + product.visual.value + "</div>";
+            }
+
+            function renderProducts(list) {
+                resultCount.textContent = String(list.length);
+
+                if (!list.length) {
+                    productGrid.innerHTML = "";
+                    noResults.hidden = false;
+                    return;
+                }
+
+                noResults.hidden = true;
+                productGrid.innerHTML = list.map(function (product) {
+                    return [
+                        "<article class=\"product-card\" role=\"listitem\" aria-label=\"" + product.title + "\">",
+                        "<div class=\"product-thumb\">",
+                        "<span class=\"product-badge\">" + product.badge + "</span>",
+                        "<span class=\"product-group\">" + product.group + "</span>",
+                        getVisualMarkup(product),
+                        "</div>",
+                        "<div class=\"product-copy\">",
+                        "<h2 class=\"product-title\">" + product.title + "</h2>",
+                        "<div class=\"product-type\">" + product.type + "</div>",
+                        "</div>",
+                        "<div class=\"price-grid\">",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Price</span><span class=\"price-value\">" + formatCurrency(product.originalPrice) + "</span></div>",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Off</span><span class=\"price-value\">" + getDiscount(product) + "</span></div>",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Sell</span><span class=\"price-value is-accent\">" + formatCurrency(product.price) + "</span></div>",
+                        "</div>",
+                        "<div class=\"card-actions\">",
+                        "<button class=\"action-btn\" type=\"button\" data-details-id=\"" + product.id + "\">Details</button>",
+                        "<a class=\"action-btn action-btn--primary\" href=\"" + getOrderHref(product) + "\">GIVE ORDER</a>",
+                        "</div>",
+                        "</article>"
+                    ].join("");
+                }).join("");
+            }
+
+            function openModal(productId) {
+                const product = indexedProducts.find(function (item) {
+                    return item.id === productId;
+                });
+
+                if (!product) {
+                    return;
+                }
+
+                lastFocusedElement = document.activeElement;
+                modalPill.textContent = product.group + " Product";
+                modalTitle.textContent = product.title;
+                modalSummary.textContent = product.summary;
+                modalPrice.textContent = "Price " + formatCurrency(product.originalPrice) + " | Discount " + getDiscount(product) + " | Sell " + formatCurrency(product.price);
+                modalBody.innerHTML = product.detailHtml;
+                modalFooterNote.textContent = "Details stays first and GIVE ORDER sends " + product.title + " with the sell price into the order form.";
+                modalAction.href = getOrderHref(product);
+                detailsModal.classList.add("is-open");
+                detailsModal.setAttribute("aria-hidden", "false");
+                document.body.classList.add("modal-open");
+            }
+
+            function closeModal() {
+                detailsModal.classList.remove("is-open");
+                detailsModal.setAttribute("aria-hidden", "true");
+                document.body.classList.remove("modal-open");
+
+                if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+                    lastFocusedElement.focus();
+                }
+            }
+
+            function filterProducts(query) {
+                const normalizedQuery = normalizeText(query);
+
+                if (!normalizedQuery) {
+                    renderProducts(indexedProducts);
+                    return;
+                }
+
+                const filtered = indexedProducts
+                    .map(function (product) {
+                        return {
+                            product: product,
+                            score: scoreProduct(product, normalizedQuery)
+                        };
+                    })
+                    .filter(function (entry) {
+                        return entry.score > 0;
+                    })
+                    .sort(function (left, right) {
+                        return right.score - left.score || left.product.price - right.product.price || left.product.title.localeCompare(right.product.title);
+                    })
+                    .map(function (entry) {
+                        return entry.product;
+                    });
+
+                renderProducts(filtered);
+            }
+
+            productGrid.addEventListener("click", function (event) {
+                const detailButton = event.target.closest("[data-details-id]");
+                if (detailButton) {
+                    openModal(detailButton.getAttribute("data-details-id"));
                 }
             });
 
-            // Add page load animation
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-
-            // Check if we're on a local file system and warn about links
-            if (window.location.protocol === 'file:') {
-                console.warn('⚠️  WARNING: You are viewing this site as a local file. Links may not work properly. Please use a local server (see DEVELOPMENT.md)');
-                
-                // Add visual warning for development
-                const warning = document.createElement('div');
-                warning.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    background: #ff6f6f;
-                    color: white;
-                    text-align: center;
-                    padding: 10px;
-                    font-size: 14px;
-                    z-index: 10000;
-                    font-family: var(--font-body);
-                `;
-                warning.innerHTML = '⚠️ Development Mode: Use <code>start-server.bat</code> for proper functionality';
-                document.body.insertBefore(warning, document.body.firstChild);
-            }
-        });
-
-        // Error handling for broken links
-        window.addEventListener('error', function(e) {
-            if (e.target.tagName === 'LINK' || e.target.tagName === 'SCRIPT') {
-                console.warn('Resource failed to load:', e.target.src || e.target.href);
-            }
-        });
-
-        // Service worker registration (for future PWA features)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Will add service worker later for offline functionality
+            searchInput.addEventListener("input", function (event) {
+                filterProducts(event.target.value);
             });
-        }
+
+            modalClose.addEventListener("click", closeModal);
+
+            detailsModal.addEventListener("click", function (event) {
+                if (event.target === detailsModal) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && detailsModal.classList.contains("is-open")) {
+                    closeModal();
+                }
+            });
+
+            renderProducts(indexedProducts);
+        })();
     </script>
+
     <a class="help-fab" href="https://youtu.be/wXGXQgKTCQI" target="_blank" rel="noopener noreferrer" aria-label="Open the help video on YouTube">
         <span class="help-fab__label">Help</span>
         <span class="help-fab__button" aria-hidden="true">&#129302;</span>

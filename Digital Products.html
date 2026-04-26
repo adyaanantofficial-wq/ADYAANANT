@@ -3,1655 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Shop premium Discord bots, combo packs, and custom digital builds from ADYAANANT.">
-    <meta name="theme-color" content="#111827">
+    <meta name="description" content="Browse ADYAANANT digital products with compact cards, sensitive search, and direct order flow.">
+    <meta name="theme-color" content="#15803d">
     <title>Digital Products | ADYAANANT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="catalog-store.css">
     <link rel="stylesheet" href="help-widget.css">
-    <style>
-        :root {
-            --bg-main: #f4f5f7;
-            --bg-soft: #fff8ef;
-            --surface: rgba(255, 255, 255, 0.92);
-            --surface-strong: #ffffff;
-            --surface-dark: #101826;
-            --text-main: #151821;
-            --text-muted: #5c6576;
-            --text-soft: #8790a3;
-            --border: rgba(17, 24, 39, 0.09);
-            --brand: #ffb547;
-            --brand-deep: #f08a00;
-            --brand-soft: rgba(255, 181, 71, 0.16);
-            --accent: #1c4f88;
-            --accent-soft: rgba(28, 79, 136, 0.12);
-            --success: #0f9d77;
-            --danger: #d14c4c;
-            --shadow-sm: 0 12px 30px rgba(16, 24, 38, 0.06);
-            --shadow-md: 0 22px 50px rgba(16, 24, 38, 0.12);
-            --shadow-lg: 0 32px 80px rgba(16, 24, 38, 0.18);
-            --radius-lg: 28px;
-            --radius-md: 20px;
-            --radius-sm: 14px;
-            --transition: 220ms ease;
-            --font-display: "Space Grotesk", sans-serif;
-            --font-body: "Manrope", sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: var(--font-body);
-            color: var(--text-main);
-            background:
-                radial-gradient(circle at top left, rgba(255, 181, 71, 0.18), transparent 26%),
-                radial-gradient(circle at top right, rgba(28, 79, 136, 0.12), transparent 22%),
-                linear-gradient(180deg, #fffaf3 0%, #f4f5f7 28%, #eef2f7 100%);
-        }
-
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button,
-        input {
-            font: inherit;
-        }
-
-        .page-shell {
-            width: min(1380px, calc(100% - 32px));
-            margin: 0 auto;
-        }
-
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(18px);
-            background: rgba(16, 24, 38, 0.88);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
-        }
-
-        .nav-shell {
-            min-height: 88px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-        }
-
-        .nav-brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
-        }
-
-        .nav-logo {
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            object-fit: cover;
-            box-shadow: 0 10px 24px rgba(255, 181, 71, 0.18);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .brand-copy {
-            display: grid;
-            gap: 2px;
-        }
-
-        .brand-eyebrow {
-            font-size: 0.76rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.58);
-        }
-
-        .brand-title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.03em;
-        }
-
-        .menu-toggle {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.06);
-            color: #ffffff;
-            cursor: pointer;
-            transition: transform var(--transition), background var(--transition);
-        }
-
-        .menu-toggle:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-1px);
-        }
-
-        .menu-icon {
-            position: relative;
-            width: 18px;
-            height: 2px;
-            background: currentColor;
-            border-radius: 999px;
-        }
-
-        .menu-icon::before,
-        .menu-icon::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            width: 18px;
-            height: 2px;
-            background: currentColor;
-            border-radius: 999px;
-        }
-
-        .menu-icon::before {
-            top: -6px;
-        }
-
-        .menu-icon::after {
-            top: 6px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 46px;
-            padding: 0 18px;
-            border-radius: 999px;
-            color: rgba(255, 255, 255, 0.88);
-            font-weight: 600;
-            transition: color var(--transition), background var(--transition), transform var(--transition);
-        }
-
-        .nav-links a:hover,
-        .nav-links a:focus-visible,
-        .nav-links a.is-active {
-            color: #111827;
-            background: linear-gradient(135deg, var(--brand), #ffd37b);
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        .hero {
-            padding: 42px 0 22px;
-        }
-
-        .hero-panel {
-            position: relative;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
-            gap: 28px;
-            padding: 42px;
-            background:
-                linear-gradient(135deg, rgba(16, 24, 38, 0.96), rgba(16, 24, 38, 0.88)),
-                linear-gradient(135deg, rgba(255, 181, 71, 0.16), rgba(28, 79, 136, 0.2));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 34px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero-panel::before,
-        .hero-panel::after {
-            content: "";
-            position: absolute;
-            border-radius: 999px;
-            filter: blur(6px);
-        }
-
-        .hero-panel::before {
-            width: 220px;
-            height: 220px;
-            right: -60px;
-            top: -40px;
-            background: rgba(255, 181, 71, 0.16);
-        }
-
-        .hero-panel::after {
-            width: 170px;
-            height: 170px;
-            left: 48%;
-            bottom: -80px;
-            background: rgba(28, 79, 136, 0.18);
-        }
-
-        .hero-copy,
-        .hero-aside {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-copy {
-            display: grid;
-            gap: 20px;
-            align-content: center;
-        }
-
-        .hero-kicker {
-            width: fit-content;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            color: #ffe6b7;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
-
-        .hero-copy h1 {
-            max-width: 13ch;
-            font-family: var(--font-display);
-            font-size: clamp(2.35rem, 4vw, 4.25rem);
-            line-height: 1.02;
-            letter-spacing: -0.05em;
-            color: #ffffff;
-        }
-
-        .hero-copy p {
-            max-width: 62ch;
-            color: rgba(255, 255, 255, 0.74);
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        .hero-highlights {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .hero-highlights span {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            min-height: 42px;
-            padding: 0 16px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.09);
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .hero-aside {
-            display: grid;
-            gap: 14px;
-            align-content: center;
-        }
-
-        .insight-card {
-            padding: 22px 22px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: 24px;
-            color: #ffffff;
-        }
-
-        .insight-value {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 2rem;
-            margin-bottom: 8px;
-            color: #ffd891;
-        }
-
-        .insight-card p {
-            color: rgba(255, 255, 255, 0.74);
-            line-height: 1.7;
-        }
-
-        .toolbar {
-            margin-top: 28px;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .search-shell {
-            position: relative;
-        }
-
-        .search-icon {
-            position: absolute;
-            top: 50%;
-            left: 22px;
-            transform: translateY(-50%);
-            font-size: 1.08rem;
-            color: var(--text-soft);
-            pointer-events: none;
-        }
-
-        #searchInput {
-            width: 100%;
-            min-height: 68px;
-            padding: 0 24px 0 58px;
-            border: 1px solid rgba(17, 24, 39, 0.08);
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.88);
-            box-shadow: var(--shadow-sm);
-            color: var(--text-main);
-            font-size: 1.05rem;
-            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
-        }
-
-        #searchInput:focus {
-            outline: none;
-            border-color: rgba(240, 138, 0, 0.32);
-            box-shadow: 0 0 0 5px rgba(255, 181, 71, 0.16), var(--shadow-sm);
-            transform: translateY(-1px);
-        }
-
-        .result-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            min-height: 68px;
-            padding: 0 24px;
-            border-radius: 24px;
-            background: rgba(16, 24, 38, 0.94);
-            color: #ffffff;
-            box-shadow: var(--shadow-md);
-            font-weight: 700;
-        }
-
-        .catalog {
-            padding: 24px 0 76px;
-        }
-
-        .catalog-head {
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .catalog-title-group {
-            display: grid;
-            gap: 8px;
-        }
-
-        .catalog-eyebrow {
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-size: 0.8rem;
-            font-weight: 800;
-        }
-
-        .catalog-head h2 {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 2vw, 2.6rem);
-            letter-spacing: -0.04em;
-        }
-
-        .catalog-head p {
-            color: var(--text-muted);
-            max-width: 58ch;
-            line-height: 1.8;
-        }
-
-        .catalog-note {
-            padding: 16px 18px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(17, 24, 39, 0.07);
-            color: var(--text-muted);
-            font-weight: 600;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 26px;
-        }
-
-        .product-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-height: 100%;
-            overflow: hidden;
-            border-radius: var(--radius-lg);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9));
-            border: 1px solid rgba(17, 24, 39, 0.08);
-            box-shadow: var(--shadow-sm);
-            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-        }
-
-        .product-card:hover,
-        .product-card:focus-within {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
-            border-color: rgba(240, 138, 0, 0.2);
-        }
-
-        .product-media {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 250px;
-            padding: 22px;
-            background:
-                radial-gradient(circle at top right, rgba(255, 181, 71, 0.2), transparent 30%),
-                linear-gradient(160deg, #fef8ed 0%, #eef3fb 100%);
-            border-bottom: 1px solid rgba(17, 24, 39, 0.06);
-            overflow: hidden;
-        }
-
-        .product-media::after {
-            content: "";
-            position: absolute;
-            inset: auto -32px -64px auto;
-            width: 160px;
-            height: 160px;
-            border-radius: 999px;
-            background: rgba(28, 79, 136, 0.08);
-        }
-
-        .product-media img {
-            position: relative;
-            z-index: 1;
-            width: min(100%, 260px);
-            height: 220px;
-            object-fit: cover;
-            border-radius: 24px;
-            box-shadow: 0 18px 40px rgba(16, 24, 38, 0.16);
-        }
-
-        .emoji-hero {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            place-items: center;
-            width: 132px;
-            height: 132px;
-            border-radius: 36px;
-            font-size: 4.8rem;
-            background: linear-gradient(135deg, #111827, #22324f);
-            box-shadow: 0 24px 48px rgba(16, 24, 38, 0.22);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 18px;
-            left: 18px;
-            z-index: 2;
-            display: inline-flex;
-            align-items: center;
-            min-height: 34px;
-            padding: 0 14px;
-            border-radius: 999px;
-            background: rgba(16, 24, 38, 0.88);
-            color: #ffffff;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-
-        .product-body {
-            display: grid;
-            gap: 14px;
-            padding: 24px;
-            flex: 1;
-        }
-
-        .product-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent);
-            font-size: 0.8rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .product-title {
-            font-family: var(--font-display);
-            font-size: 1.45rem;
-            line-height: 1.15;
-            letter-spacing: -0.04em;
-        }
-
-        .product-summary {
-            color: var(--text-muted);
-            line-height: 1.75;
-        }
-
-        .product-features {
-            display: grid;
-            gap: 10px;
-            list-style: none;
-        }
-
-        .product-features li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--text-main);
-            line-height: 1.6;
-            font-weight: 600;
-        }
-
-        .product-features li::before {
-            content: "•";
-            color: var(--brand-deep);
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-
-        .product-footer {
-            margin-top: auto;
-            display: grid;
-            gap: 16px;
-        }
-
-        .product-price-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 16px 18px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, rgba(255, 181, 71, 0.14), rgba(28, 79, 136, 0.08));
-        }
-
-        .product-price {
-            font-family: var(--font-display);
-            font-size: 1.7rem;
-            letter-spacing: -0.05em;
-        }
-
-        .product-price-note {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .action-stack {
-            display: grid;
-            gap: 10px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            min-height: 54px;
-            padding: 0 18px;
-            border: 0;
-            border-radius: 18px;
-            cursor: pointer;
-            font-weight: 800;
-            letter-spacing: 0.01em;
-            transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
-        }
-
-        .btn:hover,
-        .btn:focus-visible {
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        .btn-secondary {
-            background: rgba(17, 24, 39, 0.06);
-            color: var(--text-main);
-            border: 1px solid rgba(17, 24, 39, 0.08);
-        }
-
-        .btn-secondary:hover,
-        .btn-secondary:focus-visible {
-            background: rgba(17, 24, 39, 0.09);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--brand-deep), var(--brand));
-            color: #111827;
-            box-shadow: 0 14px 28px rgba(240, 138, 0, 0.22);
-        }
-
-        .btn-primary:hover,
-        .btn-primary:focus-visible {
-            box-shadow: 0 18px 36px rgba(240, 138, 0, 0.28);
-        }
-
-        .btn-contact {
-            background: linear-gradient(135deg, #111827, #233654);
-            color: #ffffff;
-            box-shadow: 0 14px 28px rgba(17, 24, 39, 0.2);
-        }
-
-        .btn-contact:hover,
-        .btn-contact:focus-visible {
-            box-shadow: 0 18px 38px rgba(17, 24, 39, 0.28);
-        }
-
-        .no-results {
-            display: grid;
-            place-items: center;
-            gap: 12px;
-            padding: 72px 24px;
-            border-radius: 28px;
-            background: rgba(255, 255, 255, 0.76);
-            border: 1px dashed rgba(17, 24, 39, 0.12);
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-        }
-
-        .no-results[hidden] {
-            display: none;
-        }
-
-        .no-results h3 {
-            font-family: var(--font-display);
-            font-size: 1.55rem;
-        }
-
-        .no-results p {
-            max-width: 40ch;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        .footer {
-            padding: 0 0 42px;
-        }
-
-        .footer-card {
-            display: grid;
-            gap: 14px;
-            padding: 28px;
-            border-radius: 30px;
-            background: #101826;
-            color: rgba(255, 255, 255, 0.72);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .footer-card strong {
-            color: #ffffff;
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            letter-spacing: -0.03em;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .footer-links a {
-            color: #ffd891;
-            font-weight: 700;
-        }
-
-        .details-modal {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgba(8, 12, 20, 0.62);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity var(--transition), visibility var(--transition);
-            z-index: 1200;
-        }
-
-        .details-modal.is-open {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        .details-dialog {
-            width: min(920px, 100%);
-            max-height: min(86vh, 920px);
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 252, 0.98));
-            border: 1px solid rgba(17, 24, 39, 0.08);
-            border-radius: 32px;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            transform: translateY(18px) scale(0.98);
-            transition: transform var(--transition);
-        }
-
-        .details-modal.is-open .details-dialog {
-            transform: translateY(0) scale(1);
-        }
-
-        .modal-topbar {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 18px;
-            padding: 28px 28px 20px;
-            border-bottom: 1px solid rgba(17, 24, 39, 0.08);
-            background: linear-gradient(135deg, rgba(255, 181, 71, 0.14), rgba(28, 79, 136, 0.08));
-        }
-
-        .modal-header-copy {
-            display: grid;
-            gap: 10px;
-        }
-
-        .modal-pill {
-            width: fit-content;
-            display: inline-flex;
-            align-items: center;
-            min-height: 34px;
-            padding: 0 14px;
-            border-radius: 999px;
-            background: rgba(16, 24, 38, 0.9);
-            color: #ffffff;
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .modal-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 3vw, 2.7rem);
-            line-height: 1.05;
-            letter-spacing: -0.05em;
-        }
-
-        .modal-summary {
-            color: var(--text-muted);
-            line-height: 1.8;
-            max-width: 64ch;
-        }
-
-        .modal-price {
-            font-family: var(--font-display);
-            font-size: 1.7rem;
-            color: var(--accent);
-        }
-
-        .modal-close {
-            flex: 0 0 auto;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(17, 24, 39, 0.08);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.86);
-            color: var(--text-main);
-            cursor: pointer;
-            transition: transform var(--transition), background var(--transition);
-        }
-
-        .modal-close:hover,
-        .modal-close:focus-visible {
-            background: #ffffff;
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        .modal-body {
-            overflow-y: auto;
-            padding: 0 28px 28px;
-        }
-
-        .modal-body-inner {
-            display: grid;
-            gap: 22px;
-            padding-top: 24px;
-        }
-
-        .detail-section {
-            display: grid;
-            gap: 14px;
-            padding: 22px;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.82);
-            border: 1px solid rgba(17, 24, 39, 0.07);
-        }
-
-        .detail-section h3 {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            letter-spacing: -0.04em;
-        }
-
-        .detail-section h4 {
-            font-size: 1rem;
-            color: var(--text-main);
-        }
-
-        .detail-lead,
-        .detail-section p {
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        .detail-list,
-        .detail-commands,
-        .detail-bullets {
-            display: grid;
-            gap: 12px;
-            list-style: none;
-        }
-
-        .detail-list li,
-        .detail-commands li,
-        .detail-bullets li {
-            padding: 14px 16px;
-            border-radius: 18px;
-            background: rgba(17, 24, 39, 0.04);
-            border: 1px solid rgba(17, 24, 39, 0.05);
-            color: var(--text-main);
-            line-height: 1.7;
-        }
-
-        .detail-list strong,
-        .detail-commands strong,
-        .detail-bullets strong {
-            display: block;
-            margin-bottom: 4px;
-            color: var(--text-main);
-        }
-
-        .detail-commands code {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 10px;
-            background: rgba(28, 79, 136, 0.1);
-            color: var(--accent);
-            font-weight: 800;
-            font-size: 0.94rem;
-        }
-
-        .detail-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 22px 28px 28px;
-            border-top: 1px solid rgba(17, 24, 39, 0.08);
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        .detail-footer-note {
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        .modal-action {
-            width: auto;
-            min-width: 190px;
-        }
-
-        @media (max-width: 1024px) {
-            .hero-panel {
-                grid-template-columns: 1fr;
-            }
-
-            .catalog-head {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        @media (max-width: 860px) {
-            .page-shell {
-                width: min(100% - 24px, 1380px);
-            }
-
-            .nav-shell {
-                position: relative;
-                min-height: 78px;
-            }
-
-            .menu-toggle {
-                display: inline-flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: calc(100% + 12px);
-                left: 0;
-                right: 0;
-                display: none;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-                padding: 14px;
-                border-radius: 22px;
-                background: rgba(16, 24, 38, 0.97);
-                box-shadow: var(--shadow-lg);
-            }
-
-            .nav-links.is-open {
-                display: flex;
-            }
-
-            .nav-links a {
-                justify-content: flex-start;
-                min-height: 52px;
-            }
-
-            .hero-panel {
-                padding: 28px 22px;
-                border-radius: 28px;
-            }
-
-            .toolbar {
-                grid-template-columns: 1fr;
-            }
-
-            .result-badge {
-                justify-content: flex-start;
-            }
-
-            .detail-footer {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .modal-action {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .hero {
-                padding-top: 22px;
-            }
-
-            .hero-copy h1 {
-                max-width: none;
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .product-media {
-                min-height: 220px;
-            }
-
-            .product-body {
-                padding: 20px;
-            }
-
-            .details-modal {
-                padding: 14px;
-            }
-
-            .details-dialog {
-                max-height: 92vh;
-                border-radius: 26px;
-            }
-
-            .modal-topbar,
-            .modal-body,
-            .detail-footer {
-                padding-left: 18px;
-                padding-right: 18px;
-            }
-
-            .modal-topbar {
-                padding-top: 18px;
-                padding-bottom: 16px;
-            }
-
-            .detail-section {
-                padding: 18px;
-                border-radius: 20px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <nav class="navbar" aria-label="Primary">
-        <div class="page-shell nav-shell">
-            <a href="index.html" class="nav-brand" aria-label="ADYAANANT Home">
-                <img src="logo.png" alt="ADYAANANT logo" class="nav-logo">
-                <span class="brand-copy">
-                    <span class="brand-eyebrow">Premium Store</span>
-                    <span class="brand-title">ADYAANANT</span>
+    <nav class="store-nav" aria-label="Primary navigation">
+        <div class="store-page store-nav__inner">
+            <a class="store-brand" href="index.html">
+                <img class="store-brand__logo" src="logo.png" alt="ADYAANANT logo">
+                <span class="store-brand__copy">
+                    <span class="store-brand__eyebrow">ADYAANANT</span>
+                    <span class="store-brand__title">Digital Products</span>
                 </span>
             </a>
 
-            <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation menu">
-                <span class="menu-icon" aria-hidden="true"></span>
-            </button>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="ABOUT US.html">About Us</a></li>
-                <li><a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a></li>
-                <li><a href="shop.html" class="is-active">Shop</a></li>
-            </ul>
+            <div class="store-nav__links">
+                <a href="index.html">Home</a>
+                <a class="is-active" href="Digital Products.html">Digital Products</a>
+                <a href="Real Products.html">Real Products</a>
+                <a href="order.html">Order</a>
+            </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="page-shell">
-            <section class="hero-panel" aria-labelledby="heroTitle">
-                <div class="hero-copy">
-                    <span class="hero-kicker">Live Catalog • Digital Delivery</span>
-                    <h1 id="heroTitle">Premium bots, combo packs, and custom builds.</h1>
-                    <p>
-                        Explore ready-to-buy Discord products, command-driven study tools, and on-demand custom development.
-                        This storefront keeps everything easy to compare, easy to open, and ready for fast action.
-                    </p>
-
-                    <div class="hero-highlights" aria-label="Store highlights">
-                        <span>⚡ Instant products</span>
-                        <span>🛡️ Security-first setups</span>
-                        <span>🎯 Custom work on demand</span>
-                    </div>
-                </div>
-
-                <div class="hero-aside" aria-label="Store insights">
-                    <article class="insight-card">
-                        <span class="insight-value">6</span>
-                        <p>Curated products and services, split between instant delivery items and custom project work.</p>
-                    </article>
-                    <article class="insight-card">
-                        <span class="insight-value">24/7</span>
-                        <p>Search, compare details, and jump straight to the order form from the same product card.</p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="toolbar" aria-label="Catalog tools">
-                <div class="search-shell">
-                    <span class="search-icon" aria-hidden="true">🔎</span>
+    <main class="store-page store-main">
+        <section class="store-toolbar">
+            <div class="search-card">
+                <div class="search-wrap">
+                    <span class="search-icon" aria-hidden="true">&#128269;</span>
                     <input
-                        type="search"
+                        class="search-input"
                         id="searchInput"
-                        placeholder="Search digital products, bots, combos, and custom services..."
+                        type="search"
+                        placeholder="Search digital products, bots, combos, books, websites, or web apps..."
                         aria-label="Search digital products"
                         autocomplete="off">
                 </div>
-                <div class="result-badge">
-                    <span>Items Live</span>
-                    <strong id="resultCount">6</strong>
-                </div>
-            </section>
-        </div>
-    </header>
 
-    <main class="catalog">
-        <div class="page-shell">
-            <section class="catalog-head">
-                <div class="catalog-title-group">
-                    <span class="catalog-eyebrow">Digital Storefront</span>
-                    <h2>Browse the full ADYAANANT catalog</h2>
-                    <p>Every card includes a dedicated details popup above the main action button, so visitors can review features before they place the order.</p>
-                </div>
-                <div class="catalog-note">Details first. GIVE ORDER second. Clean and fully functional.</div>
-            </section>
+                <div class="toolbar-meta">
+                    <div class="toolbar-copy">
+                        <span class="toolbar-eyebrow">Digital Search</span>
+                        <p>Search is sensitive across product names, features, keywords, and details for every digital item in this page.</p>
+                    </div>
 
-            <section aria-label="Digital products list">
-                <div id="productGrid" class="product-grid" role="list"></div>
-                <div id="noResults" class="no-results" hidden>
-                    <h3>No matching product found</h3>
-                    <p>Try searching for terms like <strong>Legend</strong>, <strong>Firewall</strong>, <strong>Custom</strong>, or <strong>Website</strong>.</p>
+                    <div class="result-pill">
+                        <span>Digital Items</span>
+                        <strong id="resultCount">0</strong>
+                    </div>
                 </div>
-            </section>
-        </div>
+            </div>
+
+            <div class="category-strip" aria-label="Catalog pages">
+                <a class="category-link" href="index.html">
+                    <span class="category-link__icon">AP</span>
+                    <span>All Products</span>
+                </a>
+                <a class="category-link is-active" href="Digital Products.html">
+                    <span class="category-link__icon">DG</span>
+                    <span>Digital Products</span>
+                </a>
+                <a class="category-link" href="Real Products.html">
+                    <span class="category-link__icon">RL</span>
+                    <span>Real Products</span>
+                </a>
+                <a class="category-link" href="STUDY.html">
+                    <span class="category-link__icon">ST</span>
+                    <span>Study</span>
+                </a>
+                <a class="category-link" href="sci3D.html">
+                    <span class="category-link__icon">3D</span>
+                    <span>Sci3D</span>
+                </a>
+                <a class="category-link" href="news.html">
+                    <span class="category-link__icon">NW</span>
+                    <span>News</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <div class="section-head">
+                <div class="section-copy">
+                    <span class="section-kicker">Digital Catalog</span>
+                    <h1 class="section-title">Compact digital product cards with Details first and GIVE ORDER second.</h1>
+                    <p>The large hero and extra catalog banner are removed. This page now focuses directly on the searchable product grid in the requested 5, 4, and 3 card layout.</p>
+                </div>
+            </div>
+
+            <div id="productGrid" class="product-grid" role="list"></div>
+            <div id="noResults" class="no-results" hidden>
+                <h3>No matching product found</h3>
+                <p>Try searching for Legend, Ronald, bot, combo, website, app, or study.</p>
+            </div>
+        </section>
     </main>
 
-    <footer class="footer">
-        <div class="page-shell">
-            <div class="footer-card">
-                <strong>ADYAANANT Digital Products</strong>
-                <p>Professional digital product storefront with a consistent GIVE ORDER flow for instant products and custom builds.</p>
-                <div class="footer-links">
-                    <a href="contact.html">Contact</a>
-                    <a href="ABOUT US.html">About Us</a>
-                    <a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a>
-                    <a href="shop.html">Shop Categories</a>
-                </div>
+    <footer class="store-page store-footer">
+        <div class="store-footer__card">
+            <strong>ADYAANANT Digital Catalog</strong>
+            <p>Every digital product keeps the previous details and order behavior while using the new compact storefront layout.</p>
+            <div class="store-footer__links">
+                <a href="index.html">All Products</a>
+                <a href="Real Products.html">Real Products</a>
+                <a href="contact.html">Contact</a>
+                <a href="shop.html">Shop Categories</a>
             </div>
         </div>
     </footer>
 
     <div class="details-modal" id="detailsModal" aria-hidden="true">
         <div class="details-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-            <div class="modal-topbar">
-                <div class="modal-header-copy">
+            <div class="details-header">
+                <div class="details-header__copy">
                     <span class="modal-pill" id="modalPill">Product Details</span>
-                    <h2 class="modal-title" id="modalTitle">Product Title</h2>
-                    <p class="modal-summary" id="modalSummary"></p>
-                    <div class="modal-price" id="modalPrice"></div>
+                    <h2 class="details-title" id="modalTitle">Product Title</h2>
+                    <p class="details-summary" id="modalSummary"></p>
+                    <p class="details-price" id="modalPrice"></p>
                 </div>
-                <button class="modal-close" id="modalClose" type="button" aria-label="Close details modal">✕</button>
+                <button class="modal-close" id="modalClose" type="button" aria-label="Close details modal">X</button>
             </div>
 
             <div class="modal-body">
-                <div class="modal-body-inner" id="modalBody"></div>
+                <div id="modalBody"></div>
             </div>
 
-            <div class="detail-footer">
+            <div class="details-footer">
                 <p class="detail-footer-note" id="modalFooterNote"></p>
-                <a href="order.html" class="btn btn-primary modal-action" id="modalAction">GIVE ORDER</a>
+                <a class="action-btn action-btn--primary" id="modalAction" href="order.html">GIVE ORDER</a>
             </div>
         </div>
     </div>
 
+    <script src="catalog-data.js"></script>
     <script>
-        const ORDER_PAGE = "order.html";
-        const imageFallback = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='480' viewBox='0 0 640 480'%3E%3Crect width='640' height='480' fill='%23edf1f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235c6576' font-family='Arial, sans-serif' font-size='28'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+        (function () {
+            const ORDER_PAGE = "order.html";
+            const products = window.ADYAANANT_CATALOG.digitalProducts.slice();
 
-        const products = [
-            {
-                id: "legend-star-bot",
-                slug: "legend-star-bot",
-                title: "Legend Star Bot",
-                type: "Discord Security Bot",
-                badge: "Best Seller",
-                price: 100,
-                priceLabel: "Instant delivery",
-                summary: "A premium protection and control bot with a full firewall matrix, moderation response layers, study commands, and temp voice automation.",
-                features: [
-                    "12 active firewall layers for server defense",
-                    "Important commands for study and activity tracking",
-                    "Advanced temp voice channel creation and control"
-                ],
-                keywords: ["legend", "star", "bot", "firewall", "security", "commands", "temp voice", "discord"],
-                visual: {
-                    type: "image",
-                    src: "legendstar.png",
-                    alt: "Legend Star Bot artwork"
-                },
-                action: {
-                    type: "order",
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the order form with the product name and price already filled in for fast WhatsApp confirmation.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>DEFENSE FIREWALL MATRIX</h3>
-                        <p class="detail-lead">Individual Protection Layers (Active)</p>
-                        <ul class="detail-list">
-                            <li><strong>🧱 Layer 1 — Anti-Spam Firewall</strong> Instantly crushes message floods, fast spam, and repeated text attacks.</li>
-                            <li><strong>🧱 Layer 2 — Anti-Ping Firewall</strong> Neutralizes @everyone, @here, and mass-mention abuse before it spreads.</li>
-                            <li><strong>🧱 Layer 3 — Anti-Raid Firewall</strong> Detects sudden join waves and activity spikes. Raids end at the gate.</li>
-                            <li><strong>🧱 Layer 4 — Anti-Bot Firewall</strong> Blocks unauthorized and shadow bots. Only trusted machines may enter.</li>
-                            <li><strong>🧱 Layer 5 — Anti-Webhook Firewall</strong> Hunts and destroys ghost webhooks and hidden backdoors in real time.</li>
-                            <li><strong>🧱 Layer 6 — Anti-Nuke Firewall</strong> Stops channel wipes, role destruction, and ban-abuse instantly.</li>
-                            <li><strong>🧱 Layer 7 — Malware Protection Firewall</strong> Eliminates dangerous files (.exe, .bat, .msi, etc.) on detection.</li>
-                            <li><strong>🧱 Layer 8 — Auto-Recovery Firewall</strong> Rebuilds destroyed channels automatically. Damage is reversed in moments.</li>
-                            <li><strong>🧱 Layer 9 — Emergency Lockdown Firewall</strong> If a threat resists removal, the entire server freezes instantly.</li>
-                            <li><strong>🧱 Layer 10 — Human-Error Control Firewall</strong> Smart strike system: warning, timeout, then permanent ban.</li>
-                            <li><strong>🧱 Layer 11 — VC Abuse Firewall</strong> Shuts down voice-channel hopping and join/leave disruption.</li>
-                            <li><strong>🧱 Layer 12 — Audit-Log Monitoring Firewall</strong> Watches admin actions constantly. Betrayal leaves no trace unnoticed.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>FINAL SECURITY STATUS</h3>
-                        <ul class="detail-bullets">
-                            <li><strong>🛡️ Total Active Firewall Layers: 12</strong> Full stack protection remains active across the server.</li>
-                            <li><strong>⚔️ Mode: Zero-Trust | Always Watching | Instant Response</strong> Every action is monitored. Every threat is isolated. Every attack ends here.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>ALL IMPORTANT COMMANDS</h3>
-                        <ul class="detail-commands">
-                            <li><strong><code>/rank</code></strong> Show your rank in VC.</li>
-                            <li><strong><code>/mystatus</code></strong> Your daily study time count for cam off or cam on with LegendBot.</li>
-                            <li><strong><code>/lb</code></strong> Show the top 10 students for cam off or cam on with LegendBot.</li>
-                            <li><strong><code>/ylb</code></strong> Yesterday leaderboard with LegendBot.</li>
-                            <li><strong><code>/yst</code></strong> Your previous day study time count for cam off or cam on with LegendBot.</li>
-                            <li><strong><code>/afk</code></strong> Set and manage AFK status with Dyno.</li>
-                            <li><strong><code>/my-stats</code></strong> Your full daily detailed status with VoiceVisor.</li>
-                            <li><strong><code>/stats user</code></strong> Full growth view with graphical representation through Statbot.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>ADVANCED TEMP VOICE SYSTEM</h3>
-                        <p class="detail-lead">Powered by LEGEND STAR. Create, control, and dominate your own voice channel.</p>
-                        <ul class="detail-bullets">
-                            <li><strong>🔊 Create Channel</strong> Join to create your VC with auto move enabled instantly.</li>
-                            <li><strong>👑 Owner Controls</strong> Lock, unlock, hide, unhide, limit, rename, permit, deny, claim, transfer, bitrate, and region controls.</li>
-                            <li><strong>⚡ Voice Commands</strong> <code>/create</code>, <code>/delete</code>, <code>/rename</code>, <code>/limit</code>, <code>/lock</code>, <code>/unlock</code>, <code>/permit</code>, and <code>/deny</code>.</li>
-                            <li><strong>🤖 Auto System</strong> Instant VC creation, auto move, auto delete when empty, and owner-only control.</li>
-                        </ul>
-                    </section>
-                `
-            },
-            {
-                id: "legendbot",
-                slug: "legendbot",
-                title: "LegendBot",
-                type: "Study Tracker Bot",
-                badge: "New",
-                price: 30,
-                priceLabel: "Instant delivery",
-                summary: "A lightweight study-stat bot focused on daily status, leaderboards, and yesterday insights for active student communities.",
-                features: [
-                    "Daily study time tracking",
-                    "Current and yesterday leaderboard commands",
-                    "Simple command-first utility for focused servers"
-                ],
-                keywords: ["legendbot", "study", "leaderboard", "mystatus", "lb", "ylb", "yst"],
-                visual: {
-                    type: "image",
-                    src: "legendstar.png",
-                    alt: "LegendBot product artwork"
-                },
-                action: {
-                    type: "order",
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the order form with the LegendBot name and Rs 30 pricing already filled in.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>LEGENDBOT COMMAND DETAILS</h3>
-                        <p class="detail-lead">Study tracking and leaderboard essentials for cam off and cam on communities.</p>
-                        <ul class="detail-commands">
-                            <li><strong><code>/mystatus</code></strong> Your daily study time count for cam off or cam on.</li>
-                            <li><strong><code>/lb</code></strong> Show the top 10 students for cam off or cam on.</li>
-                            <li><strong><code>/ylb</code></strong> Yesterday leaderboard.</li>
-                            <li><strong><code>/yst</code></strong> Your previous day study time count for cam off or cam on.</li>
-                        </ul>
-                    </section>
-                `
-            },
-            {
-                id: "legend-meta-super-legend-combo",
-                slug: "legend-meta-super-legend-combo",
-                title: "Legend Meta + Super Legend Combo",
-                type: "Security Combo Pack",
-                badge: "Combo",
-                price: 100,
-                priceLabel: "Instant delivery",
-                summary: "A combo-focused protection package centered on the full Defense Firewall Matrix for communities that want aggressive, always-on server security.",
-                features: [
-                    "12-layer zero-trust defense stack",
-                    "Raid, nuke, malware, and webhook protection",
-                    "Fast-response security posture for high-risk servers"
-                ],
-                keywords: ["legend meta", "super legend", "combo", "firewall", "anti raid", "anti nuke", "security"],
-                visual: {
-                    type: "image",
-                    src: "legendstar.png",
-                    alt: "Legend Meta and Super Legend combo artwork"
-                },
-                action: {
-                    type: "order",
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the order form with the combo product and Rs 100 pricing already filled in.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>DEFENSE FIREWALL MATRIX</h3>
-                        <p class="detail-lead">Individual Protection Layers (Active)</p>
-                        <ul class="detail-list">
-                            <li><strong>🧱 Layer 1 — Anti-Spam Firewall</strong> Instantly crushes message floods, fast spam, and repeated text attacks.</li>
-                            <li><strong>🧱 Layer 2 — Anti-Ping Firewall</strong> Neutralizes @everyone, @here, and mass-mention abuse before it spreads.</li>
-                            <li><strong>🧱 Layer 3 — Anti-Raid Firewall</strong> Detects sudden join waves and activity spikes. Raids end at the gate.</li>
-                            <li><strong>🧱 Layer 4 — Anti-Bot Firewall</strong> Blocks unauthorized and shadow bots. Only trusted machines may enter.</li>
-                            <li><strong>🧱 Layer 5 — Anti-Webhook Firewall</strong> Hunts and destroys ghost webhooks and hidden backdoors in real time.</li>
-                            <li><strong>🧱 Layer 6 — Anti-Nuke Firewall</strong> Stops channel wipes, role destruction, and ban-abuse instantly.</li>
-                            <li><strong>🧱 Layer 7 — Malware Protection Firewall</strong> Eliminates dangerous files (.exe, .bat, .msi, etc.) on detection.</li>
-                            <li><strong>🧱 Layer 8 — Auto-Recovery Firewall</strong> Rebuilds destroyed channels automatically. Damage is reversed in moments.</li>
-                            <li><strong>🧱 Layer 9 — Emergency Lockdown Firewall</strong> If a threat resists removal, the entire server freezes instantly.</li>
-                            <li><strong>🧱 Layer 10 — Human-Error Control Firewall</strong> Smart strike system: warning, timeout, then permanent ban.</li>
-                            <li><strong>🧱 Layer 11 — VC Abuse Firewall</strong> Shuts down voice-channel hopping and join/leave disruption.</li>
-                            <li><strong>🧱 Layer 12 — Audit-Log Monitoring Firewall</strong> Watches admin actions constantly. Betrayal leaves no trace unnoticed.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>FINAL SECURITY STATUS</h3>
-                        <ul class="detail-bullets">
-                            <li><strong>🛡️ Total Active Firewall Layers: 12</strong> Every action is monitored. Every threat is isolated.</li>
-                            <li><strong>⚔️ Mode: Zero-Trust | Always Watching | Instant Response</strong> Built for communities that want attacks to stop at the gate.</li>
-                        </ul>
-                    </section>
-                `
-            },
-            {
-                id: "custom-bot",
-                slug: "custom-bot",
-                title: "Custom Bot",
-                type: "On-Demand Build",
-                badge: "On Demand",
-                price: 500,
-                priceLabel: "Custom quote start",
-                summary: "Need a bot built for your own workflow? Get a custom command system, moderation logic, utility tools, and tailored automation.",
-                features: [
-                    "Big custom build planning for your exact community",
-                    "Command, moderation, and automation design",
-                    "Contact-first flow for scope, features, and delivery"
-                ],
-                keywords: ["custom bot", "bot development", "discord bot", "automation", "on demand"],
-                visual: {
-                    type: "emoji",
-                    value: "🤖"
-                },
-                action: {
-                    type: "order",
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the same order form so the custom bot request can be confirmed with full customer details on WhatsApp.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>🤖 CUSTOM BOT DEVELOPMENT</h3>
-                        <p class="detail-lead">Built on demand for servers, teams, and communities that need something more specific than an off-the-shelf bot.</p>
-                        <ul class="detail-bullets">
-                            <li><strong>Tailored feature mapping</strong> We can plan moderation, ticketing, utility, leaderboard, study, or workflow-focused bot systems.</li>
-                            <li><strong>Command-first design</strong> Slash commands, permission structure, role logic, and user journeys are shaped around your needs.</li>
-                            <li><strong>Deployment support</strong> Contact flow helps define scope, budget, delivery timeline, and follow-up requirements.</li>
-                        </ul>
-                    </section>
-                `
-            },
-            {
-                id: "custom-website",
-                slug: "custom-website",
-                title: "Custom Website",
-                type: "On-Demand Build",
-                badge: "On Demand",
-                price: 1000,
-                priceLabel: "Custom quote start",
-                summary: "A branded, responsive website built around your business, portfolio, community, or product launch goals.",
-                features: [
-                    "Modern landing pages and multi-section sites",
-                    "Mobile-first layout and polished presentation",
-                    "Contact-driven custom planning and revisions"
-                ],
-                keywords: ["custom website", "web design", "landing page", "responsive site", "on demand"],
-                visual: {
-                    type: "emoji",
-                    value: "🌐"
-                },
-                action: {
-                    type: "order",
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the order form so custom website requests can be sent with complete contact and delivery details.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>🌐 CUSTOM WEBSITE DEVELOPMENT</h3>
-                        <p class="detail-lead">Professional website design and development for brands that want a cleaner, stronger digital presence.</p>
-                        <ul class="detail-bullets">
-                            <li><strong>Visual direction</strong> Layouts, branding, typography, and sections can be crafted around your niche and audience.</li>
-                            <li><strong>Responsive build</strong> Desktop and mobile presentation stays clean, intentional, and launch ready.</li>
-                            <li><strong>Project scoping</strong> Use the contact flow to discuss pages, functionality, pricing, and delivery schedule.</li>
-                        </ul>
-                    </section>
-                `
-            },
-            {
-                id: "custom-webapp",
-                slug: "custom-webapp",
-                title: "Custom WebApp",
-                type: "On-Demand Build",
-                badge: "On Demand",
-                price: 1000,
-                priceLabel: "Custom quote start",
-                summary: "For interactive tools, dashboards, admin panels, and workflow systems that need more than a static website.",
-                features: [
-                    "App-style flows, forms, and dashboards",
-                    "Practical UX for internal or customer-facing tools",
-                    "Contact-first process to plan features and timelines"
-                ],
-                keywords: ["custom webapp", "web app", "dashboard", "admin panel", "software", "on demand"],
-                visual: {
-                    type: "emoji",
-                    value: "🚀"
-                },
-                action: {
-                    type: "order",
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the order form so custom web app requests can be shared on WhatsApp with all details in one message.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>🚀 CUSTOM WEBAPP DEVELOPMENT</h3>
-                        <p class="detail-lead">Ideal for portals, dashboards, workflow tools, and application-style experiences that need real functionality.</p>
-                        <ul class="detail-bullets">
-                            <li><strong>Functional product thinking</strong> We can shape forms, roles, internal tools, dashboards, or customer-facing experiences.</li>
-                            <li><strong>Scalable structure</strong> Built with future expansion in mind, not just one static page.</li>
-                            <li><strong>Consultative contact flow</strong> Reach out first so the build can be aligned with requirements, integrations, and delivery expectations.</li>
-                        </ul>
-                    </section>
-                `
-            }
-        ];
+            const searchInput = document.getElementById("searchInput");
+            const resultCount = document.getElementById("resultCount");
+            const productGrid = document.getElementById("productGrid");
+            const noResults = document.getElementById("noResults");
+            const detailsModal = document.getElementById("detailsModal");
+            const modalPill = document.getElementById("modalPill");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalSummary = document.getElementById("modalSummary");
+            const modalPrice = document.getElementById("modalPrice");
+            const modalBody = document.getElementById("modalBody");
+            const modalAction = document.getElementById("modalAction");
+            const modalFooterNote = document.getElementById("modalFooterNote");
+            const modalClose = document.getElementById("modalClose");
+            let lastFocusedElement = null;
 
-        const searchInput = document.getElementById("searchInput");
-        const resultCount = document.getElementById("resultCount");
-        const productGrid = document.getElementById("productGrid");
-        const noResults = document.getElementById("noResults");
-        const detailsModal = document.getElementById("detailsModal");
-        const modalPill = document.getElementById("modalPill");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalSummary = document.getElementById("modalSummary");
-        const modalPrice = document.getElementById("modalPrice");
-        const modalBody = document.getElementById("modalBody");
-        const modalAction = document.getElementById("modalAction");
-        const modalFooterNote = document.getElementById("modalFooterNote");
-        const modalClose = document.getElementById("modalClose");
-        const navLinks = document.getElementById("navLinks");
-        const menuToggle = document.getElementById("menuToggle");
-        let lastFocusedElement = null;
-
-        function formatPrice(price) {
-            return `₹${price}`;
-        }
-
-        function getActionHref(product) {
-            return `${ORDER_PAGE}?product=${encodeURIComponent(product.title)}&price=${encodeURIComponent(product.price)}`;
-        }
-
-        function createVisual(product) {
-            if (product.visual.type === "image") {
-                return `<img src="${product.visual.src}" alt="${product.visual.alt}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${imageFallback}'">`;
+            function formatCurrency(value) {
+                return "Rs " + Number(value || 0);
             }
 
-            return `<div class="emoji-hero" aria-hidden="true">${product.visual.value}</div>`;
-        }
-
-        function renderProducts(list) {
-            resultCount.textContent = String(list.length);
-
-            if (!list.length) {
-                productGrid.innerHTML = "";
-                noResults.hidden = false;
-                return;
+            function normalizeText(value) {
+                return String(value || "")
+                    .toLowerCase()
+                    .normalize("NFKD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[^a-z0-9]+/g, " ")
+                    .trim();
             }
 
-            noResults.hidden = true;
-            productGrid.innerHTML = list.map((product) => `
-                <article class="product-card" role="listitem" aria-label="${product.title}">
-                    <div class="product-media">
-                        <span class="product-badge">${product.badge}</span>
-                        ${createVisual(product)}
-                    </div>
-                    <div class="product-body">
-                        <span class="product-kicker">${product.type}</span>
-                        <h3 class="product-title">${product.title}</h3>
-                        <p class="product-summary">${product.summary}</p>
-                        <ul class="product-features">
-                            ${product.features.map((feature) => `<li>${feature}</li>`).join("")}
-                        </ul>
-                        <div class="product-footer">
-                            <div class="product-price-row">
-                                <div>
-                                    <div class="product-price">${formatPrice(product.price)}</div>
-                                </div>
-                                <div class="product-price-note">${product.priceLabel}</div>
-                            </div>
-                            <div class="action-stack">
-                                <button class="btn btn-secondary" type="button" data-details-id="${product.id}">Details</button>
-                                <a class="btn btn-primary" href="${getActionHref(product)}">${product.action.label}</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            `).join("");
-        }
-
-        function openModal(productId) {
-            const product = products.find((item) => item.id === productId);
-            if (!product) {
-                return;
-            }
-
-            lastFocusedElement = document.activeElement;
-            modalPill.textContent = product.type;
-            modalTitle.textContent = product.title;
-            modalSummary.textContent = product.summary;
-            modalPrice.textContent = `${formatPrice(product.price)} • ${product.priceLabel}`;
-            modalBody.innerHTML = product.detailHtml;
-            modalAction.textContent = product.action.label;
-            modalAction.href = getActionHref(product);
-            modalAction.className = "btn modal-action btn-primary";
-            modalFooterNote.textContent = product.footerNote;
-            detailsModal.classList.add("is-open");
-            detailsModal.setAttribute("aria-hidden", "false");
-            document.body.classList.add("modal-open");
-            modalClose.focus();
-        }
-
-        function closeModal() {
-            detailsModal.classList.remove("is-open");
-            detailsModal.setAttribute("aria-hidden", "true");
-            document.body.classList.remove("modal-open");
-
-            if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
-                lastFocusedElement.focus();
-            }
-        }
-
-        function filterProducts(query) {
-            const normalizedQuery = query.trim().toLowerCase();
-
-            if (!normalizedQuery) {
-                renderProducts(products);
-                return;
-            }
-
-            const filtered = products.filter((product) => {
-                const searchFields = [
+            function getSearchBlob(product) {
+                return normalizeText([
+                    product.group,
                     product.title,
                     product.type,
                     product.summary,
                     product.features.join(" "),
                     product.keywords.join(" "),
                     product.detailHtml.replace(/<[^>]+>/g, " ")
-                ].join(" ").toLowerCase();
+                ].join(" "));
+            }
 
-                return searchFields.includes(normalizedQuery);
+            const indexedProducts = products.map(function (product) {
+                const searchBlob = getSearchBlob(product);
+                const searchWords = new Set(searchBlob.split(/\s+/).filter(Boolean));
+                return {
+                    ...product,
+                    searchBlob: searchBlob,
+                    searchWords: searchWords
+                };
             });
 
-            renderProducts(filtered);
-        }
+            function scoreProduct(product, query) {
+                if (!query) {
+                    return 1;
+                }
 
-        if (menuToggle) {
-            menuToggle.addEventListener("click", () => {
-                const isOpen = navLinks.classList.toggle("is-open");
-                menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-            });
-        }
+                const normalizedQuery = normalizeText(query);
+                const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+                let score = 0;
+                let matchedTerms = 0;
 
-        document.addEventListener("click", (event) => {
-            const detailButton = event.target.closest("[data-details-id]");
-            if (detailButton) {
-                openModal(detailButton.getAttribute("data-details-id"));
-                return;
+                if (product.searchBlob.includes(normalizedQuery)) {
+                    score += 12;
+                }
+
+                tokens.forEach(function (token) {
+                    if (product.searchWords.has(token)) {
+                        score += 6;
+                        matchedTerms += 1;
+                    } else if ([...product.searchWords].some(function (word) { return word.indexOf(token) === 0; })) {
+                        score += 4;
+                        matchedTerms += 1;
+                    } else if (product.searchBlob.includes(token)) {
+                        score += 2;
+                        matchedTerms += 1;
+                    }
+                });
+
+                if (tokens.length > 1 && matchedTerms < Math.ceil(tokens.length * 0.6) && !product.searchBlob.includes(normalizedQuery)) {
+                    return 0;
+                }
+
+                return score;
             }
 
-            if (navLinks.classList.contains("is-open") && !navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
-                navLinks.classList.remove("is-open");
-                menuToggle.setAttribute("aria-expanded", "false");
+            function getOrderHref(product) {
+                return ORDER_PAGE + "?product=" + encodeURIComponent(product.title) + "&price=" + encodeURIComponent(product.price);
             }
-        });
 
-        searchInput.addEventListener("input", (event) => {
-            filterProducts(event.target.value);
-        });
+            function getVisualMarkup(product) {
+                if (product.visual.type === "image") {
+                    return "<img src=\"" + product.visual.src + "\" alt=\"" + product.visual.alt + "\" loading=\"lazy\" decoding=\"async\">";
+                }
 
-        modalClose.addEventListener("click", closeModal);
-
-        detailsModal.addEventListener("click", (event) => {
-            if (event.target === detailsModal) {
-                closeModal();
+                return "<div class=\"thumb-fallback\" aria-hidden=\"true\">" + product.visual.value + "</div>";
             }
-        });
 
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                if (detailsModal.classList.contains("is-open")) {
-                    closeModal();
+            function renderProducts(list) {
+                resultCount.textContent = String(list.length);
+
+                if (!list.length) {
+                    productGrid.innerHTML = "";
+                    noResults.hidden = false;
                     return;
                 }
 
-                if (navLinks.classList.contains("is-open")) {
-                    navLinks.classList.remove("is-open");
-                    menuToggle.setAttribute("aria-expanded", "false");
+                noResults.hidden = true;
+                productGrid.innerHTML = list.map(function (product) {
+                    return [
+                        "<article class=\"product-card\" role=\"listitem\" aria-label=\"" + product.title + "\">",
+                        "<div class=\"product-thumb\">",
+                        "<span class=\"product-badge\">" + product.badge + "</span>",
+                        "<span class=\"product-group\">" + product.group + "</span>",
+                        getVisualMarkup(product),
+                        "</div>",
+                        "<div class=\"product-copy\">",
+                        "<h2 class=\"product-title\">" + product.title + "</h2>",
+                        "<div class=\"product-type\">" + product.type + "</div>",
+                        "</div>",
+                        "<div class=\"price-grid\">",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Price</span><span class=\"price-value\">" + formatCurrency(product.originalPrice) + "</span></div>",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Off</span><span class=\"price-value\">" + product.discountPercent + "%</span></div>",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Sell</span><span class=\"price-value is-accent\">" + formatCurrency(product.price) + "</span></div>",
+                        "</div>",
+                        "<div class=\"card-actions\">",
+                        "<button class=\"action-btn\" type=\"button\" data-details-id=\"" + product.id + "\">Details</button>",
+                        "<a class=\"action-btn action-btn--primary\" href=\"" + getOrderHref(product) + "\">GIVE ORDER</a>",
+                        "</div>",
+                        "</article>"
+                    ].join("");
+                }).join("");
+            }
+
+            function openModal(productId) {
+                const product = indexedProducts.find(function (item) {
+                    return item.id === productId;
+                });
+
+                if (!product) {
+                    return;
+                }
+
+                lastFocusedElement = document.activeElement;
+                modalPill.textContent = product.group + " Product";
+                modalTitle.textContent = product.title;
+                modalSummary.textContent = product.summary;
+                modalPrice.textContent = "Price " + formatCurrency(product.originalPrice) + " | Discount " + product.discountPercent + "% | Sell " + formatCurrency(product.price);
+                modalBody.innerHTML = product.detailHtml;
+                modalFooterNote.textContent = "Details opens first. GIVE ORDER sends " + product.title + " and the sell price into the order form.";
+                modalAction.href = getOrderHref(product);
+                detailsModal.classList.add("is-open");
+                detailsModal.setAttribute("aria-hidden", "false");
+                document.body.classList.add("modal-open");
+            }
+
+            function closeModal() {
+                detailsModal.classList.remove("is-open");
+                detailsModal.setAttribute("aria-hidden", "true");
+                document.body.classList.remove("modal-open");
+
+                if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+                    lastFocusedElement.focus();
                 }
             }
-        });
 
-        renderProducts(products);
+            function filterProducts(query) {
+                const normalizedQuery = normalizeText(query);
+
+                if (!normalizedQuery) {
+                    renderProducts(indexedProducts);
+                    return;
+                }
+
+                const filtered = indexedProducts
+                    .map(function (product) {
+                        return {
+                            product: product,
+                            score: scoreProduct(product, normalizedQuery)
+                        };
+                    })
+                    .filter(function (entry) {
+                        return entry.score > 0;
+                    })
+                    .sort(function (left, right) {
+                        return right.score - left.score || left.product.price - right.product.price || left.product.title.localeCompare(right.product.title);
+                    })
+                    .map(function (entry) {
+                        return entry.product;
+                    });
+
+                renderProducts(filtered);
+            }
+
+            productGrid.addEventListener("click", function (event) {
+                const detailButton = event.target.closest("[data-details-id]");
+                if (detailButton) {
+                    openModal(detailButton.getAttribute("data-details-id"));
+                }
+            });
+
+            searchInput.addEventListener("input", function (event) {
+                filterProducts(event.target.value);
+            });
+
+            modalClose.addEventListener("click", closeModal);
+
+            detailsModal.addEventListener("click", function (event) {
+                if (event.target === detailsModal) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && detailsModal.classList.contains("is-open")) {
+                    closeModal();
+                }
+            });
+
+            renderProducts(indexedProducts);
+        })();
     </script>
+
     <a class="help-fab" href="https://youtu.be/wXGXQgKTCQI" target="_blank" rel="noopener noreferrer" aria-label="Open the help video on YouTube">
         <span class="help-fab__label">Help</span>
         <span class="help-fab__button" aria-hidden="true">&#129302;</span>

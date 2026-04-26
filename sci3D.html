@@ -2,855 +2,190 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science 3D Explorer | Premium Learning</title>
-    <meta name="description" content="Interactive 3D models for science education. Explore physics and biology with ADYAANANT Sci3D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Interactive Sci3D models for physics and biology inside the ADYAANANT study experience.">
+    <title>Sci3D | ADYAANANT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="portal-pages.css">
     <style>
         :root {
-            --space-dark: #050508;
-            --space-light: #0d111a;
-            --accent-cyan: #00f2fe;
-            --accent-blue: #4facfe;
-            --accent-purple: #8b5cf6;
-            --accent-gold: #ffcf6c;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.15);
-            --transition-bounce: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            --transition-smooth: all 0.35s ease;
+            --page-accent: #56c7ff;
+            --page-accent-strong: #2452ff;
+            --page-highlight: #ffd36a;
+            --page-glow: rgba(86, 199, 255, 0.24);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: "Inter", sans-serif;
-            background-color: var(--space-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, .logo {
-            font-family: "Space Grotesk", sans-serif;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .container {
-            width: min(1280px, calc(100% - 2rem));
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .animated-bg {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(-45deg, #050508, #0f172a, #17133d, #050508);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            z-index: -2;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        #particle-canvas {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .navbar {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            padding: 1rem 0;
-            background: rgba(5, 5, 8, 0.62);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid transparent;
-            z-index: 1000;
-            transition: var(--transition-smooth);
-        }
-
-        .navbar.scrolled {
-            background: rgba(5, 5, 8, 0.88);
-            border-bottom-color: var(--glass-border);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.65rem;
-            font-size: 1.35rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-        }
-
-        .logo-icon {
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.45));
-        }
-
-        .menu-toggle {
-            display: none;
-            width: 46px;
-            height: 46px;
-            border: 1px solid var(--glass-border);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-main);
-            cursor: pointer;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1.6rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            transition: var(--transition-smooth);
-            position: relative;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-main);
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-cyan);
-            transition: var(--transition-smooth);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 6rem 0 4rem;
-        }
-
-        .hero-shell {
-            width: 100%;
-            padding: 2.4rem;
-            border-radius: 32px;
-            background: linear-gradient(145deg, rgba(11, 14, 25, 0.88), rgba(9, 12, 20, 0.62));
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.55rem;
-            padding: 0.65rem 1rem;
-            background: rgba(0, 242, 254, 0.08);
-            border: 1px solid rgba(0, 242, 254, 0.24);
-            border-radius: 999px;
-            font-size: 0.82rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--accent-cyan);
-            margin-bottom: 1.5rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.9rem, 6vw, 5.6rem);
-            line-height: 1.05;
-            margin-bottom: 1.2rem;
-            letter-spacing: -0.05em;
-        }
-
-        .text-gradient {
-            background: linear-gradient(to right, #ffffff, var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .text-accent {
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 36px rgba(0, 242, 254, 0.25);
-        }
-
-        .hero p {
-            max-width: 720px;
-            margin: 0 auto 1.8rem;
-            font-size: clamp(1.02rem, 2vw, 1.16rem);
-            color: var(--text-muted);
-        }
-
-        .hero-metrics {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.85rem;
-            margin-bottom: 1.8rem;
-        }
-
-        .metric-pill {
-            padding: 0.8rem 1rem;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-main);
-            font-size: 0.92rem;
-            font-weight: 600;
-        }
-
-        .cta-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 1rem 1.45rem;
-            min-width: 190px;
-            border-radius: 16px;
-            font-weight: 700;
-            font-size: 0.96rem;
-            letter-spacing: 0.04em;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.7rem;
-            transition: var(--transition-bounce);
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: #ffffff;
-            box-shadow: 0 12px 26px rgba(79, 172, 254, 0.24);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 30px rgba(79, 172, 254, 0.4);
-        }
-
-        .btn-secondary {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: #ffffff;
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: var(--glass-highlight);
-            transform: translateY(-4px);
-            border-color: var(--accent-cyan);
-        }
-
-        .section-header {
-            text-align: center;
-            margin: 5rem 0 2rem;
-        }
-
-        .section-header h2 {
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            margin-bottom: 0.8rem;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.4rem;
-            margin-bottom: 4rem;
-        }
-
-        .glass-card,
-        .info-panel,
-        .support-card {
-            background: rgba(13, 17, 26, 0.52);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            transition: var(--transition-smooth);
-        }
-
-        .glass-card {
-            padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.16);
-            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45), 0 0 34px rgba(0, 242, 254, 0.08);
-            background: rgba(13, 17, 26, 0.68);
-        }
-
-        .glass-card:hover::before {
-            opacity: 1;
-        }
-
-        .iframe-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 75%;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-            border: 1px solid var(--glass-border);
-        }
-
-        .iframe-wrapper iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .iframe-wrapper iframe.loaded {
-            opacity: 1;
-        }
-
-        .spinner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top-color: var(--accent-cyan);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
-
-        .card-info {
-            padding: 1.2rem 0.3rem 0.2rem;
-        }
-
-        .card-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .card-info p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .card-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: var(--glass-bg);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-cyan);
-            border: 1px solid var(--glass-border);
-            flex-shrink: 0;
-        }
-
-        .info-panel {
-            padding: 2.2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .info-panel h2 {
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            margin-bottom: 0.9rem;
-        }
-
-        .info-panel p {
-            max-width: 760px;
-            margin: 0 auto;
-            color: var(--text-muted);
-            font-size: 1.04rem;
-        }
-
-        .support-grid {
+        .model-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.4rem;
-            margin-bottom: 4rem;
+            gap: 1.2rem;
         }
 
-        .support-card {
-            padding: 1.8rem;
+        .model-card {
+            padding: 1.3rem;
+            border-radius: 24px;
+            border: 1px solid var(--page-border);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
         }
 
-        .support-card span {
-            display: inline-block;
-            margin-bottom: 0.8rem;
-            color: var(--accent-gold);
-            font-size: 0.82rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            font-weight: 700;
+        .model-frame {
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(4, 8, 14, 0.78);
+            aspect-ratio: 1 / 1;
+            margin-bottom: 1rem;
         }
 
-        .support-card h3 {
-            font-size: 1.18rem;
-            margin-bottom: 0.7rem;
+        .model-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
-        .support-card p {
-            color: var(--text-muted);
+        .model-card h3 {
+            margin: 0 0 0.7rem;
+            font-family: var(--page-font-display);
+            font-size: 1.2rem;
         }
 
-        footer {
-            border-top: 1px solid var(--glass-border);
-            padding: 2.5rem 0;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.92rem;
+        .model-card p {
+            margin: 0;
+            color: var(--page-muted);
+            line-height: 1.75;
         }
 
-        footer p + p {
-            margin-top: 0.55rem;
+        @media (max-width: 1024px) {
+            .model-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(34px);
-            transition: all 0.9s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 900px) {
-            .support-grid {
+        @media (max-width: 720px) {
+            .model-grid {
                 grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                margin-left: auto;
-            }
-
-            .nav-links {
-                width: 100%;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0;
-                max-height: 0;
-                overflow: hidden;
-                opacity: 0;
-                transition: max-height 0.35s ease, opacity 0.35s ease;
-            }
-
-            .nav-links.nav-open {
-                max-height: 320px;
-                opacity: 1;
-            }
-
-            .nav-links a {
-                display: block;
-                padding: 0.8rem 0;
-            }
-
-            .hero-shell {
-                padding: 1.6rem 1.1rem;
-            }
-
-            .cta-group {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .hero-metrics {
-                flex-direction: column;
-            }
-
-            .metric-pill {
-                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="animated-bg"></div>
-    <canvas id="particle-canvas"></canvas>
-
-    <nav class="navbar" id="navbar">
-        <div class="container nav-content">
-            <a href="STUDY.html" class="logo">
-                <i class="fas fa-atom logo-icon"></i>
-                <span>Sci3D</span>
-            </a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="STUDY.html">Study</a></li>
-                <li><a href="baches.html">Baches</a></li>
-                <li><a href="#physics">Physics</a></li>
-                <li><a href="#biology">Biology</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="container">
-        <section class="hero reveal">
-            <div class="hero-shell">
-                <div class="badge">
-                    <i class="fas fa-satellite"></i>
-                    Next-Gen Education
+    <div class="page-shell">
+        <nav class="page-nav">
+            <div class="page-container page-nav__inner">
+                <a href="index.html" class="page-brand">
+                    <span class="page-brand__mark">A</span>
+                    <span>ADYAANANT</span>
+                </a>
+                <div class="page-links">
+                    <a href="index.html">Home</a>
+                    <a href="STUDY.html">Study</a>
+                    <a href="baches.html">Baches</a>
                 </div>
-                <h1 class="text-gradient">Explore Science in <br><span class="text-accent">Three Dimensions</span></h1>
-                <p>Immerse yourself in interactive models. Visualize physics systems, anatomy structures, and cellular detail inside a cinematic learning space built to make concepts stick.</p>
+            </div>
+        </nav>
 
-                <div class="hero-metrics">
-                    <div class="metric-pill">Interactive physics models</div>
-                    <div class="metric-pill">Biology and anatomy explorer</div>
-                    <div class="metric-pill">Premium visual retention</div>
+        <header class="hero-panel">
+            <div class="page-container">
+                <div class="hero-card">
+                    <div class="eyebrow">Sci3D Explorer</div>
+                    <h1 class="hero-title">Interactive science videos and models only.</h1>
+                    <p class="hero-copy">This page now keeps only the requested action buttons, sponsor banners, and the physics and biology model sections.</p>
+                    <div class="hero-actions">
+                        <a href="#physics" class="page-btn page-btn--primary">Discover Physics</a>
+                        <a href="#biology" class="page-btn page-btn--ghost">Explore Biology</a>
+                        <a href="baches.html" class="page-btn page-btn--ghost">Open Baches</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-container" data-inline-banner-ads></div>
+
+        <section class="section" id="physics">
+            <div class="page-container">
+                <div class="section-header">
+                    <h2>Applied Physics</h2>
+                    <p>Interactive simulations of mechanical and electrical systems for students who learn better when motion and structure are visible.</p>
                 </div>
 
-                <div class="cta-group">
-                    <a href="#physics" class="btn btn-primary"><i class="fas fa-space-shuttle"></i> Discover Physics</a>
-                    <a href="#biology" class="btn btn-secondary"><i class="fas fa-dna"></i> Explore Biology</a>
-                    <a href="baches.html" class="btn btn-secondary"><i class="fas fa-layer-group"></i> Open Baches</a>
+                <div class="model-grid">
+                    <article class="model-card">
+                        <div class="model-frame">
+                            <iframe loading="lazy" title="Faraday Generator" src="https://sketchfab.com/models/5980d78b5b644d8f9d3bd51cb49d6972/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+                        </div>
+                        <h3>Faraday Generator</h3>
+                        <p>Visualize electromagnetic induction and see how movement becomes electricity through a cleaner spatial explanation.</p>
+                    </article>
+
+                    <article class="model-card">
+                        <div class="model-frame">
+                            <iframe loading="lazy" title="Newton Cradle" src="https://sketchfab.com/models/64e2753a06b941408feaf1e012329bb9/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+                        </div>
+                        <h3>Newton's Cradle</h3>
+                        <p>Observe momentum transfer and energy conservation through one of the most satisfying motion demonstrations in physics.</p>
+                    </article>
+
+                    <article class="model-card">
+                        <div class="model-frame">
+                            <iframe loading="lazy" title="Wind Turbine" src="https://sketchfab.com/models/7da41a0565e34d63bcb0f3cc0ccf5be5/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+                        </div>
+                        <h3>Wind Turbine</h3>
+                        <p>Explore renewable energy mechanics with a visual breakdown of rotation, lift, and conversion systems.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <div class="section-header reveal" id="physics">
-            <h2 class="text-gradient">Applied Physics</h2>
-            <p>Interactive simulations of mechanical and electrical systems for students who learn better when motion and structure are visible.</p>
-        </div>
+        <section class="section" id="biology">
+            <div class="page-container">
+                <div class="section-header">
+                    <h2>Cellular and Anatomy</h2>
+                    <p>High-fidelity anatomical and microscopic structures that help learners move from memorization toward actual understanding.</p>
+                </div>
 
-        <div class="grid-container">
-            <article class="glass-card reveal">
-                <div class="iframe-wrapper">
-                    <div class="spinner"></div>
-                    <iframe loading="lazy" title="Faraday Generator" src="https://sketchfab.com/models/5980d78b5b644d8f9d3bd51cb49d6972/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
-                </div>
-                <div class="card-info">
-                    <h3>Faraday Generator <span class="card-icon"><i class="fas fa-bolt"></i></span></h3>
-                    <p>Visualize electromagnetic induction and see how movement becomes electricity through a cleaner spatial explanation.</p>
-                </div>
-            </article>
+                <div class="model-grid">
+                    <article class="model-card">
+                        <div class="model-frame">
+                            <iframe loading="lazy" title="Human Heart" src="https://sketchfab.com/models/168b474fba564f688048212e99b4159d/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+                        </div>
+                        <h3>Human Heart</h3>
+                        <p>Study cardiovascular anatomy through a layered 3D view that gives chambers, vessels, and flow more meaning.</p>
+                    </article>
 
-            <article class="glass-card reveal" style="transition-delay: 0.08s;">
-                <div class="iframe-wrapper">
-                    <div class="spinner"></div>
-                    <iframe loading="lazy" title="Newton Cradle" src="https://sketchfab.com/models/64e2753a06b941408feaf1e012329bb9/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
-                </div>
-                <div class="card-info">
-                    <h3>Newton's Cradle <span class="card-icon"><i class="fas fa-arrows-left-right"></i></span></h3>
-                    <p>Observe momentum transfer and energy conservation through one of the most satisfying motion demonstrations in physics.</p>
-                </div>
-            </article>
+                    <article class="model-card">
+                        <div class="model-frame">
+                            <iframe loading="lazy" title="Brain and Brainstem" src="https://sketchfab.com/models/cd2c7e138f1940399b17596de3e3ecc6/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+                        </div>
+                        <h3>Brain and Brainstem</h3>
+                        <p>Map the nervous system's control center with better depth, proportion, and orientation than static diagrams provide.</p>
+                    </article>
 
-            <article class="glass-card reveal" style="transition-delay: 0.16s;">
-                <div class="iframe-wrapper">
-                    <div class="spinner"></div>
-                    <iframe loading="lazy" title="Wind Turbine" src="https://sketchfab.com/models/7da41a0565e34d63bcb0f3cc0ccf5be5/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+                    <article class="model-card">
+                        <div class="model-frame">
+                            <iframe loading="lazy" title="Animal Cell" src="https://sketchfab.com/models/78b4b0b2c690485c9ea776bc2daa0569/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+                        </div>
+                        <h3>Animal Cell</h3>
+                        <p>Break down organelles and spatial relationships inside a microscopic environment that feels easier to remember.</p>
+                    </article>
                 </div>
-                <div class="card-info">
-                    <h3>Wind Turbine <span class="card-icon"><i class="fas fa-wind"></i></span></h3>
-                    <p>Explore renewable energy mechanics with a visual breakdown of rotation, lift, and conversion systems.</p>
-                </div>
-            </article>
-        </div>
-
-        <div class="section-header reveal" id="biology">
-            <h2 class="text-gradient">Cellular and Anatomy</h2>
-            <p>High-fidelity anatomical and microscopic structures that help learners move from memorization toward actual understanding.</p>
-        </div>
-
-        <div class="grid-container">
-            <article class="glass-card reveal">
-                <div class="iframe-wrapper">
-                    <div class="spinner"></div>
-                    <iframe loading="lazy" title="Human Heart" src="https://sketchfab.com/models/168b474fba564f688048212e99b4159d/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
-                </div>
-                <div class="card-info">
-                    <h3>Human Heart <span class="card-icon"><i class="fas fa-heartbeat"></i></span></h3>
-                    <p>Study cardiovascular anatomy through a layered 3D view that gives chambers, vessels, and flow more meaning.</p>
-                </div>
-            </article>
-
-            <article class="glass-card reveal" style="transition-delay: 0.08s;">
-                <div class="iframe-wrapper">
-                    <div class="spinner"></div>
-                    <iframe loading="lazy" title="Brain System" src="https://sketchfab.com/models/cd2c7e138f1940399b17596de3e3ecc6/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
-                </div>
-                <div class="card-info">
-                    <h3>Brain and Brainstem <span class="card-icon"><i class="fas fa-brain"></i></span></h3>
-                    <p>Map the nervous system's control center with better depth, proportion, and orientation than static diagrams provide.</p>
-                </div>
-            </article>
-
-            <article class="glass-card reveal" style="transition-delay: 0.16s;">
-                <div class="iframe-wrapper">
-                    <div class="spinner"></div>
-                    <iframe loading="lazy" title="Animal Cell" src="https://sketchfab.com/models/78b4b0b2c690485c9ea776bc2daa0569/embed" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
-                </div>
-                <div class="card-info">
-                    <h3>Animal Cell <span class="card-icon"><i class="fas fa-microscope"></i></span></h3>
-                    <p>Break down organelles and spatial relationships inside a microscopic environment that feels easier to remember.</p>
-                </div>
-            </article>
-        </div>
-
-        <section class="info-panel reveal" id="about">
-            <h2 class="text-gradient">Elevating Education</h2>
-            <p>Sci3D bridges the gap between theory and intuition. When a concept is too abstract on paper, this environment gives it shape, movement, and presence so learners can understand it faster.</p>
+            </div>
         </section>
 
-        <section class="support-grid reveal">
-            <article class="support-card">
-                <span>Mode 01</span>
-                <h3>Visual-first revision</h3>
-                <p>Open a model before revising notes to reduce friction and help the brain anchor information to form and movement.</p>
-            </article>
-
-            <article class="support-card">
-                <span>Mode 02</span>
-                <h3>Better concept recall</h3>
-                <p>Spatial viewing improves how many students remember systems, pathways, and cause-effect relationships.</p>
-            </article>
-
-            <article class="support-card">
-                <span>Mode 03</span>
-                <h3>Return to Baches smarter</h3>
-                <p>Use Sci3D as a concept accelerator, then jump back into your bach for practice, doubt work, and revision.</p>
-            </article>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Science 3D Explorer. Designed for the future of learning.</p>
-            <p><a href="STUDY.html">Study Hub</a> | <a href="baches.html">Baches</a> | <a href="contact.html">Contact</a></p>
-        </div>
-    </footer>
+        <footer class="page-footer">
+            <div class="page-container page-footer__inner">
+                <span>&copy; 2026 ADYAANANT Sci3D</span>
+                <div class="page-links">
+                    <a href="STUDY.html">Study</a>
+                    <a href="baches.html">Baches</a>
+                    <a href="index.html">Home</a>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script src="shared-ad-popup.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var menuToggle = document.getElementById("menuToggle");
-            var navLinks = document.getElementById("navLinks");
-            var navAnchors = document.querySelectorAll(".nav-links a");
-            var navbar = document.getElementById("navbar");
-            var revealElements = document.querySelectorAll(".reveal");
-            var iframes = document.querySelectorAll("iframe");
-            var canvas = document.getElementById("particle-canvas");
-            var ctx = canvas.getContext("2d");
-            var particlesArray = [];
-
-            if (menuToggle && navLinks) {
-                menuToggle.addEventListener("click", function () {
-                    navLinks.classList.toggle("nav-open");
-                });
-
-                navAnchors.forEach(function (anchor) {
-                    anchor.addEventListener("click", function () {
-                        navLinks.classList.remove("nav-open");
-                    });
-                });
-            }
-
-            iframes.forEach(function (iframe) {
-                iframe.addEventListener("load", function () {
-                    this.classList.add("loaded");
-                    var spinner = this.previousElementSibling;
-
-                    if (spinner && spinner.classList.contains("spinner")) {
-                        spinner.style.display = "none";
-                    }
-                });
-            });
-
-            var revealOnScroll = new IntersectionObserver(function (entries, observer) {
-                entries.forEach(function (entry) {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
-                    entry.target.classList.add("active");
-                    observer.unobserve(entry.target);
-                });
-            }, {
-                threshold: 0.12,
-                rootMargin: "0px 0px -40px 0px"
-            });
-
-            revealElements.forEach(function (element) {
-                revealOnScroll.observe(element);
-            });
-
-            window.addEventListener("scroll", function () {
-                if (window.scrollY > 30) {
-                    navbar.classList.add("scrolled");
-                } else {
-                    navbar.classList.remove("scrolled");
-                }
-            });
-
-            function setCanvasSize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-
-            function Particle() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-
-            Particle.prototype.update = function () {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x > canvas.width) this.x = 0;
-                else if (this.x < 0) this.x = canvas.width;
-
-                if (this.y > canvas.height) this.y = 0;
-                else if (this.y < 0) this.y = canvas.height;
-            };
-
-            Particle.prototype.draw = function () {
-                ctx.fillStyle = "rgba(255, 255, 255, " + this.opacity + ")";
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            };
-
-            function initParticles() {
-                particlesArray = [];
-                var numberOfParticles = (canvas.width * canvas.height) / 9000;
-
-                for (var i = 0; i < numberOfParticles; i += 1) {
-                    particlesArray.push(new Particle());
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                particlesArray.forEach(function (particle) {
-                    particle.update();
-                    particle.draw();
-                });
-
-                requestAnimationFrame(animateParticles);
-            }
-
-            setCanvasSize();
-            initParticles();
-            animateParticles();
-
-            window.addEventListener("resize", function () {
-                setCanvasSize();
-                initParticles();
-            });
-        });
-    </script>
 </body>
 </html>

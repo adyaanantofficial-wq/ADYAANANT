@@ -3,1619 +3,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Shop ADYAANANT real products with searchable earbuds listings, offer pricing, and a fast GIVE ORDER checkout flow.">
-    <meta name="theme-color" content="#111827">
+    <meta name="description" content="Browse ADYAANANT real products with compact offer cards, sensitive model search, and direct order flow.">
+    <meta name="theme-color" content="#15803d">
     <title>Real Products | ADYAANANT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="catalog-store.css">
     <link rel="stylesheet" href="help-widget.css">
-    <style>
-        :root {
-            --bg-main: #f4f5f7;
-            --surface: rgba(255, 255, 255, 0.92);
-            --surface-strong: #ffffff;
-            --surface-dark: #101826;
-            --text-main: #151821;
-            --text-muted: #5c6576;
-            --text-soft: #8790a3;
-            --border: rgba(17, 24, 39, 0.09);
-            --brand: #ffb547;
-            --brand-deep: #f08a00;
-            --brand-soft: rgba(255, 181, 71, 0.16);
-            --accent: #1c4f88;
-            --accent-soft: rgba(28, 79, 136, 0.12);
-            --shadow-sm: 0 12px 30px rgba(16, 24, 38, 0.06);
-            --shadow-md: 0 22px 50px rgba(16, 24, 38, 0.12);
-            --shadow-lg: 0 32px 80px rgba(16, 24, 38, 0.18);
-            --radius-lg: 28px;
-            --radius-md: 20px;
-            --radius-sm: 14px;
-            --transition: 220ms ease;
-            --font-display: "Space Grotesk", sans-serif;
-            --font-body: "Manrope", sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: var(--font-body);
-            color: var(--text-main);
-            background:
-                radial-gradient(circle at top left, rgba(255, 181, 71, 0.18), transparent 26%),
-                radial-gradient(circle at top right, rgba(28, 79, 136, 0.12), transparent 22%),
-                linear-gradient(180deg, #fffaf3 0%, #f4f5f7 28%, #eef2f7 100%);
-        }
-
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button,
-        input {
-            font: inherit;
-        }
-
-        .page-shell {
-            width: min(1380px, calc(100% - 32px));
-            margin: 0 auto;
-        }
-
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(18px);
-            background: rgba(16, 24, 38, 0.88);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
-        }
-
-        .nav-shell {
-            position: relative;
-            min-height: 88px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-        }
-
-        .nav-brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
-        }
-
-        .nav-logo {
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            object-fit: cover;
-            box-shadow: 0 10px 24px rgba(255, 181, 71, 0.18);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .brand-copy {
-            display: grid;
-            gap: 2px;
-        }
-
-        .brand-eyebrow {
-            font-size: 0.76rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.58);
-        }
-
-        .brand-title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.03em;
-        }
-
-        .menu-toggle {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.06);
-            color: #ffffff;
-            cursor: pointer;
-            transition: transform var(--transition), background var(--transition);
-        }
-
-        .menu-toggle:hover,
-        .menu-toggle:focus-visible {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        .menu-icon {
-            position: relative;
-            width: 18px;
-            height: 2px;
-            background: currentColor;
-            border-radius: 999px;
-        }
-
-        .menu-icon::before,
-        .menu-icon::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            width: 18px;
-            height: 2px;
-            background: currentColor;
-            border-radius: 999px;
-        }
-
-        .menu-icon::before {
-            top: -6px;
-        }
-
-        .menu-icon::after {
-            top: 6px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 46px;
-            padding: 0 18px;
-            border-radius: 999px;
-            color: rgba(255, 255, 255, 0.88);
-            font-weight: 600;
-            transition: color var(--transition), background var(--transition), transform var(--transition);
-        }
-
-        .nav-links a:hover,
-        .nav-links a:focus-visible,
-        .nav-links a.is-active {
-            color: #111827;
-            background: linear-gradient(135deg, var(--brand), #ffd37b);
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        .hero {
-            padding: 42px 0 22px;
-        }
-
-        .hero-panel {
-            position: relative;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
-            gap: 28px;
-            padding: 42px;
-            background:
-                linear-gradient(135deg, rgba(16, 24, 38, 0.96), rgba(16, 24, 38, 0.88)),
-                linear-gradient(135deg, rgba(255, 181, 71, 0.16), rgba(28, 79, 136, 0.2));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 34px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero-panel::before,
-        .hero-panel::after {
-            content: "";
-            position: absolute;
-            border-radius: 999px;
-            filter: blur(6px);
-        }
-
-        .hero-panel::before {
-            width: 220px;
-            height: 220px;
-            right: -60px;
-            top: -40px;
-            background: rgba(255, 181, 71, 0.16);
-        }
-
-        .hero-panel::after {
-            width: 170px;
-            height: 170px;
-            left: 48%;
-            bottom: -80px;
-            background: rgba(28, 79, 136, 0.18);
-        }
-
-        .hero-copy,
-        .hero-aside {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-copy {
-            display: grid;
-            gap: 20px;
-            align-content: center;
-        }
-
-        .hero-kicker {
-            width: fit-content;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            color: #ffe6b7;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
-
-        .hero-copy h1 {
-            max-width: 12ch;
-            font-family: var(--font-display);
-            font-size: clamp(2.35rem, 4vw, 4.25rem);
-            line-height: 1.02;
-            letter-spacing: -0.05em;
-            color: #ffffff;
-        }
-
-        .hero-copy p {
-            max-width: 62ch;
-            color: rgba(255, 255, 255, 0.74);
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        .hero-highlights {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .hero-highlights span {
-            display: inline-flex;
-            align-items: center;
-            min-height: 42px;
-            padding: 0 16px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.09);
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .hero-aside {
-            display: grid;
-            gap: 14px;
-            align-content: center;
-        }
-
-        .insight-card {
-            padding: 22px 22px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: 24px;
-            color: #ffffff;
-        }
-
-        .insight-value {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 2rem;
-            margin-bottom: 8px;
-            color: #ffd891;
-        }
-
-        .insight-card p {
-            color: rgba(255, 255, 255, 0.74);
-            line-height: 1.7;
-        }
-
-        .toolbar {
-            margin-top: 28px;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .search-shell {
-            position: relative;
-        }
-
-        .search-icon {
-            position: absolute;
-            top: 50%;
-            left: 22px;
-            transform: translateY(-50%);
-            font-size: 1.08rem;
-            color: var(--text-soft);
-            pointer-events: none;
-        }
-
-        #searchInput {
-            width: 100%;
-            min-height: 68px;
-            padding: 0 24px 0 58px;
-            border: 1px solid rgba(17, 24, 39, 0.08);
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.88);
-            box-shadow: var(--shadow-sm);
-            color: var(--text-main);
-            font-size: 1.05rem;
-            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
-        }
-
-        #searchInput:focus {
-            outline: none;
-            border-color: rgba(240, 138, 0, 0.32);
-            box-shadow: 0 0 0 5px rgba(255, 181, 71, 0.16), var(--shadow-sm);
-            transform: translateY(-1px);
-        }
-
-        .result-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            min-height: 68px;
-            padding: 0 24px;
-            border-radius: 24px;
-            background: rgba(16, 24, 38, 0.94);
-            color: #ffffff;
-            box-shadow: var(--shadow-md);
-            font-weight: 700;
-        }
-
-        .catalog {
-            padding: 24px 0 76px;
-        }
-
-        .catalog-head {
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .catalog-title-group {
-            display: grid;
-            gap: 8px;
-        }
-
-        .catalog-eyebrow {
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-size: 0.8rem;
-            font-weight: 800;
-        }
-
-        .catalog-head h2 {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 2vw, 2.6rem);
-            letter-spacing: -0.04em;
-        }
-
-        .catalog-head p {
-            color: var(--text-muted);
-            max-width: 58ch;
-            line-height: 1.8;
-        }
-
-        .catalog-note {
-            padding: 16px 18px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(17, 24, 39, 0.07);
-            color: var(--text-muted);
-            font-weight: 600;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 26px;
-        }
-
-        .product-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-height: 100%;
-            overflow: hidden;
-            border-radius: var(--radius-lg);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9));
-            border: 1px solid rgba(17, 24, 39, 0.08);
-            box-shadow: var(--shadow-sm);
-            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-        }
-
-        .product-card:hover,
-        .product-card:focus-within {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
-            border-color: rgba(240, 138, 0, 0.2);
-        }
-
-        .product-media {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 250px;
-            padding: 22px;
-            background:
-                radial-gradient(circle at top right, rgba(255, 181, 71, 0.2), transparent 30%),
-                linear-gradient(160deg, #fef8ed 0%, #eef3fb 100%);
-            border-bottom: 1px solid rgba(17, 24, 39, 0.06);
-            overflow: hidden;
-        }
-
-        .product-media::after {
-            content: "";
-            position: absolute;
-            inset: auto -32px -64px auto;
-            width: 160px;
-            height: 160px;
-            border-radius: 999px;
-            background: rgba(28, 79, 136, 0.08);
-        }
-
-        .product-media img {
-            position: relative;
-            z-index: 1;
-            width: min(100%, 260px);
-            height: 220px;
-            object-fit: cover;
-            border-radius: 24px;
-            box-shadow: 0 18px 40px rgba(16, 24, 38, 0.16);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 18px;
-            left: 18px;
-            z-index: 2;
-            display: inline-flex;
-            align-items: center;
-            min-height: 34px;
-            padding: 0 14px;
-            border-radius: 999px;
-            background: rgba(16, 24, 38, 0.88);
-            color: #ffffff;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-
-        .product-body {
-            display: grid;
-            gap: 14px;
-            padding: 24px;
-            flex: 1;
-        }
-
-        .product-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent);
-            font-size: 0.8rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .product-title {
-            font-family: var(--font-display);
-            font-size: 1.45rem;
-            line-height: 1.15;
-            letter-spacing: -0.04em;
-        }
-
-        .product-summary {
-            color: var(--text-muted);
-            line-height: 1.75;
-        }
-
-        .product-features {
-            display: grid;
-            gap: 10px;
-            list-style: none;
-        }
-
-        .product-features li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--text-main);
-            line-height: 1.6;
-            font-weight: 600;
-        }
-
-        .product-features li::before {
-            content: "•";
-            color: var(--brand-deep);
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-
-        .product-footer {
-            margin-top: auto;
-            display: grid;
-            gap: 16px;
-        }
-
-        .product-price-row {
-            display: grid;
-            gap: 10px;
-            padding: 16px 18px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, rgba(255, 181, 71, 0.14), rgba(28, 79, 136, 0.08));
-        }
-
-        .price-main {
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-            gap: 14px;
-        }
-
-        .product-price {
-            font-family: var(--font-display);
-            font-size: 1.7rem;
-            letter-spacing: -0.05em;
-        }
-
-        .product-price-note {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .price-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .old-price {
-            color: var(--text-muted);
-            font-weight: 700;
-            text-decoration: line-through;
-        }
-
-        .save-pill {
-            display: inline-flex;
-            align-items: center;
-            min-height: 30px;
-            padding: 0 12px;
-            border-radius: 999px;
-            background: rgba(15, 157, 119, 0.12);
-            color: #0d7c60;
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-
-        .action-stack {
-            display: grid;
-            gap: 10px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            min-height: 54px;
-            padding: 0 18px;
-            border: 0;
-            border-radius: 18px;
-            cursor: pointer;
-            font-weight: 800;
-            letter-spacing: 0.01em;
-            transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
-        }
-
-        .btn:hover,
-        .btn:focus-visible {
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        .btn-secondary {
-            background: rgba(17, 24, 39, 0.06);
-            color: var(--text-main);
-            border: 1px solid rgba(17, 24, 39, 0.08);
-        }
-
-        .btn-secondary:hover,
-        .btn-secondary:focus-visible {
-            background: rgba(17, 24, 39, 0.09);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--brand-deep), var(--brand));
-            color: #111827;
-            box-shadow: 0 14px 28px rgba(240, 138, 0, 0.22);
-        }
-
-        .btn-primary:hover,
-        .btn-primary:focus-visible {
-            box-shadow: 0 18px 36px rgba(240, 138, 0, 0.28);
-        }
-
-        .no-results {
-            display: grid;
-            place-items: center;
-            gap: 12px;
-            padding: 72px 24px;
-            border-radius: 28px;
-            background: rgba(255, 255, 255, 0.76);
-            border: 1px dashed rgba(17, 24, 39, 0.12);
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-        }
-
-        .no-results[hidden] {
-            display: none;
-        }
-
-        .no-results h3 {
-            font-family: var(--font-display);
-            font-size: 1.55rem;
-        }
-
-        .no-results p {
-            max-width: 40ch;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        .footer {
-            padding: 0 0 42px;
-        }
-
-        .footer-card {
-            display: grid;
-            gap: 14px;
-            padding: 28px;
-            border-radius: 30px;
-            background: #101826;
-            color: rgba(255, 255, 255, 0.72);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .footer-card strong {
-            color: #ffffff;
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            letter-spacing: -0.03em;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .footer-links a {
-            color: #ffd891;
-            font-weight: 700;
-        }
-
-        .details-modal {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgba(8, 12, 20, 0.62);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity var(--transition), visibility var(--transition);
-            z-index: 1200;
-        }
-
-        .details-modal.is-open {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        .details-dialog {
-            width: min(920px, 100%);
-            max-height: min(86vh, 920px);
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 252, 0.98));
-            border: 1px solid rgba(17, 24, 39, 0.08);
-            border-radius: 32px;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            transform: translateY(18px) scale(0.98);
-            transition: transform var(--transition);
-        }
-
-        .details-modal.is-open .details-dialog {
-            transform: translateY(0) scale(1);
-        }
-
-        .modal-topbar {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 18px;
-            padding: 28px 28px 20px;
-            border-bottom: 1px solid rgba(17, 24, 39, 0.08);
-            background: linear-gradient(135deg, rgba(255, 181, 71, 0.14), rgba(28, 79, 136, 0.08));
-        }
-
-        .modal-header-copy {
-            display: grid;
-            gap: 10px;
-        }
-
-        .modal-pill {
-            width: fit-content;
-            display: inline-flex;
-            align-items: center;
-            min-height: 34px;
-            padding: 0 14px;
-            border-radius: 999px;
-            background: rgba(16, 24, 38, 0.9);
-            color: #ffffff;
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .modal-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 3vw, 2.7rem);
-            line-height: 1.05;
-            letter-spacing: -0.05em;
-        }
-
-        .modal-summary {
-            color: var(--text-muted);
-            line-height: 1.8;
-            max-width: 64ch;
-        }
-
-        .modal-price {
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            color: var(--accent);
-            letter-spacing: -0.03em;
-        }
-
-        .modal-close {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border: 0;
-            border-radius: 16px;
-            background: rgba(16, 24, 38, 0.08);
-            color: var(--text-main);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background var(--transition), transform var(--transition);
-        }
-
-        .modal-close:hover,
-        .modal-close:focus-visible {
-            background: rgba(16, 24, 38, 0.12);
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        .modal-body {
-            overflow: auto;
-            padding: 0 28px 10px;
-        }
-
-        .modal-body-inner {
-            display: grid;
-            gap: 20px;
-            padding: 24px 0 8px;
-        }
-
-        .detail-section {
-            display: grid;
-            gap: 12px;
-            padding: 20px 22px;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.86);
-            border: 1px solid rgba(17, 24, 39, 0.07);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .detail-section h3 {
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            letter-spacing: -0.03em;
-        }
-
-        .detail-lead {
-            color: var(--text-muted);
-            line-height: 1.75;
-        }
-
-        .detail-bullets {
-            display: grid;
-            gap: 10px;
-            padding-left: 18px;
-            color: var(--text-main);
-            line-height: 1.7;
-        }
-
-        .detail-price-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .detail-price-card {
-            padding: 16px;
-            border-radius: 18px;
-            background: linear-gradient(180deg, rgba(255, 248, 239, 0.92), rgba(245, 248, 252, 0.98));
-            border: 1px solid rgba(255, 181, 71, 0.18);
-        }
-
-        .detail-price-card span {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-muted);
-            font-size: 0.84rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .detail-price-card strong {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            letter-spacing: -0.03em;
-        }
-
-        .detail-footer {
-            display: grid;
-            gap: 14px;
-            padding: 22px 28px 28px;
-            border-top: 1px solid rgba(17, 24, 39, 0.08);
-            background: rgba(255, 255, 255, 0.92);
-        }
-
-        .detail-footer-note {
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        .modal-action {
-            width: 100%;
-        }
-
-        @media (max-width: 980px) {
-            .nav-shell,
-            .hero-panel,
-            .toolbar,
-            .catalog-head {
-                grid-template-columns: 1fr;
-            }
-
-            .menu-toggle {
-                display: inline-flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: calc(100% + 14px);
-                left: 0;
-                right: 0;
-                display: none;
-                flex-direction: column;
-                align-items: stretch;
-                padding: 16px;
-                border-radius: 24px;
-                background: rgba(16, 24, 38, 0.96);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                box-shadow: var(--shadow-md);
-            }
-
-            .nav-links.is-open {
-                display: flex;
-            }
-
-            .hero-panel,
-            .details-dialog {
-                width: 100%;
-            }
-
-            .detail-price-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .toolbar,
-            .catalog-head {
-                display: grid;
-            }
-
-            .catalog-head {
-                align-items: start;
-            }
-        }
-
-        @media (max-width: 720px) {
-            .page-shell {
-                width: min(100% - 20px, 1380px);
-            }
-
-            .hero-panel,
-            .modal-topbar,
-            .modal-body,
-            .detail-footer {
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-
-            .hero-copy h1 {
-                max-width: none;
-            }
-
-            .hero-highlights,
-            .footer-links {
-                gap: 10px;
-            }
-
-            .price-main {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .details-modal {
-                padding: 14px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <nav class="navbar" aria-label="Primary navigation">
-        <div class="page-shell nav-shell">
-            <a class="nav-brand" href="index.html">
-                <img class="nav-logo" src="logo.png" alt="ADYAANANT logo">
-                <span class="brand-copy">
-                    <span class="brand-eyebrow">ADYAANANT</span>
-                    <span class="brand-title">Real Products</span>
+    <nav class="store-nav" aria-label="Primary navigation">
+        <div class="store-page store-nav__inner">
+            <a class="store-brand" href="index.html">
+                <img class="store-brand__logo" src="logo.png" alt="ADYAANANT logo">
+                <span class="store-brand__copy">
+                    <span class="store-brand__eyebrow">ADYAANANT</span>
+                    <span class="store-brand__title">Real Products</span>
                 </span>
             </a>
 
-            <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">
-                <span class="menu-icon" aria-hidden="true"></span>
-            </button>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html" class="is-active">Shop</a></li>
-                <li><a href="Digital Products.html">Digital Products</a></li>
-                <li><a href="order.html">Order</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
+            <div class="store-nav__links">
+                <a href="index.html">Home</a>
+                <a href="Digital Products.html">Digital Products</a>
+                <a class="is-active" href="Real Products.html">Real Products</a>
+                <a href="order.html">Order</a>
+            </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="page-shell">
-            <section class="hero-panel" aria-labelledby="heroTitle">
-                <div class="hero-copy">
-                    <span class="hero-kicker">Live Catalog • Real Product Deals</span>
-                    <h1 id="heroTitle">Wireless audio picks with sharp offer pricing.</h1>
-                    <p>
-                        Search by model number, Bluetooth version, waterproof support, gaming latency, or calling features.
-                        Every card gives you a clean details view and a direct GIVE ORDER path into the order form.
-                    </p>
-
-                    <div class="hero-highlights" aria-label="Store highlights">
-                        <span>Offer-ready products</span>
-                        <span>Keyword-sensitive search</span>
-                        <span>Fast GIVE ORDER flow</span>
-                    </div>
-                </div>
-
-                <div class="hero-aside" aria-label="Store insights">
-                    <article class="insight-card">
-                        <span class="insight-value">3</span>
-                        <p>Live real products listed with model-based search, crossed MRP pricing, and offer-first presentation.</p>
-                    </article>
-                    <article class="insight-card">
-                        <span class="insight-value">Search</span>
-                        <p>Search understands model names like M19, M88, M10 and keywords like waterproof, ENC, gaming, Bluetooth, or earbuds.</p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="toolbar" aria-label="Catalog tools">
-                <div class="search-shell">
+    <main class="store-page store-main">
+        <section class="store-toolbar">
+            <div class="search-card">
+                <div class="search-wrap">
                     <span class="search-icon" aria-hidden="true">&#128269;</span>
                     <input
-                        type="search"
+                        class="search-input"
                         id="searchInput"
-                        placeholder="Search by model, keyword, feature, Bluetooth version, waterproof, gaming, ENC..."
+                        type="search"
+                        placeholder="Search by model, keyword, Bluetooth version, waterproof, gaming, ENC, or earbuds..."
                         aria-label="Search real products"
                         autocomplete="off">
                 </div>
-                <div class="result-badge">
-                    <span>Items Live</span>
-                    <strong id="resultCount">3</strong>
-                </div>
-            </section>
-        </div>
-    </header>
 
-    <main class="catalog">
-        <div class="page-shell">
-            <section class="catalog-head">
-                <div class="catalog-title-group">
-                    <span class="catalog-eyebrow">Real Product Storefront</span>
-                    <h2>Browse the full ADYAANANT earbuds catalog</h2>
-                    <p>Open details to compare the full feature set, then use GIVE ORDER to jump straight into the order form with the offer price already filled in.</p>
-                </div>
-                <div class="catalog-note">Sensitive search first. Details second. GIVE ORDER always ready.</div>
-            </section>
+                <div class="toolbar-meta">
+                    <div class="toolbar-copy">
+                        <span class="toolbar-eyebrow">Real Product Search</span>
+                        <p>Search understands model numbers and feature terms, so M19, M88, M10, waterproof, gaming, and Bluetooth queries all work.</p>
+                    </div>
 
-            <section aria-label="Real products list">
-                <div id="productGrid" class="product-grid" role="list"></div>
-                <div id="noResults" class="no-results" hidden>
-                    <h3>No matching product found</h3>
-                    <p>Try searching for <strong>M19</strong>, <strong>M88</strong>, <strong>M10</strong>, <strong>waterproof</strong>, <strong>gaming</strong>, or <strong>Bluetooth 5.1</strong>.</p>
+                    <div class="result-pill">
+                        <span>Real Items</span>
+                        <strong id="resultCount">0</strong>
+                    </div>
                 </div>
-            </section>
-        </div>
+            </div>
+
+            <div class="category-strip" aria-label="Catalog pages">
+                <a class="category-link" href="index.html">
+                    <span class="category-link__icon">AP</span>
+                    <span>All Products</span>
+                </a>
+                <a class="category-link" href="Digital Products.html">
+                    <span class="category-link__icon">DG</span>
+                    <span>Digital Products</span>
+                </a>
+                <a class="category-link is-active" href="Real Products.html">
+                    <span class="category-link__icon">RL</span>
+                    <span>Real Products</span>
+                </a>
+                <a class="category-link" href="order.html">
+                    <span class="category-link__icon">OR</span>
+                    <span>Order</span>
+                </a>
+                <a class="category-link" href="STUDY.html">
+                    <span class="category-link__icon">ST</span>
+                    <span>Study</span>
+                </a>
+                <a class="category-link" href="news.html">
+                    <span class="category-link__icon">NW</span>
+                    <span>News</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <div class="section-head">
+                <div class="section-copy">
+                    <span class="section-kicker">Real Product Catalog</span>
+                    <h1 class="section-title">Offer cards only, no oversized hero, and Details stays before GIVE ORDER.</h1>
+                    <p>The marked intro sections are removed. The page now goes directly into the searchable earbuds grid with the requested 5, 4, and 3 card arrangement.</p>
+                </div>
+            </div>
+
+            <div id="productGrid" class="product-grid" role="list"></div>
+            <div id="noResults" class="no-results" hidden>
+                <h3>No matching product found</h3>
+                <p>Try searching for M19, M88, M10, Bluetooth, gaming, waterproof, or ENC.</p>
+            </div>
+        </section>
     </main>
 
-    <footer class="footer">
-        <div class="page-shell">
-            <div class="footer-card">
-                <strong>ADYAANANT Real Products</strong>
-                <p>Professional real-product catalog with searchable cards, crossed MRP pricing, and a consistent GIVE ORDER flow into WhatsApp-ready checkout.</p>
-                <div class="footer-links">
-                    <a href="shop.html">Shop Categories</a>
-                    <a href="Digital Products.html">Digital Products</a>
-                    <a href="order.html">Order Form</a>
-                    <a href="contact.html">Contact</a>
-                </div>
+    <footer class="store-page store-footer">
+        <div class="store-footer__card">
+            <strong>ADYAANANT Real Product Catalog</strong>
+            <p>Model search, discount display, product details, and GIVE ORDER all remain active in the new compact layout.</p>
+            <div class="store-footer__links">
+                <a href="index.html">All Products</a>
+                <a href="Digital Products.html">Digital Products</a>
+                <a href="contact.html">Contact</a>
+                <a href="shop.html">Shop Categories</a>
             </div>
         </div>
     </footer>
 
     <div class="details-modal" id="detailsModal" aria-hidden="true">
         <div class="details-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-            <div class="modal-topbar">
-                <div class="modal-header-copy">
+            <div class="details-header">
+                <div class="details-header__copy">
                     <span class="modal-pill" id="modalPill">Product Details</span>
-                    <h2 class="modal-title" id="modalTitle">Product Title</h2>
-                    <p class="modal-summary" id="modalSummary"></p>
-                    <div class="modal-price" id="modalPrice"></div>
+                    <h2 class="details-title" id="modalTitle">Product Title</h2>
+                    <p class="details-summary" id="modalSummary"></p>
+                    <p class="details-price" id="modalPrice"></p>
                 </div>
                 <button class="modal-close" id="modalClose" type="button" aria-label="Close details modal">X</button>
             </div>
 
             <div class="modal-body">
-                <div class="modal-body-inner" id="modalBody"></div>
+                <div id="modalBody"></div>
             </div>
 
-            <div class="detail-footer">
+            <div class="details-footer">
                 <p class="detail-footer-note" id="modalFooterNote"></p>
-                <a href="order.html" class="btn btn-primary modal-action" id="modalAction">GIVE ORDER</a>
+                <a class="action-btn action-btn--primary" id="modalAction" href="order.html">GIVE ORDER</a>
             </div>
         </div>
     </div>
 
+    <script src="catalog-data.js"></script>
     <script>
-        const ORDER_PAGE = "order.html";
-        const imageFallback = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='480' viewBox='0 0 640 480'%3E%3Crect width='640' height='480' fill='%23edf1f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235c6576' font-family='Arial, sans-serif' font-size='28'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+        (function () {
+            const ORDER_PAGE = "order.html";
+            const products = window.ADYAANANT_CATALOG.realProducts.slice();
 
-        function driveImage(fileId) {
-            return `https://drive.google.com/uc?export=view&id=${fileId}`;
-        }
+            const searchInput = document.getElementById("searchInput");
+            const resultCount = document.getElementById("resultCount");
+            const productGrid = document.getElementById("productGrid");
+            const noResults = document.getElementById("noResults");
+            const detailsModal = document.getElementById("detailsModal");
+            const modalPill = document.getElementById("modalPill");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalSummary = document.getElementById("modalSummary");
+            const modalPrice = document.getElementById("modalPrice");
+            const modalBody = document.getElementById("modalBody");
+            const modalAction = document.getElementById("modalAction");
+            const modalFooterNote = document.getElementById("modalFooterNote");
+            const modalClose = document.getElementById("modalClose");
+            let lastFocusedElement = null;
 
-        const products = [
-            {
-                id: "m19-wireless-earbuds",
-                slug: "m19-wireless-earbuds",
-                title: "M19 Wireless Earbuds",
-                type: "Bluetooth 5.1 Earbuds",
-                badge: "Hot Deal",
-                price: 290,
-                originalPrice: 2000,
-                priceLabel: "Offer price",
-                summary: "Wireless earbuds with LED digital display, Bluetooth 5.1, 9D HiFi sound, IPX7 waterproof protection, touch control, and a wireless charging case.",
-                features: [
-                    "LED digital battery display on the charging case",
-                    "Bluetooth 5.1 with touch control and wireless charging case",
-                    "9D HiFi sound with IPX7 waterproof support"
-                ],
-                keywords: [
-                    "m19", "wireless", "earbuds", "bluetooth", "bluetooth 5.1", "5.1", "led", "digital display",
-                    "9d hifi", "hifi", "waterproof", "ipx7", "touch control", "wireless charging", "charging case",
-                    "ear buds", "in ear", "tws", "buds"
-                ],
-                visual: {
-                    type: "image",
-                    src: "m%2019%20earbud.webp",
-                    alt: "M19 Wireless Earbuds"
-                },
-                action: {
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the order form with the M19 product name and the Rs 290 offer price already filled in.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>Product Overview</h3>
-                        <p class="detail-lead">The M19 is positioned as a value-focused wireless earbuds option with display-led charging visibility, waterproof support, and day-to-day touch control convenience.</p>
-                        <ul class="detail-bullets">
-                            <li><strong>LED digital display</strong> helps users check charging case battery status quickly.</li>
-                            <li><strong>Bluetooth 5.1</strong> supports modern wireless pairing with a clean untethered experience.</li>
-                            <li><strong>9D HiFi sound</strong> is presented as the main audio selling point for music and calls.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>Feature Highlights</h3>
-                        <ul class="detail-bullets">
-                            <li><strong>IPX7 waterproof protection</strong> adds confidence for everyday outdoor or active use.</li>
-                            <li><strong>Touch control</strong> keeps core playback handling directly on the earbuds.</li>
-                            <li><strong>Wireless charging case</strong> gives the product a more premium and convenient feel.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>Price Snapshot</h3>
-                        <div class="detail-price-grid">
-                            <div class="detail-price-card">
-                                <span>MRP</span>
-                                <strong>Rs 2000</strong>
-                            </div>
-                            <div class="detail-price-card">
-                                <span>Offer</span>
-                                <strong>Rs 290</strong>
-                            </div>
-                            <div class="detail-price-card">
-                                <span>You Save</span>
-                                <strong>Rs 1710</strong>
-                            </div>
-                        </div>
-                    </section>
-                `
-            },
-            {
-                id: "m88-plus-tws",
-                slug: "m88-plus-tws",
-                title: "M88 Plus TWS True Wireless Earbuds",
-                type: "Gaming + ENC Earbuds",
-                badge: "60Hr Playtime",
-                price: 500,
-                originalPrice: 5000,
-                priceLabel: "Offer price",
-                summary: "M88 Plus TWS in-ear earbuds with digital display, up to 60 hours playtime, Type-C fast charging, Bluetooth v5.3, ENC calling mics, and 45ms low-latency gaming mode.",
-                features: [
-                    "Digital display with up to 60 hours playtime",
-                    "Type-C fast charging with instant pairing and BT v5.3",
-                    "ENC clear calling mics with 45ms low latency gaming"
-                ],
-                keywords: [
-                    "m88", "m88 plus", "tws", "true wireless", "earbuds", "digital display", "60hrs", "60 hours",
-                    "type c", "fast charging", "bt 5.3", "bluetooth 5.3", "instant pair", "enc", "calling",
-                    "mics", "45ms", "low latency", "gaming", "in ear", "ear buds", "buds"
-                ],
-                visual: {
-                    type: "image",
-                    src: "m88-plus-wireless-earbud-1000x1000.webp",
-                    alt: "M88 Plus TWS True Wireless Earbuds"
-                },
-                action: {
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the order form with the M88 Plus TWS product name and the Rs 500 offer price already filled in.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>Product Overview</h3>
-                        <p class="detail-lead">The M88 Plus TWS is the most feature-heavy option in this catalog, aimed at users who want stronger battery life, newer Bluetooth support, and lower-latency use cases.</p>
-                        <ul class="detail-bullets">
-                            <li><strong>Up to 60 hours playtime</strong> is the standout battery-focused claim for longer listening cycles.</li>
-                            <li><strong>Bluetooth v5.3 with instant pairing</strong> positions the model as a newer-generation wireless option.</li>
-                            <li><strong>Digital display case</strong> keeps charging visibility front and center.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>Performance Highlights</h3>
-                        <ul class="detail-bullets">
-                            <li><strong>Type-C fast charging</strong> supports quicker recharge convenience.</li>
-                            <li><strong>ENC clear calling mics</strong> are focused on improved voice-call clarity.</li>
-                            <li><strong>45ms low latency mode</strong> makes this the gaming-led pick in the current catalog.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>Price Snapshot</h3>
-                        <div class="detail-price-grid">
-                            <div class="detail-price-card">
-                                <span>MRP</span>
-                                <strong>Rs 5000</strong>
-                            </div>
-                            <div class="detail-price-card">
-                                <span>Offer</span>
-                                <strong>Rs 500</strong>
-                            </div>
-                            <div class="detail-price-card">
-                                <span>You Save</span>
-                                <strong>Rs 4500</strong>
-                            </div>
-                        </div>
-                    </section>
-                `
-            },
-            {
-                id: "m10-true-wireless-earbuds",
-                slug: "m10-true-wireless-earbuds",
-                title: "M10 True Wireless Earbuds",
-                type: "Noise-Cancelling Earbuds",
-                badge: "Waterproof",
-                price: 600,
-                originalPrice: 1500,
-                priceLabel: "Offer price",
-                summary: "M10 true wireless Bluetooth v5.1 earbuds with mic, waterproof design, noise-cancellation, auto pairing support, and black finish.",
-                features: [
-                    "Bluetooth v5.1 compatible true wireless connection",
-                    "Waterproof earbuds with mic and auto pairing",
-                    "Noise-cancellation in a black in-ear design"
-                ],
-                keywords: [
-                    "m10", "true wireless", "earbuds", "bluetooth", "bluetooth v5.1", "5.1", "waterproof",
-                    "mic", "noise cancellation", "noise-cancellation", "auto pairing", "headset", "black",
-                    "in ear", "ear buds", "buds", "pack of 1"
-                ],
-                visual: {
-                    type: "image",
-                    src: "m10%20earbud.webp",
-                    alt: "M10 True Wireless Earbuds"
-                },
-                action: {
-                    label: "GIVE ORDER"
-                },
-                footerNote: "GIVE ORDER opens the order form with the M10 product name and the Rs 600 offer price already filled in.",
-                detailHtml: `
-                    <section class="detail-section">
-                        <h3>Product Overview</h3>
-                        <p class="detail-lead">The M10 is a straightforward true wireless earbuds option centered on Bluetooth 5.1 compatibility, waterproof usage, and noise-cancellation-oriented positioning.</p>
-                        <ul class="detail-bullets">
-                            <li><strong>Bluetooth v5.1 compatibility</strong> supports stable wireless pairing for everyday use.</li>
-                            <li><strong>Auto pairing</strong> is positioned for faster reconnect convenience after the first setup.</li>
-                            <li><strong>Built-in mic</strong> keeps the earbuds usable for calls and voice interaction.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>Feature Highlights</h3>
-                        <ul class="detail-bullets">
-                            <li><strong>Waterproof design</strong> adds flexibility for mobile and active day-to-day usage.</li>
-                            <li><strong>Noise-cancellation</strong> is included as a core selling point for cleaner listening focus.</li>
-                            <li><strong>Black finish</strong> gives the product a simple and broadly appealing look.</li>
-                        </ul>
-                    </section>
-                    <section class="detail-section">
-                        <h3>Price Snapshot</h3>
-                        <div class="detail-price-grid">
-                            <div class="detail-price-card">
-                                <span>MRP</span>
-                                <strong>Rs 1500</strong>
-                            </div>
-                            <div class="detail-price-card">
-                                <span>Offer</span>
-                                <strong>Rs 600</strong>
-                            </div>
-                            <div class="detail-price-card">
-                                <span>You Save</span>
-                                <strong>Rs 900</strong>
-                            </div>
-                        </div>
-                    </section>
-                `
-            }
-        ];
-
-        const searchInput = document.getElementById("searchInput");
-        const resultCount = document.getElementById("resultCount");
-        const productGrid = document.getElementById("productGrid");
-        const noResults = document.getElementById("noResults");
-        const detailsModal = document.getElementById("detailsModal");
-        const modalPill = document.getElementById("modalPill");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalSummary = document.getElementById("modalSummary");
-        const modalPrice = document.getElementById("modalPrice");
-        const modalBody = document.getElementById("modalBody");
-        const modalAction = document.getElementById("modalAction");
-        const modalFooterNote = document.getElementById("modalFooterNote");
-        const modalClose = document.getElementById("modalClose");
-        const navLinks = document.getElementById("navLinks");
-        const menuToggle = document.getElementById("menuToggle");
-        let lastFocusedElement = null;
-
-        function formatPrice(price) {
-            return `Rs ${price}`;
-        }
-
-        function getActionHref(product) {
-            return `${ORDER_PAGE}?product=${encodeURIComponent(product.title)}&price=${encodeURIComponent(product.price)}`;
-        }
-
-        function getSavings(product) {
-            return Math.max(product.originalPrice - product.price, 0);
-        }
-
-        function normalizeText(value) {
-            return String(value || "")
-                .toLowerCase()
-                .normalize("NFKD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .replace(/[^a-z0-9]+/g, " ")
-                .trim();
-        }
-
-        const indexedProducts = products.map((product) => {
-            const searchBlob = normalizeText([
-                product.title,
-                product.type,
-                product.summary,
-                product.features.join(" "),
-                product.keywords.join(" "),
-                product.detailHtml.replace(/<[^>]+>/g, " ")
-            ].join(" "));
-
-            const searchWords = new Set(searchBlob.split(/\s+/).filter(Boolean));
-
-            return {
-                ...product,
-                searchBlob,
-                searchWords
-            };
-        });
-
-        function scoreProduct(product, query) {
-            const normalizedQuery = normalizeText(query);
-            if (!normalizedQuery) {
-                return 1;
+            function formatCurrency(value) {
+                return "Rs " + Number(value || 0);
             }
 
-            const queryTokens = normalizedQuery.split(/\s+/).filter(Boolean);
-            let score = 0;
-            let matchedTerms = 0;
-
-            if (product.searchBlob.includes(normalizedQuery)) {
-                score += 40;
+            function normalizeText(value) {
+                return String(value || "")
+                    .toLowerCase()
+                    .normalize("NFKD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[^a-z0-9]+/g, " ")
+                    .trim();
             }
 
-            queryTokens.forEach((token) => {
-                let tokenScore = 0;
+            function getSearchBlob(product) {
+                return normalizeText([
+                    product.group,
+                    product.title,
+                    product.type,
+                    product.summary,
+                    product.features.join(" "),
+                    product.keywords.join(" "),
+                    product.detailHtml.replace(/<[^>]+>/g, " ")
+                ].join(" "));
+            }
 
-                if (product.searchWords.has(token)) {
-                    tokenScore = 18;
-                } else if ([...product.searchWords].some((word) => word.startsWith(token))) {
-                    tokenScore = 14;
-                } else if (product.searchBlob.includes(token)) {
-                    tokenScore = token.length > 2 ? 10 : 6;
-                } else if (token.length > 3 && [...product.searchWords].some((word) => word.includes(token))) {
-                    tokenScore = 8;
-                }
-
-                if (tokenScore > 0) {
-                    matchedTerms += 1;
-                    score += tokenScore;
-                }
+            const indexedProducts = products.map(function (product) {
+                const searchBlob = getSearchBlob(product);
+                const searchWords = new Set(searchBlob.split(/\s+/).filter(Boolean));
+                return {
+                    ...product,
+                    searchBlob: searchBlob,
+                    searchWords: searchWords
+                };
             });
 
-            if (score === 0) {
-                return 0;
+            function scoreProduct(product, query) {
+                if (!query) {
+                    return 1;
+                }
+
+                const normalizedQuery = normalizeText(query);
+                const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+                let score = 0;
+                let matchedTerms = 0;
+
+                if (product.searchBlob.includes(normalizedQuery)) {
+                    score += 12;
+                }
+
+                tokens.forEach(function (token) {
+                    if (product.searchWords.has(token)) {
+                        score += 6;
+                        matchedTerms += 1;
+                    } else if ([...product.searchWords].some(function (word) { return word.indexOf(token) === 0; })) {
+                        score += 4;
+                        matchedTerms += 1;
+                    } else if (product.searchBlob.includes(token)) {
+                        score += 2;
+                        matchedTerms += 1;
+                    }
+                });
+
+                if (tokens.length > 1 && matchedTerms < Math.ceil(tokens.length * 0.6) && !product.searchBlob.includes(normalizedQuery)) {
+                    return 0;
+                }
+
+                return score;
             }
 
-            if (queryTokens.length > 1 && matchedTerms < Math.ceil(queryTokens.length * 0.6) && !product.searchBlob.includes(normalizedQuery)) {
-                return 0;
+            function getOrderHref(product) {
+                return ORDER_PAGE + "?product=" + encodeURIComponent(product.title) + "&price=" + encodeURIComponent(product.price);
             }
 
-            return score;
-        }
-
-        function createVisual(product) {
-            const escapedFallback = imageFallback.replace(/'/g, "\\'");
-            return `<img src="${product.visual.src}" alt="${product.visual.alt}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${escapedFallback}'">`;
-        }
-
-        function renderProducts(list) {
-            resultCount.textContent = String(list.length);
-
-            if (!list.length) {
-                productGrid.innerHTML = "";
-                noResults.hidden = false;
-                return;
+            function getVisualMarkup(product) {
+                return "<img src=\"" + product.visual.src + "\" alt=\"" + product.visual.alt + "\" loading=\"lazy\" decoding=\"async\">";
             }
 
-            noResults.hidden = true;
-            productGrid.innerHTML = list.map((product) => `
-                <article class="product-card" role="listitem" aria-label="${product.title}">
-                    <div class="product-media">
-                        <span class="product-badge">${product.badge}</span>
-                        ${createVisual(product)}
-                    </div>
-                    <div class="product-body">
-                        <span class="product-kicker">${product.type}</span>
-                        <h3 class="product-title">${product.title}</h3>
-                        <p class="product-summary">${product.summary}</p>
-                        <ul class="product-features">
-                            ${product.features.map((feature) => `<li>${feature}</li>`).join("")}
-                        </ul>
-                        <div class="product-footer">
-                            <div class="product-price-row">
-                                <div class="price-main">
-                                    <div class="product-price">${formatPrice(product.price)}</div>
-                                    <div class="product-price-note">${product.priceLabel}</div>
-                                </div>
-                                <div class="price-meta">
-                                    <span class="old-price">MRP ${formatPrice(product.originalPrice)}</span>
-                                    <span class="save-pill">Save ${formatPrice(getSavings(product))}</span>
-                                </div>
-                            </div>
-                            <div class="action-stack">
-                                <button class="btn btn-secondary" type="button" data-details-id="${product.id}">Details</button>
-                                <a class="btn btn-primary" href="${getActionHref(product)}">${product.action.label}</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            `).join("");
-        }
+            function renderProducts(list) {
+                resultCount.textContent = String(list.length);
 
-        function openModal(productId) {
-            const product = indexedProducts.find((item) => item.id === productId);
-            if (!product) {
-                return;
-            }
-
-            lastFocusedElement = document.activeElement;
-            modalPill.textContent = product.type;
-            modalTitle.textContent = product.title;
-            modalSummary.textContent = product.summary;
-            modalPrice.textContent = `${formatPrice(product.price)} • MRP ${formatPrice(product.originalPrice)}`;
-            modalBody.innerHTML = product.detailHtml;
-            modalAction.textContent = product.action.label;
-            modalAction.href = getActionHref(product);
-            modalFooterNote.textContent = product.footerNote;
-            detailsModal.classList.add("is-open");
-            detailsModal.setAttribute("aria-hidden", "false");
-            document.body.classList.add("modal-open");
-            modalClose.focus();
-        }
-
-        function closeModal() {
-            detailsModal.classList.remove("is-open");
-            detailsModal.setAttribute("aria-hidden", "true");
-            document.body.classList.remove("modal-open");
-
-            if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
-                lastFocusedElement.focus();
-            }
-        }
-
-        function filterProducts(query) {
-            const normalizedQuery = normalizeText(query);
-
-            if (!normalizedQuery) {
-                renderProducts(indexedProducts);
-                return;
-            }
-
-            const filtered = indexedProducts
-                .map((product) => ({
-                    product,
-                    score: scoreProduct(product, normalizedQuery)
-                }))
-                .filter((entry) => entry.score > 0)
-                .sort((left, right) => right.score - left.score || left.product.price - right.product.price || left.product.title.localeCompare(right.product.title))
-                .map((entry) => entry.product);
-
-            renderProducts(filtered);
-        }
-
-        if (menuToggle) {
-            menuToggle.addEventListener("click", () => {
-                const isOpen = navLinks.classList.toggle("is-open");
-                menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-            });
-        }
-
-        document.addEventListener("click", (event) => {
-            const detailButton = event.target.closest("[data-details-id]");
-            if (detailButton) {
-                openModal(detailButton.getAttribute("data-details-id"));
-                return;
-            }
-
-            if (navLinks.classList.contains("is-open") && !navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
-                navLinks.classList.remove("is-open");
-                menuToggle.setAttribute("aria-expanded", "false");
-            }
-        });
-
-        searchInput.addEventListener("input", (event) => {
-            filterProducts(event.target.value);
-        });
-
-        modalClose.addEventListener("click", closeModal);
-
-        detailsModal.addEventListener("click", (event) => {
-            if (event.target === detailsModal) {
-                closeModal();
-            }
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                if (detailsModal.classList.contains("is-open")) {
-                    closeModal();
+                if (!list.length) {
+                    productGrid.innerHTML = "";
+                    noResults.hidden = false;
                     return;
                 }
 
-                if (navLinks.classList.contains("is-open")) {
-                    navLinks.classList.remove("is-open");
-                    menuToggle.setAttribute("aria-expanded", "false");
+                noResults.hidden = true;
+                productGrid.innerHTML = list.map(function (product) {
+                    return [
+                        "<article class=\"product-card\" role=\"listitem\" aria-label=\"" + product.title + "\">",
+                        "<div class=\"product-thumb\">",
+                        "<span class=\"product-badge\">" + product.badge + "</span>",
+                        "<span class=\"product-group\">" + product.group + "</span>",
+                        getVisualMarkup(product),
+                        "</div>",
+                        "<div class=\"product-copy\">",
+                        "<h2 class=\"product-title\">" + product.title + "</h2>",
+                        "<div class=\"product-type\">" + product.type + "</div>",
+                        "</div>",
+                        "<div class=\"price-grid\">",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Price</span><span class=\"price-value\">" + formatCurrency(product.originalPrice) + "</span></div>",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Off</span><span class=\"price-value\">" + product.discountPercent + "%</span></div>",
+                        "<div class=\"price-cell\"><span class=\"price-label\">Sell</span><span class=\"price-value is-accent\">" + formatCurrency(product.price) + "</span></div>",
+                        "</div>",
+                        "<div class=\"card-actions\">",
+                        "<button class=\"action-btn\" type=\"button\" data-details-id=\"" + product.id + "\">Details</button>",
+                        "<a class=\"action-btn action-btn--primary\" href=\"" + getOrderHref(product) + "\">GIVE ORDER</a>",
+                        "</div>",
+                        "</article>"
+                    ].join("");
+                }).join("");
+            }
+
+            function openModal(productId) {
+                const product = indexedProducts.find(function (item) {
+                    return item.id === productId;
+                });
+
+                if (!product) {
+                    return;
+                }
+
+                lastFocusedElement = document.activeElement;
+                modalPill.textContent = product.group + " Product";
+                modalTitle.textContent = product.title;
+                modalSummary.textContent = product.summary;
+                modalPrice.textContent = "Price " + formatCurrency(product.originalPrice) + " | Discount " + product.discountPercent + "% | Sell " + formatCurrency(product.price);
+                modalBody.innerHTML = product.detailHtml;
+                modalFooterNote.textContent = "Details opens first. GIVE ORDER sends " + product.title + " and the sell price into the order form.";
+                modalAction.href = getOrderHref(product);
+                detailsModal.classList.add("is-open");
+                detailsModal.setAttribute("aria-hidden", "false");
+                document.body.classList.add("modal-open");
+            }
+
+            function closeModal() {
+                detailsModal.classList.remove("is-open");
+                detailsModal.setAttribute("aria-hidden", "true");
+                document.body.classList.remove("modal-open");
+
+                if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+                    lastFocusedElement.focus();
                 }
             }
-        });
 
-        renderProducts(indexedProducts);
+            function filterProducts(query) {
+                const normalizedQuery = normalizeText(query);
 
-        if (window.innerWidth > 768) {
-            searchInput.focus();
-        }
+                if (!normalizedQuery) {
+                    renderProducts(indexedProducts);
+                    return;
+                }
+
+                const filtered = indexedProducts
+                    .map(function (product) {
+                        return {
+                            product: product,
+                            score: scoreProduct(product, normalizedQuery)
+                        };
+                    })
+                    .filter(function (entry) {
+                        return entry.score > 0;
+                    })
+                    .sort(function (left, right) {
+                        return right.score - left.score || left.product.price - right.product.price || left.product.title.localeCompare(right.product.title);
+                    })
+                    .map(function (entry) {
+                        return entry.product;
+                    });
+
+                renderProducts(filtered);
+            }
+
+            productGrid.addEventListener("click", function (event) {
+                const detailButton = event.target.closest("[data-details-id]");
+                if (detailButton) {
+                    openModal(detailButton.getAttribute("data-details-id"));
+                }
+            });
+
+            searchInput.addEventListener("input", function (event) {
+                filterProducts(event.target.value);
+            });
+
+            modalClose.addEventListener("click", closeModal);
+
+            detailsModal.addEventListener("click", function (event) {
+                if (event.target === detailsModal) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && detailsModal.classList.contains("is-open")) {
+                    closeModal();
+                }
+            });
+
+            renderProducts(indexedProducts);
+        })();
     </script>
 
     <a class="help-fab" href="https://youtu.be/wXGXQgKTCQI" target="_blank" rel="noopener noreferrer" aria-label="Open the help video on YouTube">

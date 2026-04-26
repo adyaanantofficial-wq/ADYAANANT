@@ -4,581 +4,228 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="description" content="Confirm your ADYAANANT order and send the completed details to WhatsApp in one step.">
-    <meta name="theme-color" content="#111827">
+    <meta name="theme-color" content="#15803d">
     <title>Order Form | ADYAANANT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="catalog-store.css">
     <style>
-        :root {
-            --bg-main: #f4f5f7;
-            --surface: rgba(255, 255, 255, 0.94);
-            --surface-strong: #ffffff;
-            --surface-dark: #101826;
-            --text-main: #151821;
-            --text-muted: #5c6576;
-            --border: rgba(17, 24, 39, 0.1);
-            --brand: #ffb547;
-            --brand-deep: #f08a00;
-            --brand-soft: rgba(255, 181, 71, 0.18);
-            --accent: #1c4f88;
-            --accent-soft: rgba(28, 79, 136, 0.12);
-            --success: #0f9d77;
-            --shadow-sm: 0 12px 30px rgba(16, 24, 38, 0.06);
-            --shadow-md: 0 22px 50px rgba(16, 24, 38, 0.12);
-            --shadow-lg: 0 32px 80px rgba(16, 24, 38, 0.18);
-            --radius-lg: 30px;
-            --radius-md: 22px;
-            --radius-sm: 16px;
-            --transition: 220ms ease;
-            --font-display: "Space Grotesk", sans-serif;
-            --font-body: "Manrope", sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: var(--font-body);
-            color: var(--text-main);
-            background:
-                radial-gradient(circle at top left, rgba(255, 181, 71, 0.18), transparent 24%),
-                radial-gradient(circle at top right, rgba(28, 79, 136, 0.12), transparent 22%),
-                linear-gradient(180deg, #fffaf3 0%, #f4f5f7 30%, #eef2f7 100%);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button,
-        input,
-        select {
-            font: inherit;
-        }
-
-        .page-shell {
-            width: min(1320px, calc(100% - 32px));
+        .order-main {
+            width: min(1380px, calc(100% - 24px));
             margin: 0 auto;
+            padding: 28px 0 56px;
         }
 
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(18px);
-            background: rgba(16, 24, 38, 0.88);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
-        }
-
-        .nav-shell {
-            min-height: 88px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-        }
-
-        .nav-brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .nav-logo {
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            object-fit: cover;
-            box-shadow: 0 10px 24px rgba(255, 181, 71, 0.18);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .brand-copy {
+        .order-grid {
             display: grid;
-            gap: 2px;
-        }
-
-        .brand-eyebrow {
-            font-size: 0.76rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.58);
-        }
-
-        .brand-title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.03em;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 46px;
-            padding: 0 18px;
-            border-radius: 999px;
-            color: rgba(255, 255, 255, 0.88);
-            font-weight: 600;
-            transition: color var(--transition), background var(--transition), transform var(--transition);
-        }
-
-        .nav-links a:hover,
-        .nav-links a:focus-visible,
-        .nav-links a.is-active {
-            color: #111827;
-            background: linear-gradient(135deg, var(--brand), #ffd37b);
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        .hero {
-            padding: 42px 0 24px;
-        }
-
-        .hero-panel {
-            position: relative;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.92fr);
-            gap: 28px;
-            padding: 42px;
-            background:
-                linear-gradient(135deg, rgba(16, 24, 38, 0.96), rgba(16, 24, 38, 0.88)),
-                linear-gradient(135deg, rgba(255, 181, 71, 0.14), rgba(28, 79, 136, 0.18));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 34px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero-panel::before,
-        .hero-panel::after {
-            content: "";
-            position: absolute;
-            border-radius: 999px;
-            filter: blur(6px);
-        }
-
-        .hero-panel::before {
-            width: 220px;
-            height: 220px;
-            right: -60px;
-            top: -40px;
-            background: rgba(255, 181, 71, 0.16);
-        }
-
-        .hero-panel::after {
-            width: 170px;
-            height: 170px;
-            left: 50%;
-            bottom: -82px;
-            background: rgba(28, 79, 136, 0.18);
-        }
-
-        .hero-copy,
-        .hero-aside {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-copy {
-            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
             gap: 18px;
-            align-content: center;
         }
 
-        .hero-kicker {
-            width: fit-content;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            color: #ffe6b7;
-            letter-spacing: 0.14em;
+        .order-panel {
+            padding: 22px;
+            border-radius: 28px;
+            border: 1px solid rgba(18, 32, 24, 0.08);
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: var(--store-shadow-sm);
+        }
+
+        .order-head {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .order-eyebrow {
+            font-size: 0.76rem;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
-
-        .hero-copy h1 {
-            max-width: 12ch;
-            font-family: var(--font-display);
-            font-size: clamp(2.4rem, 4vw, 4.2rem);
-            line-height: 1.02;
-            letter-spacing: -0.05em;
-            color: #ffffff;
-        }
-
-        .hero-copy p {
-            max-width: 60ch;
-            color: rgba(255, 255, 255, 0.76);
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        .hero-points {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .hero-points span {
-            display: inline-flex;
-            align-items: center;
-            min-height: 42px;
-            padding: 0 16px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.09);
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .hero-aside {
-            display: grid;
-            gap: 14px;
-            align-content: center;
-        }
-
-        .insight-card {
-            padding: 22px 22px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: 24px;
-            color: #ffffff;
-        }
-
-        .insight-value {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 2rem;
-            margin-bottom: 8px;
-            color: #ffd891;
-        }
-
-        .insight-card p {
-            color: rgba(255, 255, 255, 0.74);
-            line-height: 1.7;
-        }
-
-        .content {
-            padding: 8px 0 72px;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-            gap: 26px;
-            align-items: start;
-        }
-
-        .panel {
-            padding: 32px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .section-head {
-            display: grid;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-
-        .section-head span {
-            width: fit-content;
-            display: inline-flex;
-            align-items: center;
-            min-height: 36px;
-            padding: 0 14px;
-            border-radius: 999px;
-            background: var(--brand-soft);
-            color: var(--brand-deep);
-            font-size: 0.85rem;
+            color: var(--store-accent-deep);
             font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
         }
 
-        .section-head h2,
-        .section-head h3 {
-            font-family: var(--font-display);
-            letter-spacing: -0.03em;
+        .order-title {
+            margin: 0;
+            font-family: var(--store-font-display);
+            font-size: clamp(1.5rem, 3vw, 2.3rem);
+            line-height: 1.06;
+            letter-spacing: -0.05em;
         }
 
-        .section-head p,
-        .summary-card p,
-        .summary-notes li,
-        .helper-text {
-            color: var(--text-muted);
-            line-height: 1.75;
+        .order-head p,
+        .helper-text,
+        .summary-notes li {
+            margin: 0;
+            color: var(--store-muted);
+            line-height: 1.7;
         }
 
         .field-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
+            gap: 14px;
         }
 
         .field {
             display: grid;
-            gap: 10px;
+            gap: 8px;
         }
 
         .field-full {
             grid-column: 1 / -1;
         }
 
-        .field label,
         .field-name {
-            font-size: 0.96rem;
-            font-weight: 700;
-            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--store-ink);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
         .field input,
         .field select {
             width: 100%;
-            min-height: 56px;
-            padding: 0 18px;
-            border: 1px solid rgba(17, 24, 39, 0.12);
+            min-height: 52px;
+            padding: 0 16px;
             border-radius: 16px;
-            background: var(--surface-strong);
-            color: var(--text-main);
-            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+            border: 1px solid rgba(18, 32, 24, 0.1);
+            background: #fbfdfb;
+            color: var(--store-ink);
+            transition: border-color var(--store-transition), box-shadow var(--store-transition);
         }
 
         .field input:focus,
         .field select:focus {
             outline: none;
-            border-color: rgba(240, 138, 0, 0.55);
-            box-shadow: 0 0 0 4px rgba(255, 181, 71, 0.18);
-            transform: translateY(-1px);
+            border-color: rgba(32, 178, 90, 0.5);
+            box-shadow: 0 0 0 4px rgba(32, 178, 90, 0.12);
         }
 
         .form-actions {
-            margin-top: 28px;
             display: grid;
-            gap: 12px;
+            gap: 10px;
+            margin-top: 18px;
         }
 
         .submit-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 58px;
-            padding: 0 24px;
+            min-height: 52px;
             border: 0;
             border-radius: 18px;
-            background: linear-gradient(135deg, var(--brand-deep), #ffbf56);
-            color: #101826;
+            background: linear-gradient(135deg, #2dd46f, #15803d);
+            color: #f7fff9;
+            font-size: 0.96rem;
             font-weight: 800;
-            font-size: 1rem;
-            letter-spacing: -0.01em;
-            box-shadow: 0 18px 32px rgba(240, 138, 0, 0.22);
+            letter-spacing: 0.04em;
             cursor: pointer;
-            transition: transform var(--transition), box-shadow var(--transition);
-        }
-
-        .submit-btn:hover,
-        .submit-btn:focus-visible {
-            transform: translateY(-2px);
-            box-shadow: 0 22px 38px rgba(240, 138, 0, 0.28);
-            outline: none;
-        }
-
-        .summary-card {
-            display: grid;
-            gap: 24px;
+            box-shadow: var(--store-shadow-md);
         }
 
         .summary-stack {
             display: grid;
-            gap: 14px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .summary-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
-            padding: 16px 18px;
+            gap: 12px;
+            padding: 14px 16px;
             border-radius: 18px;
-            background: linear-gradient(180deg, rgba(255, 248, 239, 0.92), rgba(245, 248, 252, 0.98));
-            border: 1px solid rgba(255, 181, 71, 0.18);
+            background: #f7fbf7;
+            border: 1px solid rgba(18, 32, 24, 0.05);
         }
 
         .summary-row span {
-            color: var(--text-muted);
+            color: var(--store-muted);
+            font-weight: 700;
         }
 
         .summary-row strong {
-            font-size: 1rem;
+            color: var(--store-ink);
             text-align: right;
         }
 
         .summary-row.total {
-            background: linear-gradient(145deg, #101826, #15233a);
-            border-color: rgba(16, 24, 38, 0.2);
-        }
-
-        .summary-row.total span,
-        .summary-row.total strong {
-            color: #ffffff;
+            background: rgba(32, 178, 90, 0.12);
+            border-color: rgba(32, 178, 90, 0.16);
         }
 
         .summary-notes {
-            display: grid;
-            gap: 12px;
+            margin: 0 0 18px;
             padding-left: 18px;
+        }
+
+        .summary-notes li + li {
+            margin-top: 8px;
         }
 
         .helper-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 52px;
-            padding: 0 18px;
-            border-radius: 16px;
-            background: var(--accent-soft);
-            color: var(--accent);
-            font-weight: 700;
+            min-height: 42px;
+            padding: 0 16px;
+            border-radius: 999px;
+            background: #f7fbf7;
+            border: 1px solid rgba(18, 32, 24, 0.08);
+            font-weight: 800;
+            color: var(--store-accent-deep);
         }
 
         @media (max-width: 980px) {
-            .nav-shell,
-            .hero-panel,
-            .content-grid,
-            .field-grid {
+            .order-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .nav-shell {
-                min-height: unset;
-                padding: 18px 0;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: flex-start;
-            }
-
-            .hero-panel,
-            .panel {
-                padding: 28px;
             }
         }
 
         @media (max-width: 640px) {
-            .page-shell {
-                width: min(100% - 20px, 1320px);
+            .order-main {
+                width: min(100% - 18px, 1380px);
+                padding-top: 22px;
             }
 
-            .hero-copy h1 {
-                max-width: none;
+            .order-panel {
+                padding: 18px;
+                border-radius: 24px;
             }
 
-            .hero-points,
-            .nav-links {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .nav-links a,
-            .submit-btn,
-            .helper-link {
-                width: 100%;
-            }
-
-            .summary-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .summary-row strong {
-                text-align: left;
+            .field-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar" aria-label="Primary navigation">
-        <div class="page-shell nav-shell">
-            <a class="nav-brand" href="index.html">
-                <img class="nav-logo" src="logo.png" alt="ADYAANANT logo">
-                <span class="brand-copy">
-                    <span class="brand-eyebrow">ADYAANANT</span>
-                    <span class="brand-title">Order Form</span>
+    <nav class="store-nav" aria-label="Primary navigation">
+        <div class="store-page store-nav__inner">
+            <a class="store-brand" href="index.html">
+                <img class="store-brand__logo" src="logo.png" alt="ADYAANANT logo">
+                <span class="store-brand__copy">
+                    <span class="store-brand__eyebrow">ADYAANANT</span>
+                    <span class="store-brand__title">Order Form</span>
                 </span>
             </a>
 
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="Digital Products.html">Digital Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="order.html" class="is-active">Order</a></li>
-            </ul>
+            <div class="store-nav__links">
+                <a href="index.html">Home</a>
+                <a href="Digital Products.html">Digital Products</a>
+                <a href="Real Products.html">Real Products</a>
+                <a class="is-active" href="order.html">Order</a>
+            </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="page-shell">
-            <section class="hero-panel" aria-labelledby="heroTitle">
-                <div class="hero-copy">
-                    <span class="hero-kicker">Fast Confirmation Flow</span>
-                    <h1 id="heroTitle">Fill the order once and confirm it on WhatsApp.</h1>
-                    <p>
-                        Product name and price are prefilled from the product page. Add the customer and delivery details, then the
-                        completed order opens as a ready-to-send WhatsApp message.
-                    </p>
-
-                    <div class="hero-points" aria-label="Order highlights">
-                        <span>Prefilled product details</span>
-                        <span>Structured delivery address</span>
-                        <span>WhatsApp-ready confirmation</span>
-                    </div>
-                </div>
-
-                <div class="hero-aside" aria-label="Order insights">
-                    <article class="insight-card">
-                        <span class="insight-value">1 Step</span>
-                        <p>Complete the form and move straight into WhatsApp with the full order already written for you.</p>
-                    </article>
-                    <article class="insight-card">
-                        <span class="insight-value">Complete</span>
-                        <p>Name, phone, DOB, quantity, and delivery address are all bundled into the same confirmation message.</p>
-                    </article>
-                </div>
-            </section>
-        </div>
-    </header>
-
-    <main class="content">
-        <div class="page-shell content-grid">
-            <section class="panel">
-                <div class="section-head">
-                    <span>Checkout Form</span>
-                    <h2>Order Details</h2>
-                    <p>Fill in the required fields below and confirm the order on WhatsApp.</p>
+    <main class="order-main">
+        <div class="order-grid">
+            <section class="order-panel">
+                <div class="order-head">
+                    <span class="order-eyebrow">Checkout Form</span>
+                    <h1 class="order-title">Fill the order details once and send them to WhatsApp.</h1>
+                    <p>Product name and sell price can arrive prefilled from the catalog pages. Complete the remaining customer and delivery details below.</p>
                 </div>
 
                 <form id="orderForm" novalidate>
@@ -589,8 +236,8 @@
                         </div>
 
                         <div class="field">
-                            <span class="field-name">Price</span>
-                            <input id="price" name="price" type="text" placeholder="₹100" required>
+                            <span class="field-name">Sell Price</span>
+                            <input id="price" name="price" type="text" placeholder="Rs 100" required>
                         </div>
 
                         <div class="field">
@@ -646,16 +293,16 @@
 
                     <div class="form-actions">
                         <button class="submit-btn" type="submit">Confirm Order</button>
-                        <p class="helper-text">Confirm opens WhatsApp and fills the message with every detail from this form for 9352334463.</p>
+                        <p class="helper-text">Confirm opens WhatsApp with the full order already written for 9352334463.</p>
                     </div>
                 </form>
             </section>
 
-            <aside class="panel summary-card" aria-labelledby="summaryHeading">
-                <div class="section-head">
-                    <span>Live Summary</span>
-                    <h3 id="summaryHeading">Order Snapshot</h3>
-                    <p>Review the selected product, price, quantity, and total before opening WhatsApp.</p>
+            <aside class="order-panel" aria-labelledby="summaryHeading">
+                <div class="order-head">
+                    <span class="order-eyebrow">Live Summary</span>
+                    <h2 class="order-title" id="summaryHeading">Order Snapshot</h2>
+                    <p>Review the product, unit price, quantity, and total before jumping into WhatsApp.</p>
                 </div>
 
                 <div class="summary-stack">
@@ -677,181 +324,177 @@
                     </div>
                 </div>
 
-                <div>
-                    <h3 style="font-family: var(--font-display); letter-spacing: -0.03em; margin-bottom: 12px;">What happens next</h3>
-                    <ul class="summary-notes">
-                        <li>WhatsApp opens with the completed order message already written.</li>
-                        <li>You can review the message before sending it.</li>
-                        <li>The delivery address is combined in a standard readable format.</li>
-                    </ul>
-                </div>
+                <ul class="summary-notes">
+                    <li>WhatsApp opens with the completed order message already written.</li>
+                    <li>You can review the message before sending it.</li>
+                    <li>The delivery address is combined in a readable format automatically.</li>
+                </ul>
 
-                <a class="helper-link" href="Digital Products.html">Back to Product Catalog</a>
+                <a class="helper-link" href="index.html">Back to Product Catalog</a>
             </aside>
         </div>
     </main>
 
     <script>
-        const WHATSAPP_NUMBER = "919352334463";
+        (function () {
+            const WHATSAPP_NUMBER = "919352334463";
 
-        const orderForm = document.getElementById("orderForm");
-        const productNameInput = document.getElementById("productName");
-        const priceInput = document.getElementById("price");
-        const quantityInput = document.getElementById("quantity");
-        const dobInput = document.getElementById("dob");
-        const customerNameInput = document.getElementById("customerName");
-        const phoneNumberInput = document.getElementById("phoneNumber");
-        const addressLine1Input = document.getElementById("addressLine1");
-        const addressLine2Input = document.getElementById("addressLine2");
-        const cityInput = document.getElementById("city");
-        const stateInput = document.getElementById("state");
-        const postalCodeInput = document.getElementById("postalCode");
-        const countryInput = document.getElementById("country");
+            const orderForm = document.getElementById("orderForm");
+            const productNameInput = document.getElementById("productName");
+            const priceInput = document.getElementById("price");
+            const quantityInput = document.getElementById("quantity");
+            const dobInput = document.getElementById("dob");
+            const customerNameInput = document.getElementById("customerName");
+            const phoneNumberInput = document.getElementById("phoneNumber");
+            const addressLine1Input = document.getElementById("addressLine1");
+            const addressLine2Input = document.getElementById("addressLine2");
+            const cityInput = document.getElementById("city");
+            const stateInput = document.getElementById("state");
+            const postalCodeInput = document.getElementById("postalCode");
+            const countryInput = document.getElementById("country");
 
-        const summaryProduct = document.getElementById("summaryProduct");
-        const summaryPrice = document.getElementById("summaryPrice");
-        const summaryQuantity = document.getElementById("summaryQuantity");
-        const summaryTotal = document.getElementById("summaryTotal");
+            const summaryProduct = document.getElementById("summaryProduct");
+            const summaryPrice = document.getElementById("summaryPrice");
+            const summaryQuantity = document.getElementById("summaryQuantity");
+            const summaryTotal = document.getElementById("summaryTotal");
 
-        function formatCurrency(amount) {
-            return `₹${amount.toFixed(Number.isInteger(amount) ? 0 : 2)}`;
-        }
-
-        function normalizePrice(rawPrice) {
-            const cleaned = String(rawPrice || "").trim();
-            if (!cleaned) {
-                return "";
+            function formatCurrency(amount) {
+                return "Rs " + amount.toFixed(Number.isInteger(amount) ? 0 : 2);
             }
 
-            if (/^\d+(\.\d+)?$/.test(cleaned)) {
-                return formatCurrency(Number(cleaned));
+            function normalizePrice(rawPrice) {
+                const cleaned = String(rawPrice || "").trim();
+                if (!cleaned) {
+                    return "";
+                }
+
+                if (/^\d+(\.\d+)?$/.test(cleaned)) {
+                    return formatCurrency(Number(cleaned));
+                }
+
+                return cleaned;
             }
 
-            return cleaned;
-        }
-
-        function parsePrice(rawPrice) {
-            const cleaned = String(rawPrice || "").replace(/[^0-9.]/g, "");
-            const numericValue = Number(cleaned);
-            return Number.isFinite(numericValue) && numericValue > 0 ? numericValue : 0;
-        }
-
-        function formatDob(value) {
-            if (!value) {
-                return "";
+            function parsePrice(rawPrice) {
+                const cleaned = String(rawPrice || "").replace(/[^0-9.]/g, "");
+                const numericValue = Number(cleaned);
+                return Number.isFinite(numericValue) && numericValue > 0 ? numericValue : 0;
             }
 
-            const [year, month, day] = value.split("-");
-            return `${day}/${month}/${year}`;
-        }
+            function formatDob(value) {
+                if (!value) {
+                    return "";
+                }
 
-        function getAddressText() {
-            return [
-                addressLine1Input.value.trim(),
-                addressLine2Input.value.trim(),
-                cityInput.value.trim(),
-                stateInput.value.trim(),
-                postalCodeInput.value.trim(),
-                countryInput.value.trim()
-            ].filter(Boolean).join(", ");
-        }
+                const date = new Date(value + "T00:00:00");
+                if (Number.isNaN(date.getTime())) {
+                    return value;
+                }
 
-        function updateSummary() {
-            const productName = productNameInput.value.trim();
-            const priceText = priceInput.value.trim();
-            const quantity = Number(quantityInput.value || 1);
-            const numericPrice = parsePrice(priceText);
-
-            summaryProduct.textContent = productName || "Not selected";
-            summaryPrice.textContent = priceText || "Pending";
-            summaryQuantity.textContent = String(quantity);
-            summaryTotal.textContent = numericPrice ? formatCurrency(numericPrice * quantity) : "To be confirmed";
-        }
-
-        function buildQuantityOptions() {
-            quantityInput.innerHTML = Array.from({ length: 10 }, (_, index) => {
-                const value = index + 1;
-                return `<option value="${value}">${value}</option>`;
-            }).join("");
-        }
-
-        function prefillFromQuery() {
-            const params = new URLSearchParams(window.location.search);
-            const productName = params.get("product");
-            const price = params.get("price");
-
-            if (productName) {
-                productNameInput.value = productName;
+                const day = String(date.getDate()).padStart(2, "0");
+                const month = String(date.getMonth() + 1).padStart(2, "0");
+                const year = date.getFullYear();
+                return day + "/" + month + "/" + year;
             }
 
-            if (price) {
-                priceInput.value = normalizePrice(price);
+            function updateSummary() {
+                const productName = productNameInput.value.trim();
+                const normalizedPrice = normalizePrice(priceInput.value);
+                const parsedPrice = parsePrice(priceInput.value);
+                const quantity = Number(quantityInput.value || 1);
+                const total = parsedPrice * quantity;
+
+                summaryProduct.textContent = productName || "Not selected";
+                summaryPrice.textContent = normalizedPrice || "Pending";
+                summaryQuantity.textContent = String(quantity);
+                summaryTotal.textContent = parsedPrice ? formatCurrency(total) : "Pending";
             }
 
-            if (!countryInput.value.trim()) {
-                countryInput.value = "India";
-            }
-        }
-
-        function openWhatsApp(message) {
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-            const popup = window.open(whatsappUrl, "_blank", "noopener");
-
-            if (!popup) {
-                window.location.href = whatsappUrl;
-            }
-        }
-
-        buildQuantityOptions();
-        prefillFromQuery();
-        const today = new Date();
-        today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-        dobInput.max = today.toISOString().split("T")[0];
-        updateSummary();
-
-        [
-            productNameInput,
-            priceInput,
-            quantityInput,
-            customerNameInput,
-            phoneNumberInput,
-            addressLine1Input,
-            addressLine2Input,
-            cityInput,
-            stateInput,
-            postalCodeInput,
-            countryInput
-        ].forEach((field) => {
-            field.addEventListener("input", updateSummary);
-            field.addEventListener("change", updateSummary);
-        });
-
-        orderForm.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            if (!orderForm.reportValidity()) {
-                return;
+            function populateQuantityOptions() {
+                quantityInput.innerHTML = Array.from({ length: 10 }, function (_, index) {
+                    const value = index + 1;
+                    return "<option value=\"" + value + "\">" + value + "</option>";
+                }).join("");
+                quantityInput.value = "1";
             }
 
-            const priceText = priceInput.value.trim();
-            const quantity = Number(quantityInput.value || 1);
-            const numericPrice = parsePrice(priceText);
-            const estimatedTotal = numericPrice ? formatCurrency(numericPrice * quantity) : "To be confirmed";
+            function populateFromQuery() {
+                const params = new URLSearchParams(window.location.search);
+                const productName = params.get("product");
+                const price = params.get("price");
 
-            const message = [
-                "New Order Request",
-                `Product Name: ${productNameInput.value.trim()}`,
-                `Price: ${priceText}`,
-                `Quantity: ${quantity}`,
-                `DOB: ${formatDob(dobInput.value)}`,
-                `Customer Name: ${customerNameInput.value.trim()}`,
-                `Phone Number: ${phoneNumberInput.value.trim()}`,
-                `Delivery Address: ${getAddressText()}`,
-                `Estimated Total: ${estimatedTotal}`
-            ].join("\n");
+                if (productName) {
+                    productNameInput.value = productName;
+                }
 
-            openWhatsApp(message);
-        });
+                if (price) {
+                    priceInput.value = normalizePrice(price);
+                }
+            }
+
+            function buildAddress() {
+                return [
+                    addressLine1Input.value.trim(),
+                    addressLine2Input.value.trim(),
+                    cityInput.value.trim(),
+                    stateInput.value.trim(),
+                    postalCodeInput.value.trim(),
+                    countryInput.value.trim()
+                ].filter(Boolean).join(", ");
+            }
+
+            function registerLiveSummary() {
+                [
+                    productNameInput,
+                    priceInput,
+                    quantityInput,
+                    dobInput,
+                    customerNameInput,
+                    phoneNumberInput,
+                    addressLine1Input,
+                    addressLine2Input,
+                    cityInput,
+                    stateInput,
+                    postalCodeInput,
+                    countryInput
+                ].forEach(function (field) {
+                    field.addEventListener("input", updateSummary);
+                    field.addEventListener("change", updateSummary);
+                });
+            }
+
+            orderForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                if (!orderForm.reportValidity()) {
+                    return;
+                }
+
+                const quantity = Number(quantityInput.value || 1);
+                const parsedPrice = parsePrice(priceInput.value);
+                const total = parsedPrice * quantity;
+                const lines = [
+                    "New Order Request",
+                    "",
+                    "Product Name: " + productNameInput.value.trim(),
+                    "Unit Price: " + normalizePrice(priceInput.value),
+                    "Quantity: " + quantity,
+                    "Estimated Total: " + (parsedPrice ? formatCurrency(total) : normalizePrice(priceInput.value)),
+                    "DOB: " + formatDob(dobInput.value),
+                    "Customer Name: " + customerNameInput.value.trim(),
+                    "Phone Number: " + phoneNumberInput.value.trim(),
+                    "Delivery Address: " + buildAddress()
+                ];
+
+                const message = encodeURIComponent(lines.join("\n"));
+                window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message, "_blank", "noopener");
+            });
+
+            populateQuantityOptions();
+            populateFromQuery();
+            registerLiveSummary();
+            updateSummary();
+        })();
     </script>
 </body>
 </html>
