@@ -250,7 +250,7 @@
             type: "Digital book",
             badge: "New Arrival",
             originalPrice: 180,
-            price: 120,
+            price: 10,
             summary: "A digital reading product for calm focus, self-conditioning, and guided inner practice.",
             features: [
                 "Digital delivery",
