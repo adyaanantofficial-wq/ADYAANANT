@@ -58,6 +58,8 @@
             </div>
         </header>
 
+        <div class="page-container" data-inline-banner-ads></div>
+
         <section class="section">
             <div class="page-container">
                 <div class="section-header">
@@ -80,6 +82,40 @@
                         <h3>Startup and Youth Programs</h3>
                         <p>Follow grant-linked programs, incubation opportunities, innovation missions, and youth-oriented entrepreneurship support.</p>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="page-container">
+                <div class="section-header">
+                    <h2>Live Gov Updates Feed</h2>
+                    <p>The page below embeds <code>govupdatesdaily.blogspot.com</code> directly into this hub, with a direct open button included as a fallback.</p>
+                </div>
+
+                <div class="external-embed">
+                    <div class="external-embed__info">
+                        <h3>Embedded Source</h3>
+                        <p>This panel is set to load the Government Updates Daily Blogspot page directly inside an iframe so visitors can read updates without leaving your site.</p>
+                        <div class="external-embed__actions">
+                            <a href="https://govupdatesdaily.blogspot.com/" target="_blank" rel="noopener noreferrer" class="page-btn page-btn--primary">Open Blog in New Tab</a>
+                            <a href="STUDY.html" class="page-btn page-btn--ghost">Back to Study</a>
+                        </div>
+                        <p class="external-embed__note">If Blogspot blocks iframe rendering in a browser, the direct open button above will still work.</p>
+                    </div>
+
+                    <div class="external-embed__viewer">
+                        <h3>Blog Viewer</h3>
+                        <div class="external-embed__frame-wrap">
+                            <iframe
+                                class="external-embed__frame"
+                                src="https://govupdatesdaily.blogspot.com/"
+                                title="Government Updates Daily Blog"
+                                loading="lazy"
+                                referrerpolicy="strict-origin-when-cross-origin">
+                            </iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
