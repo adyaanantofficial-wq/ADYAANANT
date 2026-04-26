@@ -1,15 +1,1001 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=study/STUDY.html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting to Study</title>
-    <script>
-        window.location.replace('study/STUDY.html');
-    </script>
+    <title>ADYAANANT | Premium Learning Ecosystem</title>
+    <meta name="description" content="Experience the future of education with ADYAANANT. Access elite learning baches and interactive 3D science simulations.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --void-bg: #020306;
+            --surface-bg: rgba(8, 11, 18, 0.8);
+            --surface-hover: rgba(15, 20, 32, 0.94);
+            --neon-cyan: #00f0ff;
+            --neon-blue: #35a8ff;
+            --neon-purple: #7a5cff;
+            --neon-gold: #ffcd62;
+            --text-pure: #ffffff;
+            --text-muted: #90a0bb;
+            --glass-base: rgba(12, 14, 22, 0.54);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shine: rgba(255, 255, 255, 0.14);
+            --shadow-cyan: 0 0 40px rgba(0, 240, 255, 0.18);
+            --shadow-purple: 0 0 50px rgba(122, 92, 255, 0.18);
+            --bezier-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --font-display: "Space Grotesk", sans-serif;
+            --font-body: "Inter", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--void-bg);
+            color: var(--text-pure);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1240px, calc(100% - 2rem));
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ambient-background {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 14% 20%, rgba(0, 240, 255, 0.12), transparent 30%),
+                radial-gradient(circle at 82% 18%, rgba(122, 92, 255, 0.14), transparent 34%),
+                radial-gradient(circle at 50% 100%, rgba(255, 205, 98, 0.1), transparent 30%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #particle-network {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            background: var(--glass-base);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 28px;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02), 0 24px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 1rem 0;
+            background: rgba(2, 3, 6, 0.52);
+            border-bottom: 1px solid transparent;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .navbar.scrolled {
+            background: rgba(2, 3, 6, 0.82);
+            border-bottom-color: var(--glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .brand-icon {
+            color: var(--neon-cyan);
+            filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.6));
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.6rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-pure);
+            transform: translateY(-1px);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-pure);
+            cursor: pointer;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0 5rem;
+        }
+
+        .hero-shell {
+            position: relative;
+            overflow: hidden;
+            padding: 3rem;
+        }
+
+        .hero-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.14), transparent 28%),
+                radial-gradient(circle at 80% 0%, rgba(122, 92, 255, 0.2), transparent 30%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 46%);
+            pointer-events: none;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.65rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 240, 255, 0.22);
+            background: rgba(0, 240, 255, 0.08);
+            color: var(--neon-cyan);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .pulse-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 14px var(--neon-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.6);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 12px rgba(0, 240, 255, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 240, 255, 0);
+            }
+        }
+
+        .display-title {
+            margin: 1.5rem 0 1rem;
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 6.4rem);
+            line-height: 1.02;
+            letter-spacing: -0.05em;
+        }
+
+        .text-glow {
+            background: linear-gradient(90deg, #ffffff, #cceeff 42%, #9ea8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 70px rgba(255, 255, 255, 0.12);
+        }
+
+        .hero-description {
+            max-width: 760px;
+            color: var(--text-muted);
+            font-size: clamp(1.04rem, 2vw, 1.18rem);
+            margin-bottom: 2rem;
+        }
+
+        .signal-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .signal-chip {
+            padding: 0.8rem 1rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            color: var(--text-pure);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .cta-matrix {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            transition: transform 0.3s var(--bezier-smooth), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+            min-width: 210px;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-neon {
+            background: linear-gradient(135deg, #ffffff, #d5f9ff);
+            color: #061018;
+            box-shadow: 0 0 24px rgba(255, 255, 255, 0.22), 0 16px 34px rgba(0, 240, 255, 0.12);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-pure);
+            border: 1px solid rgba(0, 240, 255, 0.28);
+            box-shadow: var(--shadow-cyan);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--neon-cyan);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .info-stack,
+        .hero-panel {
+            padding: 1.5rem;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-panel h3,
+        .info-stack h3 {
+            font-family: var(--font-display);
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+        }
+
+        .info-list {
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .info-item {
+            display: grid;
+            gap: 0.3rem;
+        }
+
+        .info-item strong {
+            color: var(--text-pure);
+            font-size: 0.96rem;
+        }
+
+        .info-item span,
+        .hero-panel p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .flare {
+            position: absolute;
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -1;
+            opacity: 0.18;
+        }
+
+        .flare-primary {
+            top: -18%;
+            left: -8%;
+            background: var(--neon-cyan);
+        }
+
+        .flare-secondary {
+            right: -12%;
+            bottom: -20%;
+            background: var(--neon-purple);
+        }
+
+        .ecosystem,
+        .features,
+        .flow-section {
+            padding: 0 0 5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            color: var(--neon-gold);
+            letter-spacing: 0.12em;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 0.9rem;
+        }
+
+        .section-copy {
+            max-width: 740px;
+            margin: 0 auto;
+            color: var(--text-muted);
+        }
+
+        .portal-grid,
+        .feature-grid,
+        .flow-grid {
+            display: grid;
+            gap: 1.4rem;
+        }
+
+        .portal-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .flow-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .interactive-card,
+        .feature-item,
+        .flow-card {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            transition: transform 0.35s ease, border-color 0.35s ease;
+        }
+
+        .interactive-card:hover,
+        .feature-item:hover,
+        .flow-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .dynamic-light {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .interactive-card:hover .dynamic-light {
+            opacity: 1;
+        }
+
+        .card-inner {
+            position: relative;
+            z-index: 2;
+            transform: translateZ(20px);
+        }
+
+        .icon-cube,
+        .feature-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.4rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .primary-cube,
+        .feature-icon.is-cyan {
+            background: rgba(0, 240, 255, 0.08);
+            color: var(--neon-cyan);
+            box-shadow: var(--shadow-cyan);
+        }
+
+        .secondary-cube,
+        .feature-icon.is-purple {
+            background: rgba(122, 92, 255, 0.1);
+            color: #b9a8ff;
+            box-shadow: var(--shadow-purple);
+        }
+
+        .feature-icon.is-gold {
+            background: rgba(255, 205, 98, 0.1);
+            color: var(--neon-gold);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .card-text,
+        .feature-item p,
+        .flow-card p {
+            color: var(--text-muted);
+        }
+
+        .btn-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            color: var(--text-pure);
+            font-weight: 700;
+        }
+
+        .btn-text:hover {
+            color: var(--neon-cyan);
+        }
+
+        .feature-item h3,
+        .flow-card h3 {
+            font-family: var(--font-display);
+            margin-bottom: 0.8rem;
+            font-size: 1.18rem;
+        }
+
+        .flow-card span {
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            color: var(--neon-gold);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .footer {
+            border-top: 1px solid var(--glass-border);
+            background: rgba(2, 3, 6, 0.94);
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .brand-signature {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .footer-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        .footer-meta a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-meta a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .copyright {
+            color: #5e6778;
+            font-size: 0.82rem;
+        }
+
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        .section-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            .hero-grid,
+            .portal-grid,
+            .feature-grid,
+            .flow-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.9rem 0;
+            }
+
+            .nav-container {
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: auto;
+            }
+
+            .nav-menu {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 0.7rem 0 0;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.35s ease, opacity 0.35s ease;
+            }
+
+            .nav-menu.nav-open {
+                max-height: 320px;
+                opacity: 1;
+            }
+
+            .nav-link {
+                display: block;
+                padding: 0.85rem 0;
+            }
+
+            .hero {
+                padding-top: 2rem;
+            }
+
+            .hero-shell {
+                padding: 2rem 1.2rem;
+            }
+
+            .cta-matrix .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <p>Redirecting to <a href="study/STUDY.html">study/STUDY.html</a>...</p>
+    <div class="ambient-background"></div>
+    <canvas id="particle-network"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-infinity brand-icon"></i>
+                <span>ADYAANANT</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="#ecosystem" class="nav-link">Ecosystem</a></li>
+                <li><a href="baches.html" class="nav-link">Baches</a></li>
+                <li><a href="sci3D.html" class="nav-link">Sci3D</a></li>
+                <li><a href="#features" class="nav-link">Why Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="hero section-reveal">
+            <div class="container">
+                <div class="hero-shell glass-panel">
+                    <div class="status-badge">
+                        <span class="pulse-dot"></span>
+                        Premium Learning Mode
+                    </div>
+
+                    <h1 class="display-title">
+                        Study Beyond Notes.<br>
+                        <span class="text-glow">Enter the Ecosystem.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        ADYAANANT combines guided baches, visual science immersion, and focused revision systems into one premium study environment designed to feel sharp, modern, and motivating.
+                    </p>
+
+                    <div class="signal-row">
+                        <div class="signal-chip">Structured baches</div>
+                        <div class="signal-chip">3D science experiences</div>
+                        <div class="signal-chip">Focused revision loops</div>
+                        <div class="signal-chip">Community-backed growth</div>
+                    </div>
+
+                    <div class="cta-matrix">
+                        <a href="baches.html" class="btn btn-neon">
+                            <span>Open Baches</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="sci3D.html" class="btn btn-glass">
+                            <span>Launch Sci3D</span>
+                            <i class="fas fa-cube"></i>
+                        </a>
+                    </div>
+
+                    <div class="hero-grid">
+                        <div class="info-stack">
+                            <h3>Study Flow</h3>
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <strong>Enter the right bach</strong>
+                                    <span>Choose a track based on pace, exam pressure, and your current level of clarity.</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Switch to visual learning</strong>
+                                    <span>Use Sci3D when concepts need depth, movement, and better spatial understanding.</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Return with retention</strong>
+                                    <span>Move back into revision with stronger understanding instead of surface memorization.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-panel">
+                            <h3>Built for momentum</h3>
+                            <p>Fast entry, clear direction, premium visuals, and fewer dead ends. The buttons below always open the correct pages: <strong>Baches</strong> goes to <code>baches.html</code> and <strong>Sci3D</strong> goes to <code>sci3D.html</code>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flare flare-primary"></div>
+            <div class="flare flare-secondary"></div>
+        </section>
+
+        <section id="ecosystem" class="ecosystem container section-reveal">
+            <div class="section-header">
+                <div class="eyebrow">Core Portals</div>
+                <h2 class="section-title">Two Worlds. One Study Engine.</h2>
+                <p class="section-copy">Move between guided academic structure and immersive science exploration without losing flow.</p>
+            </div>
+
+            <div class="portal-grid">
+                <article class="interactive-card glass-panel">
+                    <div class="dynamic-light"></div>
+                    <div class="card-inner">
+                        <div class="icon-cube primary-cube">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3 class="card-title">Academic Baches</h3>
+                        <p class="card-text">Step into structured study tracks, revision rhythm, doubt support, and a pace designed to keep students moving with confidence.</p>
+                        <a href="baches.html" class="btn-text">
+                            Access Baches
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="interactive-card glass-panel">
+                    <div class="dynamic-light"></div>
+                    <div class="card-inner">
+                        <div class="icon-cube secondary-cube">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h3 class="card-title">Science 3D Core</h3>
+                        <p class="card-text">Explore physics and biology in a visually rich environment where complex ideas become easier to understand through motion and form.</p>
+                        <a href="sci3D.html" class="btn-text">
+                            Access Sci3D
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="features" class="features container section-reveal">
+            <div class="section-header">
+                <div class="eyebrow">Why It Works</div>
+                <h2 class="section-title">Engineered for Better Learning Energy</h2>
+                <p class="section-copy">This experience is designed to reduce hesitation, boost clarity, and make the next step obvious.</p>
+            </div>
+
+            <div class="feature-grid">
+                <article class="feature-item glass-panel">
+                    <div class="feature-icon is-cyan">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Cognitive Clarity</h3>
+                    <p>Focused layouts and deliberate content hierarchy reduce noise so students can act faster and think better.</p>
+                </article>
+
+                <article class="feature-item glass-panel">
+                    <div class="feature-icon is-purple">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </div>
+                    <h3>Spatial Understanding</h3>
+                    <p>3D science interactions strengthen concept retention by turning invisible systems into visible structures.</p>
+                </article>
+
+                <article class="feature-item glass-panel">
+                    <div class="feature-icon is-gold">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Momentum Design</h3>
+                    <p>Clear paths between pages keep learners moving instead of getting stuck inside navigation or uncertainty.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="flow-section container section-reveal">
+            <div class="section-header">
+                <div class="eyebrow">Recommended Flow</div>
+                <h2 class="section-title">How to Use the Study Hub</h2>
+                <p class="section-copy">Start with your learning objective, then switch into the right environment at the right time.</p>
+            </div>
+
+            <div class="flow-grid">
+                <article class="flow-card glass-panel">
+                    <span>Step 01</span>
+                    <h3>Choose your bach</h3>
+                    <p>Pick the track that matches your pace and exam pressure so your schedule feels realistic and sustainable.</p>
+                </article>
+
+                <article class="flow-card glass-panel">
+                    <span>Step 02</span>
+                    <h3>Use Sci3D for hard concepts</h3>
+                    <p>Open the 3D environment when diagrams and plain notes are not enough to create understanding.</p>
+                </article>
+
+                <article class="flow-card glass-panel">
+                    <span>Step 03</span>
+                    <h3>Return to revision sharper</h3>
+                    <p>Move back into practice with stronger recall, better visual memory, and more confidence.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="brand-signature">
+                <i class="fas fa-infinity"></i>
+                ADYAANANT
+            </div>
+            <div class="footer-meta">
+                <a href="index.html">Home</a>
+                <a href="baches.html">Baches</a>
+                <a href="sci3D.html">Sci3D</a>
+                <a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="copyright">
+                &copy; 2026 ADYAANANT Core Systems. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="shared-ad-popup.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var navbar = document.getElementById("navbar");
+            var menuToggle = document.getElementById("menuToggle");
+            var navMenu = document.getElementById("navMenu");
+            var navLinks = document.querySelectorAll(".nav-link");
+            var revealElements = document.querySelectorAll(".section-reveal");
+            var cards = document.querySelectorAll(".interactive-card");
+            var isMobile = window.matchMedia("(max-width: 768px)").matches;
+            var canvas = document.getElementById("particle-network");
+            var ctx = canvas.getContext("2d");
+            var particlesArray = [];
+            var resizeTimer;
+
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", function () {
+                    navMenu.classList.toggle("nav-open");
+                });
+
+                navLinks.forEach(function (link) {
+                    link.addEventListener("click", function () {
+                        navMenu.classList.remove("nav-open");
+                    });
+                });
+            }
+
+            window.addEventListener("scroll", function () {
+                if (window.scrollY > 20) {
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            });
+
+            var sectionObserver = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    entry.target.classList.add("active");
+                    observer.unobserve(entry.target);
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -40px 0px"
+            });
+
+            revealElements.forEach(function (element) {
+                sectionObserver.observe(element);
+            });
+
+            if (!isMobile) {
+                cards.forEach(function (card) {
+                    card.addEventListener("mousemove", function (event) {
+                        var rect = card.getBoundingClientRect();
+                        var x = event.clientX - rect.left;
+                        var y = event.clientY - rect.top;
+                        var centerX = rect.width / 2;
+                        var centerY = rect.height / 2;
+                        var rotateX = ((y - centerY) / centerY) * -3;
+                        var rotateY = ((x - centerX) / centerX) * 3;
+
+                        card.style.setProperty("--mouse-x", x + "px");
+                        card.style.setProperty("--mouse-y", y + "px");
+                        card.style.transform = "perspective(1000px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg) scale3d(1.02, 1.02, 1.02)";
+                    });
+
+                    card.addEventListener("mouseleave", function () {
+                        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+                    });
+                });
+            }
+
+            function setCanvasDimensions() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            function Particle() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.6 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.35;
+                this.speedY = (Math.random() - 0.5) * 0.35;
+                this.alpha = Math.random() * 0.45 + 0.08;
+            }
+
+            Particle.prototype.update = function () {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            };
+
+            Particle.prototype.draw = function () {
+                ctx.fillStyle = "rgba(255, 255, 255, " + this.alpha + ")";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            };
+
+            function initParticles() {
+                particlesArray = [];
+                var particleDensity = Math.floor((canvas.width * canvas.height) / 17000);
+
+                for (var i = 0; i < particleDensity; i += 1) {
+                    particlesArray.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particlesArray.forEach(function (particle) {
+                    particle.update();
+                    particle.draw();
+                });
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            setCanvasDimensions();
+            initParticles();
+            animateParticles();
+
+            window.addEventListener("resize", function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function () {
+                    setCanvasDimensions();
+                    initParticles();
+                }, 200);
+            });
+        });
+    </script>
 </body>
 </html>

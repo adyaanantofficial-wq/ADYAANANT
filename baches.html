@@ -2,14 +2,390 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=study/baches.html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting to Baches</title>
-    <script>
-        window.location.replace('study/baches.html');
-    </script>
+    <title>ADYAANANT Baches | Structured Learning Tracks</title>
+    <meta name="description" content="Explore structured academic baches, revision tracks, and guided learning experiences from ADYAANANT.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070d;
+            --surface: rgba(255, 255, 255, 0.05);
+            --surface-strong: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #f5f7fb;
+            --muted: #a8b4c7;
+            --accent: #6ef2a9;
+            --accent-strong: #1e9c66;
+            --accent-alt: #7d8cff;
+            --font-display: "Space Grotesk", sans-serif;
+            --font-body: "Inter", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(110, 242, 169, 0.16), transparent 28%),
+                radial-gradient(circle at top right, rgba(125, 140, 255, 0.14), transparent 30%),
+                linear-gradient(145deg, #03050a 0%, #08111b 54%, #04070d 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1160px, calc(100% - 2rem));
+            margin: 0 auto;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: rgba(4, 7, 13, 0.78);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: inline-grid;
+            place-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.4rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .hero {
+            padding: 4.5rem 0 2rem;
+        }
+
+        .hero-card {
+            padding: 2.6rem;
+            border-radius: 30px;
+            background: linear-gradient(145deg, rgba(9, 14, 22, 0.9), rgba(9, 14, 22, 0.72));
+            border: 1px solid var(--border);
+            box-shadow: 0 24px 56px rgba(0, 0, 0, 0.32);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+        }
+
+        .hero-card h1 {
+            font-size: clamp(2.6rem, 6vw, 4.8rem);
+            line-height: 1.04;
+            margin-bottom: 1rem;
+        }
+
+        .hero-card p {
+            max-width: 760px;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 1rem 1.4rem;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            color: #062113;
+            box-shadow: 0 16px 30px rgba(110, 242, 169, 0.18);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+        }
+
+        .section {
+            padding: 2rem 0 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 0.7rem;
+        }
+
+        .section-header p {
+            max-width: 720px;
+            margin: 0 auto;
+            color: var(--muted);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.2rem;
+        }
+
+        .card {
+            padding: 1.6rem;
+            border-radius: 24px;
+            background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+            border: 1px solid var(--border);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(110, 242, 169, 0.3);
+        }
+
+        .card span {
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.18rem;
+        }
+
+        .card p {
+            color: var(--muted);
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.2rem;
+        }
+
+        .panel,
+        .callout {
+            padding: 1.7rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .list-item strong {
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .list-item span,
+        .callout p {
+            color: var(--muted);
+        }
+
+        .callout {
+            background: linear-gradient(145deg, rgba(125, 140, 255, 0.12), rgba(255, 255, 255, 0.04));
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2.2rem 0 3rem;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .card-grid,
+            .split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-card {
+                padding: 2rem 1.2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <p>Redirecting to <a href="study/baches.html">study/baches.html</a>...</p>
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="brand">
+                <span class="brand-mark">A</span>
+                <span>ADYAANANT</span>
+            </a>
+            <div class="nav-links">
+                <a href="STUDY.html">Study</a>
+                <a href="sci3D.html">Sci3D</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-card">
+                <div class="eyebrow">Structured Learning Tracks</div>
+                <h1>Academic Baches Built for Focus, Pace, and Results</h1>
+                <p>Choose the study track that matches your current pressure, revision needs, and growth level. This page gives the study hub a real destination instead of a dead-end button.</p>
+                <div class="hero-actions">
+                    <a href="STUDY.html" class="btn btn-primary">Back to Study Hub</a>
+                    <a href="sci3D.html" class="btn btn-secondary">Open Sci3D</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Batch Formats</h2>
+                <p>Three clean tracks for different levels of speed, intensity, and support.</p>
+            </div>
+            <div class="card-grid">
+                <article class="card">
+                    <span>Foundation</span>
+                    <h3>Clarity Bach</h3>
+                    <p>For students who want stronger basics, calmer pacing, and better concept absorption before scaling up.</p>
+                </article>
+                <article class="card">
+                    <span>Accelerated</span>
+                    <h3>Revision Bach</h3>
+                    <p>For students preparing under time pressure who need repeated practice, faster coverage, and tighter revision loops.</p>
+                </article>
+                <article class="card">
+                    <span>Premium</span>
+                    <h3>Mentor Bach</h3>
+                    <p>For learners who want closer guidance, stronger accountability, and sharper feedback across the journey.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container split">
+            <div class="panel">
+                <div class="section-header" style="text-align:left; margin-bottom:1.2rem;">
+                    <h2 style="margin-bottom:0.6rem;">Inside the Experience</h2>
+                    <p style="margin:0;">A simple explanation of what students actually get inside a bach.</p>
+                </div>
+                <div class="list">
+                    <div class="list-item">
+                        <strong>Weekly structure</strong>
+                        <span>Clear sessions, guided assignments, and repeatable routines that reduce confusion and missed momentum.</span>
+                    </div>
+                    <div class="list-item">
+                        <strong>Revision support</strong>
+                        <span>Built-in loops for retention so concepts do not disappear after one pass.</span>
+                    </div>
+                    <div class="list-item">
+                        <strong>Doubt and reinforcement</strong>
+                        <span>Use the study hub and Sci3D together when you need stronger explanation or a more visual angle.</span>
+                    </div>
+                </div>
+            </div>
+            <aside class="callout">
+                <h3 style="margin-bottom:0.8rem;">Best Companion</h3>
+                <p style="margin-bottom:1.2rem;">When a topic still feels abstract after class or notes, jump into Sci3D to make the concept more visual before returning to revision.</p>
+                <a href="sci3D.html" class="btn btn-secondary">Launch Sci3D</a>
+            </aside>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ADYAANANT Baches</p>
+            <p><a href="STUDY.html">Study</a> | <a href="sci3D.html">Sci3D</a> | <a href="index.html">Home</a></p>
+        </div>
+    </footer>
+
+    <script src="shared-ad-popup.js"></script>
 </body>
 </html>
