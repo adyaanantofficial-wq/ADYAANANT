@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>ADYAANANT | Premium Learning Ecosystem</title>
+    <meta name="description" content="Experience the future of education with ADYAANANT. Access elite learning batches and interactive 3D science simulations.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           ADYAANANT Design System Variables
+        ========================================= */
+        :root {
+            /* Color Palette */
+            --void-bg: #000000;
+            --surface-bg: #050508;
+            --neon-cyan: #00f0ff;
+            --neon-purple: #7000ff;
+            --neon-magenta: #ff003c;
+            --text-pure: #ffffff;
+            --text-muted: #8892b0;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-mono: 'Space Grotesk', sans-serif;
+            
+            /* Glassmorphism Metrics */
+            --glass-base: rgba(10, 10, 15, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-shine: rgba(255, 255, 255, 0.1);
+            
+            /* Animation & Shadows */
+            --bezier-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-cyan: 0 0 40px rgba(0, 240, 255, 0.2);
+            --shadow-purple: 0 0 40px rgba(112, 0, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--void-bg);
+            color: var(--text-pure);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-logo {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        button { font-family: inherit; border: none; cursor: pointer; background: none; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* =========================================
+           Environment (Backgrounds & Canvas)
+        ========================================= */
+        .ambient-background {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.08), transparent 40%),
+                        radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #particle-network {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* =========================================
+           Glass UI Components
+        ========================================= */
+        .glass-panel {
+            background: var(--glass-base);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.01), 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        /* =========================================
+           Navigation
+        ========================================= */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all 0.4s var(--bezier-smooth);
+            border-bottom: 1px solid transparent;
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .brand-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            color: var(--neon-cyan);
+            filter: drop-shadow(0 0 10px var(--neon-cyan));
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover { color: var(--text-pure); }
+        .menu-toggle {
+            display: none;
+            color: var(--text-pure);
+            font-size: 1.5rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.65rem 0.85rem;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* =========================================
+           Hero Sequence
+        ========================================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 100px;
+            position: relative;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+        }
+
+        .display-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-glow {
+            background: linear-gradient(to right, var(--text-pure), var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 80px rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-description {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Light Flares */
+        .flare {
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .flare-primary { top: -10%; left: -10%; background: var(--neon-cyan); }
+        .flare-secondary { bottom: -10%; right: -10%; background: var(--neon-purple); }
+
+        /* =========================================
+           Buttons (Neon & Glass)
+        ========================================= */
+        .cta-matrix {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            position: relative;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s var(--bezier-smooth);
+            overflow: hidden;
+        }
+
+        .btn-neon {
+            background: var(--text-pure);
+            color: var(--void-bg);
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .btn-neon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(255,255,255,0.4);
+        }
+
+        .btn-glass {
+            background: var(--glass-base);
+            color: var(--text-pure);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--neon-cyan);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-cyan);
+        }
+
+        /* =========================================
+           Interactive Ecosystem Cards (3D Tilt & Lighting)
+        ========================================= */
+        .ecosystem { padding: 4rem 0 8rem; }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .interactive-card {
+            position: relative;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: border-color 0.4s ease;
+        }
+
+        /* Dynamic Spotlight Effect triggered by JS */
+        .dynamic-light {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(
+                800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(255, 255, 255, 0.06),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .interactive-card:hover .dynamic-light { opacity: 1; }
+        .interactive-card:hover { border-color: rgba(255, 255, 255, 0.2); }
+
+        .card-inner {
+            transform: translateZ(30px); /* Pushes content out in 3D */
+            z-index: 2;
+            pointer-events: none; /* Let hover pass to parent */
+        }
+
+        /* Restore pointer events for buttons inside card */
+        .card-inner .btn { pointer-events: auto; }
+
+        .icon-cube {
+            width: 70px; height: 70px;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .primary-cube { background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); }
+        .secondary-cube { background: rgba(112, 0, 255, 0.1); color: #b785ff; }
+
+        .card-title { font-size: 2rem; margin-bottom: 1rem; }
+        .card-text { color: var(--text-muted); margin-bottom: 2.5rem; flex-grow: 1; }
+
+        .btn-text {
+            color: var(--text-pure);
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0;
+        }
+        .btn-text:hover { color: var(--neon-cyan); }
+
+        /* =========================================
+           Features Section
+        ========================================= */
+        .features { padding: 4rem 0 8rem; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-title { font-size: 2.5rem; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            padding: 2.5rem;
+            transition: transform 0.4s var(--bezier-smooth);
+        }
+
+        .feature-item:hover { transform: translateY(-10px); }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--neon-purple);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(112,0,255,0.4));
+        }
+
+        .feature-item h3 { font-size: 1.25rem; margin-bottom: 1rem; }
+        .feature-item p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* =========================================
+           Footer
+        ========================================= */
+        .footer {
+            position: relative;
+            padding: 4rem 0;
+            border-top: 1px solid var(--glass-border);
+            background: #020203;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .brand-signature { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--text-muted); }
+        .footer-meta { display: flex; gap: 2rem; }
+        .footer-meta a { color: var(--text-muted); font-size: 0.85rem; transition: color 0.3s; }
+        .footer-meta a:hover { color: var(--neon-cyan); }
+        .copyright { color: #4a4a5a; font-size: 0.8rem; }
+
+        /* =========================================
+           Animations (Scroll Reveal)
+        ========================================= */
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .section-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           Responsive Adjustments
+        ========================================= */
+        @media (max-width: 1024px) {
+            .portal-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: absolute;
+                top: calc(100% + 0.75rem);
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                background: rgba(6, 8, 12, 0.94);
+                border: 1px solid var(--glass-border);
+                border-radius: 20px;
+                overflow: hidden;
+                opacity: 0;
+                transform: translateY(-12px);
+                pointer-events: none;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            .nav-menu.nav-open {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+            .nav-link {
+                display: block;
+                padding: 1rem 1.1rem;
+            }
+            .menu-toggle { display: block; }
+            .display-title { font-size: 3.5rem; }
+            .cta-matrix { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+            .interactive-card { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-background"></div>
+    <canvas id="particle-network"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container container">
+            <a href="../index.html" class="brand-logo">
+                <i class="fas fa-infinity brand-icon"></i> ADYAANANT
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="baches.html" class="nav-link">Baches</a></li>
+                <li><a href="sci3D.html" class="nav-link">Sci3D</a></li>
+                <li><a href="#features" class="nav-link">Philosophy</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="hero section-reveal">
+            <div class="hero-content container">
+                <div class="status-badge">
+                    <span class="pulse-dot"></span> System Online 
+                </div>
+                
+                <h1 class="display-title">
+                    Welcome to <br>
+                    <span class="text-glow">ADYAANANT</span>
+                </h1>
+                
+                <p class="hero-description">
+                    The infinite frontier of digital education. Seamlessly transition between structured academic batches and hyper-realistic 3D science environments.
+                </p>
+                
+                <div class="cta-matrix">
+                    <button class="btn btn-neon route-action" data-url="baches.html">
+                        <span>Initialize Batches</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-glass route-action" data-url="sci3D.html">
+                        <span>Launch Sci3D</span>
+                        <i class="fas fa-cube"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flare flare-primary"></div>
+            <div class="flare flare-secondary"></div>
+        </section>
+
+        <section id="ecosystem" class="ecosystem container section-reveal">
+            <div class="portal-grid">
+                
+                <div class="portal-card glass-panel interactive-card">
+                    <div class="dynamic-light"></div>
+                    <div class="card-inner">
+                        <div class="icon-cube primary-cube">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h2 class="card-title">Academic Batches</h2>
+                        <p class="card-text">
+                            Join high-frequency learning nodes. Access synchronized live classes, cryptographic notes, and algorithm-driven practice sessions.
+                        </p>
+                        <button class="btn btn-text route-action" data-url="baches.html">
+                            Access Portal <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="portal-card glass-panel interactive-card">
+                    <div class="dynamic-light"></div>
+                    <div class="card-inner">
+                        <div class="icon-cube secondary-cube">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h2 class="card-title">Science 3D Core</h2>
+                        <p class="card-text">
+                            Render the invisible. Interact with spatial physics simulations and complex biological topographies in real-time WebGL.
+                        </p>
+                        <button class="btn btn-text route-action" data-url="sci3D.html">
+                            Access Portal <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="features" class="features container section-reveal">
+            <div class="section-header">
+                <h2 class="section-title">Engineered for Brilliance</h2>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-item glass-panel">
+                    <i class="fas fa-microchip feature-icon"></i>
+                    <h3>Cognitive Processing</h3>
+                    <p>Adaptive learning paths that mold to your unique neurological absorption rate.</p>
+                </div>
+                <div class="feature-item glass-panel">
+                    <i class="fas fa-vr-cardboard feature-icon"></i>
+                    <h3>Spatial Rendering</h3>
+                    <p>True 3D visual environments that turn abstract theories into tactile digital realities.</p>
+                </div>
+                <div class="feature-item glass-panel">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3>Quantum Stability</h3>
+                    <p>Zero-latency infrastructure ensuring your learning state is preserved continuously.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-glow"></div>
+        <div class="container footer-content">
+            <div class="brand-signature">
+                <i class="fas fa-infinity"></i> ADYAANANT
+            </div>
+            <div class="footer-meta">
+                <a href="../PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a>
+                <a href="../contact.html">Contact</a>
+            </div>
+            <div class="copyright">
+                &copy; 2026 ADYAANANT Core Systems. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="../shared-ad-popup.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* =========================================
+               1. Application Routing
+            ========================================= */
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('nav-open');
+                });
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('nav-open');
+                    });
+                });
+            }
+
+            const routeActions = document.querySelectorAll('.route-action');
+            routeActions.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    const targetUrl = btn.getAttribute('data-url');
+                    if (targetUrl) {
+                        window.location.href = targetUrl;
+                    }
+                });
+            });
+
+            /* =========================================
+               2. Dynamic Navbar Styling
+            ========================================= */
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 40) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            /* =========================================
+               3. Intersection Observer (Scroll Reveals)
+            ========================================= */
+            const revealElements = document.querySelectorAll('.section-reveal');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => sectionObserver.observe(el));
+
+            /* =========================================
+               4. Apple-Style 3D Tilt & Dynamic Spotlight
+            ========================================= */
+            const cards = document.querySelectorAll('.interactive-card');
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+            if (!isMobile) {
+                cards.forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left; 
+                        const y = e.clientY - rect.top;  
+                        
+                        card.style.setProperty('--mouse-x', `${x}px`);
+                        card.style.setProperty('--mouse-y', `${y}px`);
+
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        const rotateX = ((y - centerY) / centerY) * -3;
+                        const rotateY = ((x - centerX) / centerX) * 3;
+
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                    });
+                });
+            }
+
+            /* =========================================
+               5. Optimized WebGL-style Canvas Particles
+            ========================================= */
+            const canvas = document.getElementById('particle-network');
+            const ctx = canvas.getContext('2d');
+            let particlesArray = [];
+
+            ctx.imageSmoothingEnabled = false;
+
+            function setCanvasDimensions() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            setCanvasDimensions();
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    setCanvasDimensions();
+                    initParticles();
+                }, 200);
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 1.5 + 0.5; 
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.speedY = (Math.random() - 0.5) * 0.4;
+                    this.alpha = Math.random() * 0.5 + 0.1;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+
+                draw() {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particlesArray = [];
+                const particleDensity = Math.floor((canvas.width * canvas.height) / 15000);
+                for (let i = 0; i < particleDensity; i++) {
+                    particlesArray.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            initParticles();
+            animateParticles();
+        });
+    </script>
+</body>
+</html>

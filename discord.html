@@ -216,6 +216,21 @@
             transform: scale(1.05);
         }
 
+        #discordJoinBtn,
+        .btn-group .btn-secondary {
+            font-size: 0;
+        }
+
+        #discordJoinBtn::after {
+            content: 'Join Discord Server';
+            font-size: 1rem;
+        }
+
+        .btn-group .btn-secondary::after {
+            content: 'Learn More';
+            font-size: 1rem;
+        }
+
         /* Footer */
         footer {
             background: #020203;
@@ -287,6 +302,7 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
+                    <li><a href="study/STUDY.html">Study</a></li>
                     <li><a href="shop.html">Shop</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -336,6 +352,7 @@
         </div>
     </footer>
 
+    <script src="shared-ad-popup.js"></script>
     <script>
         const DISCORD_GUILD_ID = '1427319799616245935';
         const DISCORD_WIDGET_URL = `https://discord.com/api/guilds/${DISCORD_GUILD_ID}/widget.json`;
