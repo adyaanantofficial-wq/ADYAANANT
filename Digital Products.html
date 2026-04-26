@@ -1111,7 +1111,7 @@
                     </article>
                     <article class="insight-card">
                         <span class="insight-value">24/7</span>
-                        <p>Search, compare details, and jump straight to payment or contact from the same product card.</p>
+                        <p>Search, compare details, and jump straight to the order form from the same product card.</p>
                     </article>
                 </div>
             </section>
@@ -1140,9 +1140,9 @@
                 <div class="catalog-title-group">
                     <span class="catalog-eyebrow">Digital Storefront</span>
                     <h2>Browse the full ADYAANANT catalog</h2>
-                    <p>Every card includes a dedicated details popup above the main action button, so visitors can review features before they buy or contact you.</p>
+                    <p>Every card includes a dedicated details popup above the main action button, so visitors can review features before they place the order.</p>
                 </div>
-                <div class="catalog-note">Details button first. Buy or contact second. Clean and fully functional.</div>
+                <div class="catalog-note">Details first. GIVE ORDER second. Clean and fully functional.</div>
             </section>
 
             <section aria-label="Digital products list">
@@ -1159,7 +1159,7 @@
         <div class="page-shell">
             <div class="footer-card">
                 <strong>ADYAANANT Digital Products</strong>
-                <p>Professional digital product storefront for instant purchases, combo offerings, and custom service inquiries.</p>
+                <p>Professional digital product storefront with a consistent GIVE ORDER flow for instant products and custom builds.</p>
                 <div class="footer-links">
                     <a href="contact.html">Contact</a>
                     <a href="ABOUT US.html">About Us</a>
@@ -1188,14 +1188,13 @@
 
             <div class="detail-footer">
                 <p class="detail-footer-note" id="modalFooterNote"></p>
-                <a href="contact.html" class="btn btn-primary modal-action" id="modalAction">Buy Now</a>
+                <a href="order.html" class="btn btn-primary modal-action" id="modalAction">GIVE ORDER</a>
             </div>
         </div>
     </div>
 
     <script>
-        const PAYMENT_PAGE = "paypent.html";
-        const CONTACT_PAGE = "contact.html";
+        const ORDER_PAGE = "order.html";
         const imageFallback = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='480' viewBox='0 0 640 480'%3E%3Crect width='640' height='480' fill='%23edf1f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235c6576' font-family='Arial, sans-serif' font-size='28'%3EImage unavailable%3C/text%3E%3C/svg%3E";
 
         const products = [
@@ -1220,10 +1219,10 @@
                     alt: "Legend Star Bot artwork"
                 },
                 action: {
-                    type: "buy",
-                    label: "Buy Now"
+                    type: "order",
+                    label: "GIVE ORDER"
                 },
-                footerNote: "Buy Now keeps the same payment flow and opens the secure payment page with the correct amount.",
+                footerNote: "GIVE ORDER opens the order form with the product name and price already filled in for fast WhatsApp confirmation.",
                 detailHtml: `
                     <section class="detail-section">
                         <h3>DEFENSE FIREWALL MATRIX</h3>
@@ -1296,10 +1295,10 @@
                     alt: "LegendBot product artwork"
                 },
                 action: {
-                    type: "buy",
-                    label: "Buy Now"
+                    type: "order",
+                    label: "GIVE ORDER"
                 },
-                footerNote: "This product uses the same payment route, now configured for the LegendBot name and Rs 30 pricing.",
+                footerNote: "GIVE ORDER opens the order form with the LegendBot name and Rs 30 pricing already filled in.",
                 detailHtml: `
                     <section class="detail-section">
                         <h3>LEGENDBOT COMMAND DETAILS</h3>
@@ -1334,10 +1333,10 @@
                     alt: "Legend Meta and Super Legend combo artwork"
                 },
                 action: {
-                    type: "buy",
-                    label: "Buy Now"
+                    type: "order",
+                    label: "GIVE ORDER"
                 },
-                footerNote: "Buy Now opens the same payment flow with the combo product slug and Rs 100 amount already set.",
+                footerNote: "GIVE ORDER opens the order form with the combo product and Rs 100 pricing already filled in.",
                 detailHtml: `
                     <section class="detail-section">
                         <h3>DEFENSE FIREWALL MATRIX</h3>
@@ -1386,10 +1385,10 @@
                     value: "🤖"
                 },
                 action: {
-                    type: "contact",
-                    label: "Contact Us"
+                    type: "order",
+                    label: "GIVE ORDER"
                 },
-                footerNote: "This is an on-demand service, so the primary action sends visitors to Contact Us instead of payment.",
+                footerNote: "GIVE ORDER opens the same order form so the custom bot request can be confirmed with full customer details on WhatsApp.",
                 detailHtml: `
                     <section class="detail-section">
                         <h3>🤖 CUSTOM BOT DEVELOPMENT</h3>
@@ -1422,10 +1421,10 @@
                     value: "🌐"
                 },
                 action: {
-                    type: "contact",
-                    label: "Contact Us"
+                    type: "order",
+                    label: "GIVE ORDER"
                 },
-                footerNote: "Contact Us replaces Buy Now for custom website work so scope and requirements can be discussed properly.",
+                footerNote: "GIVE ORDER opens the order form so custom website requests can be sent with complete contact and delivery details.",
                 detailHtml: `
                     <section class="detail-section">
                         <h3>🌐 CUSTOM WEBSITE DEVELOPMENT</h3>
@@ -1458,10 +1457,10 @@
                     value: "🚀"
                 },
                 action: {
-                    type: "contact",
-                    label: "Contact Us"
+                    type: "order",
+                    label: "GIVE ORDER"
                 },
-                footerNote: "This service uses Contact Us instead of direct checkout because web apps need requirements and scope confirmation first.",
+                footerNote: "GIVE ORDER opens the order form so custom web app requests can be shared on WhatsApp with all details in one message.",
                 detailHtml: `
                     <section class="detail-section">
                         <h3>🚀 CUSTOM WEBAPP DEVELOPMENT</h3>
@@ -1498,11 +1497,7 @@
         }
 
         function getActionHref(product) {
-            if (product.action.type === "buy") {
-                return `${PAYMENT_PAGE}?product=${encodeURIComponent(product.slug)}&amount=${encodeURIComponent(product.price)}`;
-            }
-
-            return `${CONTACT_PAGE}?service=${encodeURIComponent(product.slug)}`;
+            return `${ORDER_PAGE}?product=${encodeURIComponent(product.title)}&price=${encodeURIComponent(product.price)}`;
         }
 
         function createVisual(product) {
@@ -1545,7 +1540,7 @@
                             </div>
                             <div class="action-stack">
                                 <button class="btn btn-secondary" type="button" data-details-id="${product.id}">Details</button>
-                                <a class="btn ${product.action.type === "buy" ? "btn-primary" : "btn-contact"}" href="${getActionHref(product)}">${product.action.label}</a>
+                                <a class="btn btn-primary" href="${getActionHref(product)}">${product.action.label}</a>
                             </div>
                         </div>
                     </div>
@@ -1567,7 +1562,7 @@
             modalBody.innerHTML = product.detailHtml;
             modalAction.textContent = product.action.label;
             modalAction.href = getActionHref(product);
-            modalAction.className = `btn modal-action ${product.action.type === "buy" ? "btn-primary" : "btn-contact"}`;
+            modalAction.className = "btn modal-action btn-primary";
             modalFooterNote.textContent = product.footerNote;
             detailsModal.classList.add("is-open");
             detailsModal.setAttribute("aria-hidden", "false");
