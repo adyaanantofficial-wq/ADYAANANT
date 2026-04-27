@@ -673,17 +673,21 @@ input {
 }
 
 .details-modal {
+    --modal-safe-space: 20px;
     position: fixed;
     inset: 0;
     display: grid;
     place-items: center;
-    padding: 20px;
+    padding: var(--modal-safe-space);
     background: rgba(10, 16, 11, 0.68);
     opacity: 0;
     visibility: hidden;
     transition: opacity var(--store-transition), visibility var(--store-transition);
     z-index: 40;
     pointer-events: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     will-change: opacity;
 }
 
@@ -698,7 +702,8 @@ input {
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
     width: min(860px, 100%);
-    max-height: min(92vh, 920px);
+    min-height: 0;
+    max-height: min(920px, 92vh, calc(var(--modal-viewport-height, 100dvh) - (var(--modal-safe-space) * 2)));
     overflow: hidden;
     border-radius: 26px;
     border: 1px solid rgba(18, 32, 24, 0.1);
@@ -726,6 +731,7 @@ input {
 .details-header__copy {
     display: grid;
     gap: 10px;
+    min-height: 0;
 }
 
 .modal-pill {
@@ -776,10 +782,13 @@ input {
 }
 
 .modal-body {
+    min-height: 0;
     padding: 22px 24px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     overscroll-behavior: contain;
     scrollbar-gutter: stable both-edges;
+    -webkit-overflow-scrolling: touch;
 }
 
 .detail-section + .detail-section {
@@ -892,7 +901,7 @@ input {
     }
 
     .details-modal {
-        padding: 12px;
+        --modal-safe-space: 12px;
     }
 
     .details-dialog {
@@ -967,6 +976,6 @@ input {
     }
 
     .details-dialog {
-        max-height: min(94vh, 920px);
+        max-height: min(920px, 94vh, calc(var(--modal-viewport-height, 100dvh) - (var(--modal-safe-space) * 2)));
     }
 }

@@ -250,6 +250,68 @@
         let lastRenderSignature = "";
         let pointerActivatedProductId = "";
         let pointerActivatedAt = 0;
+        let lockedScrollTop = 0;
+        let bodyScrollLocked = false;
+        const bodyScrollState = {
+            position: "",
+            top: "",
+            width: "",
+            overflow: "",
+            paddingRight: ""
+        };
+
+        function updateModalViewportHeight() {
+            const viewportHeight = window.visualViewport && window.visualViewport.height
+                ? window.visualViewport.height
+                : window.innerHeight;
+
+            document.documentElement.style.setProperty("--modal-viewport-height", Math.round(viewportHeight) + "px");
+        }
+
+        function lockBodyScroll() {
+            if (bodyScrollLocked) {
+                return;
+            }
+
+            lockedScrollTop = window.scrollY || window.pageYOffset || 0;
+            bodyScrollState.position = document.body.style.position;
+            bodyScrollState.top = document.body.style.top;
+            bodyScrollState.width = document.body.style.width;
+            bodyScrollState.overflow = document.body.style.overflow;
+            bodyScrollState.paddingRight = document.body.style.paddingRight;
+
+            const scrollbarGap = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
+
+            document.body.classList.add("modal-open");
+            document.body.style.position = "fixed";
+            document.body.style.top = "-" + lockedScrollTop + "px";
+            document.body.style.width = "100%";
+            document.body.style.overflow = "hidden";
+
+            if (scrollbarGap > 0) {
+                document.body.style.paddingRight = scrollbarGap + "px";
+            }
+
+            bodyScrollLocked = true;
+        }
+
+        function unlockBodyScroll() {
+            if (!bodyScrollLocked) {
+                return;
+            }
+
+            const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+            document.body.classList.remove("modal-open");
+            document.body.style.position = bodyScrollState.position;
+            document.body.style.top = bodyScrollState.top;
+            document.body.style.width = bodyScrollState.width;
+            document.body.style.overflow = bodyScrollState.overflow;
+            document.body.style.paddingRight = bodyScrollState.paddingRight;
+            bodyScrollLocked = false;
+            document.documentElement.style.scrollBehavior = "auto";
+            window.scrollTo(0, lockedScrollTop);
+            document.documentElement.style.scrollBehavior = previousScrollBehavior;
+        }
 
         function renderProducts(list) {
             resultCount.textContent = String(list.length);
@@ -303,10 +365,11 @@
 
             detailsDialog.scrollTop = 0;
             modalBody.scrollTop = 0;
+            updateModalViewportHeight();
             detailsModal.classList.add("is-open");
             detailsModal.setAttribute("aria-hidden", "false");
             detailsModal.setAttribute("data-active-product-id", product.id);
-            document.body.classList.add("modal-open");
+            lockBodyScroll();
             modalClose.focus();
         }
 
@@ -314,7 +377,7 @@
             detailsModal.classList.remove("is-open");
             detailsModal.setAttribute("aria-hidden", "true");
             detailsModal.removeAttribute("data-active-product-id");
-            document.body.classList.remove("modal-open");
+            unlockBodyScroll();
 
             if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
                 lastFocusedElement.focus();
@@ -433,6 +496,13 @@
             searchInput.addEventListener("input", function (event) {
                 scheduleFilter(event.target.value);
             });
+        }
+
+        updateModalViewportHeight();
+        window.addEventListener("resize", updateModalViewportHeight);
+
+        if (window.visualViewport && typeof window.visualViewport.addEventListener === "function") {
+            window.visualViewport.addEventListener("resize", updateModalViewportHeight);
         }
 
         modalClose.addEventListener("click", closeModal);
