@@ -1,4 +1,47 @@
 (function () {
+    function createDetailSection(title, description, items) {
+        const section = [
+            "<section class=\"detail-section\">",
+            "<h3>" + title + "</h3>",
+            "<p>" + description + "</p>"
+        ];
+
+        if (Array.isArray(items) && items.length) {
+            section.push("<ul class=\"detail-list\">");
+            items.forEach(function (item) {
+                section.push("<li>" + item + "</li>");
+            });
+            section.push("</ul>");
+        }
+
+        section.push("</section>");
+        return section.join("");
+    }
+
+    function createDigitalBookProduct(config) {
+        return {
+            id: config.id,
+            group: "Digital",
+            title: config.title,
+            type: config.type,
+            badge: config.badge,
+            originalPrice: config.originalPrice,
+            price: config.price,
+            summary: config.summary,
+            features: config.features,
+            keywords: config.keywords,
+            visual: {
+                type: "image",
+                src: config.imageSrc,
+                alt: config.title + " cover"
+            },
+            detailHtml: [
+                createDetailSection(config.primaryHeading, config.overview, config.detailPoints),
+                createDetailSection(config.secondaryHeading, config.audience)
+            ].join("")
+        };
+    }
+
     const digitalProducts = [
         {
             id: "legend-star-bot",
@@ -283,6 +326,231 @@
                 "</section>"
             ].join("")
         },
+        createDigitalBookProduct({
+            id: "byabostha-sorbosyo",
+            title: "Byabostha Sorbosyo",
+            type: "Ritual reference e-book",
+            badge: "Ritual Guide",
+            originalPrice: 249,
+            price: 89,
+            summary: "A traditional ritual-reference style digital book presented for readers who want procedural guidance around ceremonies and observances.",
+            features: [
+                "Procedure-oriented ritual reference",
+                "Useful for repeat consultation during planning",
+                "Strong fit for household and priestly study shelves"
+            ],
+            keywords: [
+                "byabostha sorbosyo",
+                "ritual guide",
+                "hindu rites",
+                "sanskar",
+                "ceremony reference",
+                "purohit book"
+            ],
+            imageSrc: "digital-book-covers/byabostha-sorbosyo.png",
+            primaryHeading: "Overview",
+            overview: "This AI-generated catalog summary presents Byabostha Sorbosyo as a structured reference volume for readers interested in ritual order, ceremonial preparation, and classical step-based observance guidance.",
+            detailPoints: [
+                "The cover positioning suggests a practical book meant to be consulted during ceremonies rather than read like a continuous story.",
+                "It suits buyers who want a digital copy they can reopen quickly while reviewing rites, duties, or household observances.",
+                "The topic profile makes it a natural addition beside puja, sanskar, and priestly support texts."
+            ],
+            secondaryHeading: "Who it suits",
+            audience: "Best for readers building a ritual reference library, learners exploring traditional procedure texts, and families who prefer keeping important guidance accessible in digital form."
+        }),
+        createDigitalBookProduct({
+            id: "hindu-sanrbsya",
+            title: "Hindu Sanrbsya",
+            type: "Cultural reference e-book",
+            badge: "Classic",
+            originalPrice: 199,
+            price: 79,
+            summary: "A broad Hindu reference-style digital title suited to readers looking for customs, beliefs, and foundational cultural context in one place.",
+            features: [
+                "General Hindu reference positioning",
+                "Compact choice for beginner reading stacks",
+                "Useful as a quick-access digital library item"
+            ],
+            keywords: [
+                "hindu sanrbsya",
+                "hindu sarbasya",
+                "hindu reference",
+                "hindu culture",
+                "customs",
+                "beliefs"
+            ],
+            imageSrc: "digital-book-covers/hindu-sanrbsya.png",
+            primaryHeading: "Overview",
+            overview: "This AI-written storefront description frames Hindu Sanrbsya as a wide-angle Hindu knowledge title, likely intended to give readers a concise orientation to tradition, values, and practical cultural understanding.",
+            detailPoints: [
+                "It reads like the kind of book someone keeps nearby for clarification instead of only for one-time reading.",
+                "The broad theme makes it approachable for buyers who want an entry point before moving into more specialized scriptures.",
+                "As a digital product, it fits well inside a personal study archive focused on religion, culture, and inherited practice."
+            ],
+            secondaryHeading: "Who it suits",
+            audience: "A good fit for curious readers, beginners assembling a spiritual reading collection, and anyone who wants a general Hindu reference book in portable form."
+        }),
+        createDigitalBookProduct({
+            id: "chanakya-niti",
+            title: "Chanakya Niti",
+            type: "Wisdom and ethics e-book",
+            badge: "Wisdom",
+            originalPrice: 149,
+            price: 59,
+            summary: "A digital wisdom text centered on practical ethics, strategy, restraint, leadership, and observation-driven life advice.",
+            features: [
+                "Short-form wisdom and policy reflections",
+                "Useful for repeated reading and note-taking",
+                "Strong appeal for strategy and ethics readers"
+            ],
+            keywords: [
+                "chanakya niti",
+                "chanakya",
+                "niti",
+                "wisdom",
+                "ethics",
+                "strategy",
+                "leadership"
+            ],
+            imageSrc: "digital-book-covers/chanakya-niti.png",
+            primaryHeading: "Overview",
+            overview: "This AI-generated catalog note presents Chanakya Niti as a classic reading choice for people drawn to sharp observations about conduct, discipline, leadership, and practical decision-making.",
+            detailPoints: [
+                "Its reputation as an aphoristic text makes it especially useful for slow reading, reflection, and daily quotation-style study.",
+                "Readers often value this kind of title for mindset building, self-control, and strategic thinking rather than devotional reading alone.",
+                "The digital format makes it easier to revisit individual teachings without flipping through a physical copy."
+            ],
+            secondaryHeading: "Who it suits",
+            audience: "Best for readers interested in classical statecraft, self-discipline, personal growth, and concise teachings that stay relevant across different stages of life."
+        }),
+        createDigitalBookProduct({
+            id: "bigyan-bhairav-tantra",
+            title: "Bigyan Bhairav Tantra",
+            type: "Meditation text e-book",
+            badge: "Tantra Text",
+            originalPrice: 299,
+            price: 129,
+            summary: "A contemplative digital text presented for readers exploring inner awareness, meditative depth, and Shiva-Shakti oriented spiritual reflection.",
+            features: [
+                "Meditation-centered classical reading",
+                "Useful for reflective and non-rushed study",
+                "Pairs well with spiritual practice libraries"
+            ],
+            keywords: [
+                "bigyan bhairav tantra",
+                "vigyan bhairav tantra",
+                "vijnana bhairava",
+                "tantra",
+                "meditation",
+                "shiva shakti"
+            ],
+            imageSrc: "digital-book-covers/bigyan-bhairav-tantra.png",
+            primaryHeading: "Overview",
+            overview: "This AI-generated storefront summary positions Bigyan Bhairav Tantra as a meditation-oriented spiritual text associated with awareness practices, subtle contemplation, and inward experiential inquiry.",
+            detailPoints: [
+                "It is best approached as a reflective work where readers spend time with individual methods instead of rushing through chapters.",
+                "The subject profile makes it attractive to people already interested in meditation, non-dual thought, or tantric philosophy.",
+                "Keeping it in digital format helps with revisiting passages during regular practice or study sessions."
+            ],
+            secondaryHeading: "Who it suits",
+            audience: "A strong match for mature readers exploring contemplative traditions, meditation practitioners, and students of Shiva-centered spiritual literature."
+        }),
+        createDigitalBookProduct({
+            id: "markyondo-puran",
+            title: "Markyondo Puran",
+            type: "Puranic scripture e-book",
+            badge: "Purana",
+            originalPrice: 249,
+            price: 99,
+            summary: "A puranic digital reading product for those interested in sacred storytelling, devotional imagination, and traditional narrative cosmology.",
+            features: [
+                "Mythic and devotional reading profile",
+                "Suitable for scripture-focused digital shelves",
+                "Good companion to broader purana study"
+            ],
+            keywords: [
+                "markyondo puran",
+                "markandeya purana",
+                "puran",
+                "purana",
+                "mythology",
+                "devotional text"
+            ],
+            imageSrc: "digital-book-covers/markyondo-puran.png",
+            primaryHeading: "Overview",
+            overview: "This AI-written catalog summary presents Markyondo Puran as a traditional puranic title meant for readers who appreciate sacred narrative, layered symbolism, and classical devotional storytelling.",
+            detailPoints: [
+                "Puranic works are often valued for blending myth, teaching, worldview, and memory-rich storytelling in one stream.",
+                "The book works well for readers who want to deepen a personal scripture library beyond short manuals or quote collections.",
+                "A digital edition is especially helpful for casual revisits, topic browsing, and portable reading."
+            ],
+            secondaryHeading: "Who it suits",
+            audience: "Best for readers of Hindu mythology, students of puranic literature, and devotees who like keeping narrative scripture close at hand."
+        }),
+        createDigitalBookProduct({
+            id: "purohit-dorpon",
+            title: "Purohit Dorpon",
+            type: "Priestly guide e-book",
+            badge: "Priest Guide",
+            originalPrice: 279,
+            price: 109,
+            summary: "A working-reference style digital guide aimed at ceremonial flow, priestly preparation, and practical ritual handling.",
+            features: [
+                "Priestly and ceremony-support orientation",
+                "Reference-friendly for repeated consultation",
+                "Useful for organized ritual preparation"
+            ],
+            keywords: [
+                "purohit dorpon",
+                "purohit darpan",
+                "priest guide",
+                "ritual manual",
+                "purohit",
+                "ceremony"
+            ],
+            imageSrc: "digital-book-covers/purohit-dorpon.png",
+            primaryHeading: "Overview",
+            overview: "This AI-generated storefront note frames Purohit Dorpon as a practical support text for those who need ceremonial structure, priestly sequencing, and accessible ritual reference material.",
+            detailPoints: [
+                "It appears designed more for use and consultation than for casual cover-to-cover reading.",
+                "That makes it especially useful for people who prepare for rites, assist in ceremonies, or keep a functional religious study archive.",
+                "The digital format adds convenience when cross-checking portions of a process quickly."
+            ],
+            secondaryHeading: "Who it suits",
+            audience: "A strong fit for purohits, ritual assistants, household organizers of ceremonies, and readers who want a practical guidebook instead of only a theoretical text."
+        }),
+        createDigitalBookProduct({
+            id: "devi-puranam",
+            title: "Devi Puranam",
+            type: "Devotional scripture e-book",
+            badge: "Devi Text",
+            originalPrice: 229,
+            price: 89,
+            summary: "A devotional digital scripture centered on the Divine Feminine, sacred narrative, reverence, and tradition-rich reading.",
+            features: [
+                "Devi-focused devotional reading",
+                "Suitable for spiritual library collections",
+                "Portable format for regular revisits"
+            ],
+            keywords: [
+                "devi puranam",
+                "devi puran",
+                "goddess scripture",
+                "devi",
+                "shakti",
+                "devotional text"
+            ],
+            imageSrc: "digital-book-covers/devi-puranam.png",
+            primaryHeading: "Overview",
+            overview: "This AI-generated catalog summary presents Devi Puranam as a reverential scripture-oriented reading choice for those drawn to goddess traditions, sacred narration, and devotional study.",
+            detailPoints: [
+                "The theme makes it especially appealing to readers interested in Shakti-focused literature and spiritual storytelling.",
+                "It can serve both as a devotional reading companion and as part of a broader classical scripture collection.",
+                "Digital access makes it easier to return to selected sections during personal study or observance."
+            ],
+            secondaryHeading: "Who it suits",
+            audience: "Best for devotees of the Divine Feminine, scripture readers expanding a goddess-centered collection, and learners who want a convenient devotional text in digital form."
+        }),
         {
             id: "docterhome",
             group: "Digital",
