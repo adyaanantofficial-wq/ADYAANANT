@@ -1,6 +1,24 @@
 (function () {
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const hoverCapableQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
     let revealObserver = null;
+
+    function scheduleNonCriticalWork(callback) {
+        if (typeof callback !== "function") {
+            return;
+        }
+
+        if (typeof window.requestIdleCallback === "function") {
+            window.requestIdleCallback(function () {
+                callback();
+            }, {
+                timeout: 1200
+            });
+            return;
+        }
+
+        window.setTimeout(callback, 90);
+    }
 
     function uniqueElements(selectors, root) {
         const scope = root && typeof root.querySelectorAll === "function" ? root : document;
@@ -36,13 +54,18 @@
             WBR: true
         };
 
-        if (!element || blockedTags[element.tagName]) {
+        if (!element || blockedTags[element.tagName] || !hoverCapableQuery.matches) {
             return;
         }
 
-        const hasReflection = Array.from(element.children).some(function (child) {
-            return child.classList && child.classList.contains("aa-light-reflection");
-        });
+        let hasReflection = false;
+        for (let index = 0; index < element.children.length; index += 1) {
+            const child = element.children[index];
+            if (child.classList && child.classList.contains("aa-light-reflection")) {
+                hasReflection = true;
+                break;
+            }
+        }
 
         if (!hasReflection) {
             const reflection = document.createElement("span");
@@ -82,13 +105,17 @@
         glow.className = "aa-pointer-glow aa-fixed-effect";
         glow.setAttribute("aria-hidden", "true");
 
-        document.body.prepend(glow);
-        document.body.prepend(canvas);
-        document.body.prepend(gradient);
+        const fragment = document.createDocumentFragment();
+        fragment.appendChild(gradient);
+        fragment.appendChild(canvas);
+        fragment.appendChild(glow);
+        document.body.prepend(fragment);
 
         if (!reduceMotionQuery.matches) {
-            startParticles(canvas);
-            startPointerGlow(glow);
+            window.requestAnimationFrame(function () {
+                startParticles(canvas);
+                startPointerGlow(glow);
+            });
         }
     }
 
@@ -122,7 +149,7 @@
             "<div class=\"aa-bottom-showcase__shell aa-surface\">",
             "    <div class=\"aa-bottom-bar\">",
             "        <a class=\"aa-bottom-brand\" href=\"index.html\">",
-            "            <img src=\"logo.png\" alt=\"ADYAANANT logo\">",
+            "            <img src=\"logo.png\" alt=\"ADYAANANT logo\" width=\"48\" height=\"48\" loading=\"lazy\" decoding=\"async\" fetchpriority=\"low\">",
             "            <span>ADYAANANT</span>",
             "        </a>",
             "        <nav class=\"aa-bottom-links\" aria-label=\"Footer navigation\">",
@@ -168,6 +195,8 @@
         } else {
             document.body.appendChild(section);
         }
+
+        setupRevealObserver(section);
     }
 
     function enhanceNavs() {
@@ -373,7 +402,7 @@
     }
 
     function startPointerGlow(glow) {
-        if (!glow || window.matchMedia("(pointer: coarse)").matches) {
+        if (!glow || !hoverCapableQuery.matches) {
             return;
         }
 
@@ -423,6 +452,8 @@
         let particles = [];
         let animationFrame = 0;
         let resizeFrame = 0;
+        const maxLinkDistance = 140;
+        const maxLinkDistanceSq = maxLinkDistance * maxLinkDistance;
 
         function particleCount() {
             if (window.innerWidth <= 560) {
@@ -478,16 +509,17 @@
                 context.fill();
             });
 
+            context.lineWidth = 0.7;
             for (let i = 0; i < particles.length; i += 1) {
                 for (let j = i + 1; j < particles.length; j += 1) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
-                    const distance = Math.hypot(dx, dy);
+                    const distanceSq = (dx * dx) + (dy * dy);
 
-                    if (distance < 140) {
+                    if (distanceSq < maxLinkDistanceSq) {
+                        const distance = Math.sqrt(distanceSq);
                         context.beginPath();
-                        context.strokeStyle = "rgba(102, 245, 194, " + ((1 - distance / 140) * 0.12) + ")";
-                        context.lineWidth = 0.7;
+                        context.strokeStyle = "rgba(102, 245, 194, " + ((1 - distance / maxLinkDistance) * 0.12) + ")";
                         context.moveTo(particles[i].x, particles[i].y);
                         context.lineTo(particles[j].x, particles[j].y);
                         context.stroke();
@@ -538,11 +570,11 @@
 
         injectBackgroundEffects();
         injectMasthead();
-        injectBottomShowcase();
         enhanceNavs();
         enhanceSurfaces();
         enhanceButtons();
         setupRevealObserver();
+        scheduleNonCriticalWork(injectBottomShowcase);
         window.ADYAANANT_PREMIUM = {
             enhanceCatalogGrid: enhanceCatalogGrid
         };

@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Payment | ADYAANANT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode.js/1.4.4/qrcode.min.js"></script>
     <link rel="stylesheet" href="help-widget.css">
     <style>
@@ -643,7 +648,7 @@
     </style>
     <link rel="stylesheet" href="premium-theme.css">
 </head>
-<body>
+<body class="aa-premium-body">
 
     <header>
         <div class="nav-bar">
@@ -660,7 +665,7 @@
             </nav>
         </div>
 
-        <h1>💳 Secure Payment</h1>
+        <h1>Ã°Å¸â€™Â³ Secure Payment</h1>
         <p class="subtitle">Select your preferred payment method and complete the transaction</p>
     </header>
 
@@ -669,28 +674,28 @@
         <section class="amount-section">
             <h2>Select or Enter Amount</h2>
             <div class="amount-input">
-                <label for="paymentAmount">Amount (₹):</label>
+                <label for="paymentAmount">Amount (Ã¢â€šÂ¹):</label>
                 <input type="number" id="paymentAmount" placeholder="Enter amount" min="1" max="100000" value="100">
             </div>
             <div class="quick-amounts">
-                <button class="quick-amount active" onclick="setAmount(100)">₹100</button>
-                <button class="quick-amount" onclick="setAmount(500)">₹500</button>
-                <button class="quick-amount" onclick="setAmount(1000)">₹1000</button>
-                <button class="quick-amount" onclick="setAmount(2000)">₹2000</button>
-                <button class="quick-amount" onclick="setAmount(5000)">₹5000</button>
+                <button class="quick-amount active" onclick="setAmount(100)">Ã¢â€šÂ¹100</button>
+                <button class="quick-amount" onclick="setAmount(500)">Ã¢â€šÂ¹500</button>
+                <button class="quick-amount" onclick="setAmount(1000)">Ã¢â€šÂ¹1000</button>
+                <button class="quick-amount" onclick="setAmount(2000)">Ã¢â€šÂ¹2000</button>
+                <button class="quick-amount" onclick="setAmount(5000)">Ã¢â€šÂ¹5000</button>
             </div>
         </section>
 
         <!-- Success Message -->
         <div id="successMessage" class="success-message">
-            <strong>✓ Payment Initiated!</strong> If your app didn't open, try again or use QR Code method.
+            <strong>Ã¢Å“â€œ Payment Initiated!</strong> If your app didn't open, try again or use QR Code method.
         </div>
 
         <!-- Payment Methods -->
         <section class="payment-grid">
             <!-- PhonePe -->
             <div class="payment-card">
-                <div class="payment-icon">📱</div>
+                <div class="payment-icon">Ã°Å¸â€œÂ±</div>
                 <h3>PhonePe</h3>
                 <p>Fast, secure and instant payments using PhonePe</p>
                 <button class="btn-pay" onclick="initiatePhonePe()">Pay with PhonePe</button>
@@ -698,7 +703,7 @@
 
             <!-- Google Pay -->
             <div class="payment-card">
-                <div class="payment-icon">🔵</div>
+                <div class="payment-icon">Ã°Å¸â€Âµ</div>
                 <h3>Google Pay</h3>
                 <p>Seamless payments via Google Pay UPI</p>
                 <button class="btn-pay" onclick="initiateGooglePay()">Pay with Google Pay</button>
@@ -706,7 +711,7 @@
 
             <!-- QR Code -->
             <div class="payment-card">
-                <div class="payment-icon">📲</div>
+                <div class="payment-icon">Ã°Å¸â€œÂ²</div>
                 <h3>QR Code</h3>
                 <p>Scan with any UPI app (PhonePe, BHIM, Paytm, etc.)</p>
                 <button class="btn-pay" onclick="openQRModal()">Open QR Payment</button>
@@ -800,7 +805,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeQRModal()">&times;</span>
             <h2>Scan to Pay via QR Code</h2>
-            
+
             <div class="qr-container">
                 <p style="color: var(--text-muted); margin-bottom: 1rem;">Scan this QR with any UPI app and confirm the amount before completing payment.</p>
                 <img src="qrpay.jpeg" alt="ADYAANANT payment QR code" class="qr-modal-image">
@@ -812,7 +817,7 @@
             </div>
 
             <div class="modal-buttons">
-                <button class="btn-copy" onclick="copyUPI()">📋 Copy UPI ID</button>
+                <button class="btn-copy" onclick="copyUPI()">Ã°Å¸â€œâ€¹ Copy UPI ID</button>
                 <button class="btn-copy" onclick="markQrPaid()">I Have Paid</button>
                 <button class="btn-close" onclick="closeQRModal()">Close</button>
             </div>
@@ -822,7 +827,7 @@
                 1. Open your preferred UPI app<br>
                 2. Tap "Scan QR" option<br>
                 3. Scan the QR shown above<br>
-                4. Confirm amount: <span id="modalAmount" style="color: var(--primary); font-weight: 700;">₹100</span><br>
+                4. Confirm amount: <span id="modalAmount" style="color: var(--primary); font-weight: 700;">Ã¢â€šÂ¹100</span><br>
                 5. Complete the payment
             </div>
         </div>
@@ -830,8 +835,8 @@
 
     <footer>
         <div class="footer-content">
-            <p>&copy; 2026 ADYAANANT. All Rights Reserved. | 
-            <a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a> | 
+            <p>&copy; 2026 ADYAANANT. All Rights Reserved. |
+            <a href="PRIVACY POLICY and TERMS & CONDITIONS.html">Privacy Policy</a> |
             <a href="contact.html">Contact</a></p>
         </div>
     </footer>
@@ -880,7 +885,7 @@
             CURRENT_AMOUNT = amount;
             document.getElementById('paymentAmount').value = amount;
             updateDisplayedAmount();
-            
+
             // Update quick amount buttons
             document.querySelectorAll('.quick-amount').forEach(btn => {
                 btn.classList.remove('active');
@@ -907,7 +912,7 @@
             }
 
             const upiLink = `upi://pay?pa=${UPI_ID}&pn=ADYAANANT&am=${CURRENT_AMOUNT}&tn=Payment%20to%20ADYAANANT&tr=${generateTransactionRef()}`;
-            
+
             try {
                 window.location.href = upiLink;
                 showSuccess();
@@ -935,7 +940,7 @@
             }
 
             const upiLink = `upi://pay?pa=${UPI_ID}&pn=ADYAANANT&am=${CURRENT_AMOUNT}&tn=Payment%20to%20ADYAANANT&tr=${generateTransactionRef()}`;
-            
+
             try {
                 window.location.href = upiLink;
                 showSuccess();
@@ -955,7 +960,7 @@
         function openQRModal() {
             setPaymentMethod('QR Payment');
             document.getElementById('qrModal').style.display = 'block';
-            document.getElementById('modalAmount').textContent = '₹' + CURRENT_AMOUNT;
+            document.getElementById('modalAmount').textContent = 'Ã¢â€šÂ¹' + CURRENT_AMOUNT;
         }
 
         function closeQRModal() {
@@ -985,7 +990,7 @@
             navigator.clipboard.writeText(UPI_ID).then(() => {
                 const feedback = document.createElement('div');
                 feedback.className = 'copy-feedback';
-                feedback.textContent = '✓ UPI ID Copied!';
+                feedback.textContent = 'Ã¢Å“â€œ UPI ID Copied!';
                 document.body.appendChild(feedback);
 
                 setTimeout(() => feedback.remove(), 2000);
@@ -1085,14 +1090,14 @@
         window.addEventListener('load', function() {
             console.log('Payment Page Ready!');
             updateDisplayedAmount();
-            
+
             // Handle URL parameters for product and amount
             const urlParams = new URLSearchParams(window.location.search);
             const product = urlParams.get('product');
             const category = urlParams.get('category');
             const amount = urlParams.get('amount');
             const paymentSubject = product || category;
-            
+
             if (amount) {
                 // Update page title and amount
                 setAmount(parseInt(amount));
@@ -1110,7 +1115,7 @@
 
                 const headerTitle = document.querySelector('h1');
                 if (headerTitle) {
-                    headerTitle.textContent = `💳 Pay for ${formattedSubject}`;
+                    headerTitle.textContent = `Ã°Å¸â€™Â³ Pay for ${formattedSubject}`;
                 }
             }
         });

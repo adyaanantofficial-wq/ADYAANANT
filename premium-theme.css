@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
-
 :root {
     --aa-bg-deep: #080202;
     --aa-bg-mid: #140807;
@@ -139,7 +137,6 @@ body.aa-premium-body option {
     pointer-events: none;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
-    will-change: transform, opacity;
 }
 
 .aa-gradient-field {
@@ -281,6 +278,7 @@ body.aa-premium-body .navbar {
     padding: 0.55rem 1rem !important;
     border-radius: 999px;
     color: var(--aa-muted) !important;
+    touch-action: manipulation;
     transition: color 0.25s ease, transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
     border: 1px solid transparent;
 }
@@ -333,7 +331,6 @@ body.aa-premium-body .store-nav__links a.is-active {
     transition: transform 0.7s ease;
     pointer-events: none;
     z-index: 0;
-    will-change: transform;
 }
 
 .aa-surface > :not(.aa-light-reflection) {
@@ -383,6 +380,7 @@ body.aa-premium-body .store-nav__links a.is-active {
     letter-spacing: 0.08em !important;
     text-transform: uppercase;
     cursor: pointer;
+    touch-action: manipulation;
     box-shadow: var(--aa-shadow-sm), 0 0 0 1px rgba(255, 196, 87, 0.06);
     transition:
         transform 0.3s ease,
@@ -581,6 +579,7 @@ body.aa-premium-body .product-card .action-btn.aa-button:focus-visible {
 
 .aa-bottom-showcase {
     padding: 3.4rem 0 4rem;
+    contain: layout paint style;
 }
 
 .aa-bottom-showcase__shell {
@@ -826,6 +825,25 @@ body.aa-premium-body .product-card .action-btn.aa-button:focus-visible {
         min-height: 44px;
         font-size: 0.78rem !important;
         letter-spacing: 0.06em !important;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .aa-gradient-field,
+    .aa-pointer-glow,
+    .aa-light-reflection {
+        will-change: transform, opacity;
+    }
+
+    .aa-particle-canvas {
+        will-change: opacity;
+    }
+}
+
+@supports (content-visibility: auto) {
+    .aa-bottom-showcase {
+        content-visibility: auto;
+        contain-intrinsic-size: 960px;
     }
 }
 

@@ -155,6 +155,7 @@ input {
     color: rgba(255, 255, 255, 0.9);
     font-size: 0.92rem;
     font-weight: 700;
+    touch-action: manipulation;
     transition: background var(--store-transition), color var(--store-transition), transform var(--store-transition);
 }
 
@@ -190,6 +191,7 @@ input {
     box-shadow: var(--store-shadow-sm);
     font-weight: 800;
     color: var(--store-ink);
+    touch-action: manipulation;
     transition: transform var(--store-transition), border-color var(--store-transition), box-shadow var(--store-transition);
 }
 
@@ -340,6 +342,7 @@ input {
     color: var(--store-ink);
     font-weight: 800;
     box-shadow: var(--store-shadow-sm);
+    touch-action: manipulation;
     transition: transform var(--store-transition), border-color var(--store-transition), box-shadow var(--store-transition), color var(--store-transition);
 }
 
@@ -598,6 +601,7 @@ input {
     transition: transform var(--store-transition), border-color var(--store-transition), background var(--store-transition), color var(--store-transition);
     cursor: pointer;
     pointer-events: auto;
+    touch-action: manipulation;
     backface-visibility: hidden;
     transform: translate3d(0, 0, 0);
 }
@@ -670,6 +674,7 @@ input {
     color: var(--store-muted);
     font-size: 0.84rem;
     font-weight: 800;
+    touch-action: manipulation;
 }
 
 .details-modal {
@@ -779,6 +784,7 @@ input {
     color: var(--store-ink);
     font-size: 1.1rem;
     cursor: pointer;
+    touch-action: manipulation;
 }
 
 .modal-body {
@@ -1085,6 +1091,14 @@ input {
 
 .product-detail-copy .detail-footer-note {
     color: var(--store-muted);
+}
+
+@supports (content-visibility: auto) {
+    .store-footer,
+    .product-detail-sections {
+        content-visibility: auto;
+        contain-intrinsic-size: 720px;
+    }
 }
 
 @media (max-width: 860px) {

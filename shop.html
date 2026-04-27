@@ -6,7 +6,13 @@
     <meta name="description" content="Browse ADYAANANT product categories and explore digital and real product collections.">
     <meta name="theme-color" content="#232f3e">
     <title>Shop Categories | ADYAANANT</title>
-    
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="help-widget.css">
     <style>
         /* ==========================================================================
@@ -23,13 +29,13 @@
             --text-main: #0f1111;
             --text-muted: #565959;
             --border: #e7e7e7;
-            
+
             /* Shadows & Transitions */
             --shadow-sm: 0 2px 5px rgba(0,0,0,0.05);
             --shadow-md: 0 8px 20px rgba(0,0,0,0.08);
             --shadow-hover: 0 15px 35px rgba(0,0,0,0.12);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            
+
             /* Typography */
             --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
@@ -420,17 +426,17 @@
     </style>
     <link rel="stylesheet" href="premium-theme.css">
 </head>
-<body>
+<body class="aa-premium-body">
 
     <header role="banner">
         <div class="header-content">
             <a href="index.html" class="nav-brand">
-                <img src="logo.png" alt="ADYAANANT Logo" class="nav-logo">
+                <img src="logo.png" alt="ADYAANANT Logo" class="nav-logo" width="48" height="48" decoding="async">
                 <span>ADYAANANT</span>
             </a>
 
             <input type="checkbox" id="nav-check">
-            <label for="nav-check" class="menu-toggle">☰</label>
+            <label for="nav-check" class="menu-toggle">Ã¢ËœÂ°</label>
 
             <nav>
                 <ul class="nav-links">
@@ -446,26 +452,26 @@
     </header>
 
     <main role="main">
-        
+
         <section class="search-wrapper" aria-label="Search section">
-            <input 
-                type="text" 
-                id="searchInput" 
-                class="search-input" 
-                placeholder="Search products, categories, or brands..." 
+            <input
+                type="text"
+                id="searchInput"
+                class="search-input"
+                placeholder="Search products, categories, or brands..."
                 aria-label="Search for products and categories"
                 autocomplete="off"
                 spellcheck="false"
             >
-            <span class="search-icon" aria-hidden="true">🔍</span>
+            <span class="search-icon" aria-hidden="true">Ã°Å¸â€Â</span>
         </section>
 
         <section aria-label="Product Categories">
             <div id="categoryGrid" class="category-grid" role="list">
                 </div>
-            
+
             <div id="noResults" class="no-results" aria-live="polite">
-                <div class="no-results-emoji" aria-hidden="true">🕵️‍♂️</div>
+                <div class="no-results-emoji" aria-hidden="true">Ã°Å¸â€¢ÂµÃ¯Â¸ÂÃ¢â‚¬ÂÃ¢â„¢â€šÃ¯Â¸Â</div>
                 <h3>No categories found</h3>
                 <p>We couldn't find matches for "<span id="searchTermDisplay" class="highlight-term"></span>".</p>
                 <p style="margin-top: 10px; font-size: 0.95rem;">Try searching for: <em>digital, real, software, delivery</em></p>
@@ -484,20 +490,20 @@
          * Features: Vanilla JS, Debounce optimization, DOM DocumentFragment
          */
         document.addEventListener('DOMContentLoaded', () => {
-            
+
             // 1. Database of Categories
             const categories = [
                 {
                     id: 'digital',
                     name: 'Digital Products',
-                    emoji: '💻',
+                    emoji: 'Ã°Å¸â€™Â»',
                     link: 'Digital Products.html',
                     keywords: ['digital', 'software', 'ebook', 'course', 'app', 'download', 'code', 'online', 'subscription', 'game', 'license', 'bot', 'webapp']
                 },
                 {
                     id: 'real-products',
                     name: 'Real Products',
-                    emoji: '📦',
+                    emoji: 'Ã°Å¸â€œÂ¦',
                     link: 'Real Products.html',
                     keywords: ['real', 'physical', 'products', 'delivery', 'parcel', 'goods', 'order', 'shipping', 'packaging']
                 }
@@ -542,15 +548,15 @@
                     card.className = 'category-card';
                     card.setAttribute('role', 'listitem');
                     card.setAttribute('aria-label', `Shop ${cat.name}`);
-                    
+
                     card.innerHTML = `
                         <div class="category-emoji" aria-hidden="true">${cat.emoji}</div>
                         <div class="category-info">
                             <h2>${cat.name}</h2>
-                            <span class="shop-now-btn">Shop Now <span aria-hidden="true">→</span></span>
+                            <span class="shop-now-btn">Shop Now <span aria-hidden="true">Ã¢â€ â€™</span></span>
                         </div>
                     `;
-                    
+
                     fragment.appendChild(card);
                 });
 
@@ -578,10 +584,10 @@
 
             // 6. Event Listeners & Initialization
             elements.input.addEventListener('input', debounce(executeSearch, 250));
-            
+
             // Initial render
             renderCategories(categories);
-            
+
             // Auto-focus search on desktop
             if (window.innerWidth > 768) {
                 elements.input.focus();
@@ -622,8 +628,8 @@
 
             // Check if we're on a local file system and warn about links
             if (window.location.protocol === 'file:') {
-                console.warn('⚠️  WARNING: You are viewing this site as a local file. Links may not work properly. Please use a local server (see DEVELOPMENT.md)');
-                
+                console.warn('Ã¢Å¡Â Ã¯Â¸Â  WARNING: You are viewing this site as a local file. Links may not work properly. Please use a local server (see DEVELOPMENT.md)');
+
                 // Add visual warning for development
                 const warning = document.createElement('div');
                 warning.style.cssText = `
@@ -639,7 +645,7 @@
                     z-index: 10000;
                     font-family: var(--font-family);
                 `;
-                warning.innerHTML = '⚠️ Development Mode: Use <code>start-server.bat</code> for proper functionality';
+                warning.innerHTML = 'Ã¢Å¡Â Ã¯Â¸Â Development Mode: Use <code>start-server.bat</code> for proper functionality';
                 document.body.insertBefore(warning, document.body.firstChild);
             }
         });
