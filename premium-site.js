@@ -533,7 +533,7 @@
 
         const themeColor = document.querySelector("meta[name='theme-color']");
         if (themeColor) {
-            themeColor.setAttribute("content", "#040a14");
+            themeColor.setAttribute("content", "#120605");
         }
 
         injectBackgroundEffects();
