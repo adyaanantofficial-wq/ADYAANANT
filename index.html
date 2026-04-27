@@ -38,7 +38,7 @@
 
     <main class="store-page store-main">
         <section class="quick-actions" aria-label="Main shortcuts">
-            <a class="quick-action quick-action--primary" href="shop.html">Shop</a>
+            <a class="quick-action quick-action--primary" href="index.html">Shop</a>
             <a class="quick-action quick-action--dark" href="discord.html">Discord</a>
             <a class="quick-action" href="STUDY.html">Study</a>
             <a class="quick-action" href="govupdates.html">Gov Updates</a>
@@ -62,7 +62,7 @@
                 <div class="toolbar-meta">
                     <div class="toolbar-copy">
                         <span class="toolbar-eyebrow">Sensitive Search</span>
-                        <p>Search digital books, study tools, custom builds, and real products from one combined storefront.</p>
+                       
                     </div>
 
                     <div class="result-pill">
@@ -125,10 +125,6 @@
         </section>
     </main>
 
-
-    <script src="catalog-data.js"></script>
-    <script src="catalog-page.js"></script>
-
     <footer class="store-page store-footer">
         <div class="store-footer__card">
             <strong>ADYAANANT Main Store</strong>
@@ -146,6 +142,136 @@
         <span class="help-fab__label">Help</span>
         <span class="help-fab__button" aria-hidden="true">&#129302;</span>
     </a>
-    <script src="premium-site.js"></script>
+    <script>
+        (function () {
+            function matches(query) {
+                return typeof window.matchMedia === "function" && window.matchMedia(query).matches;
+            }
+
+            function injectDeferredScript(src) {
+                const script = document.createElement("script");
+                script.src = src;
+                script.async = true;
+                (document.body || document.head || document.documentElement).appendChild(script);
+            }
+
+            const userAgent = navigator.userAgent || "";
+            const uaMobile = navigator.userAgentData ? navigator.userAgentData.mobile : /Android|iPhone|iPod/i.test(userAgent);
+            const touchPoints = navigator.maxTouchPoints || 0;
+            const deviceMemory = typeof navigator.deviceMemory === "number" ? navigator.deviceMemory : 0;
+            const hardwareConcurrency = typeof navigator.hardwareConcurrency === "number" ? navigator.hardwareConcurrency : 0;
+            const coarsePointer = matches("(pointer: coarse)");
+            const noHover = matches("(hover: none)");
+            const phoneViewport = matches("(max-width: 820px)");
+            const constrainedHardware = (deviceMemory > 0 && deviceMemory <= 8) || (hardwareConcurrency > 0 && hardwareConcurrency <= 8);
+            const isPhoneMobile = phoneViewport && coarsePointer && noHover && (touchPoints > 0 || uaMobile) && (constrainedHardware || uaMobile);
+            let catalogRendered = false;
+            let uiLoaded = false;
+            let effectsLoaded = false;
+            let effectsRequested = false;
+
+            window.ADYAANANT_BOOT = {
+                isPhoneMobile: isPhoneMobile,
+                deferEffects: isPhoneMobile
+            };
+
+            function loadUiEnhancements() {
+                if (uiLoaded) {
+                    return;
+                }
+
+                uiLoaded = true;
+
+                if (typeof window.requestAnimationFrame === "function") {
+                    window.requestAnimationFrame(function () {
+                        injectDeferredScript("ui.enhance.js");
+                    });
+                    return;
+                }
+
+                injectDeferredScript("ui.enhance.js");
+            }
+
+            function loadEffectsNow() {
+                if (effectsLoaded) {
+                    return;
+                }
+
+                effectsLoaded = true;
+                injectDeferredScript("effects.js");
+            }
+
+            function scheduleEffects() {
+                if (effectsLoaded) {
+                    return;
+                }
+
+                if (typeof window.requestIdleCallback === "function") {
+                    window.requestIdleCallback(function () {
+                        loadEffectsNow();
+                    }, {
+                        timeout: 1400
+                    });
+                    return;
+                }
+
+                window.setTimeout(loadEffectsNow, 240);
+            }
+
+            function maybeLoadEffects() {
+                if (!catalogRendered) {
+                    effectsRequested = true;
+                    return;
+                }
+
+                if (effectsRequested) {
+                    loadEffectsNow();
+                    return;
+                }
+
+                scheduleEffects();
+            }
+
+            if (isPhoneMobile) {
+                window.addEventListener("adyaanant:catalog-rendered", function () {
+                    catalogRendered = true;
+                    loadUiEnhancements();
+                    maybeLoadEffects();
+                }, { once: true });
+
+                ["pointerdown", "touchstart"].forEach(function (eventName) {
+                    window.addEventListener(eventName, function () {
+                        effectsRequested = true;
+                        maybeLoadEffects();
+                    }, {
+                        once: true,
+                        passive: true
+                    });
+                });
+
+                window.addEventListener("keydown", function () {
+                    effectsRequested = true;
+                    maybeLoadEffects();
+                }, { once: true });
+
+                document.write("<script src=\"catalog-data.js\"><\/script><script src=\"product.core.js\"><\/script>");
+                return;
+            }
+
+            document.write("<script src=\"catalog-data.js\"><\/script><script src=\"catalog-page.js\"><\/script><script src=\"ui.enhance.js\"><\/script><script src=\"effects.js\"><\/script>");
+        }());
+    </script>
+
+    <footer class="page-footer">
+            <div class="page-container page-footer__inner">
+                <span>&copy; 2026 ADYAANANT Study</span>
+                <div class="page-links">
+                    <a href="index.html">Home</a>
+                    <a href="baches.html">Baches</a>
+                    <a href="sci3D.html">Sci3D</a>
+                </div>
+            </div>
+        </footer>
+        
 </body>
 </html>
