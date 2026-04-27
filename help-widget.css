@@ -8,6 +8,8 @@
     gap: 10px;
     text-decoration: none;
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 }
 
 .help-fab__label {
@@ -38,11 +40,13 @@
     border: 1px solid rgba(255, 255, 255, 0.24);
     box-shadow: 0 18px 38px rgba(16, 211, 255, 0.3);
     transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 }
 
 .help-fab:hover .help-fab__button,
 .help-fab:focus-visible .help-fab__button {
-    transform: translateY(-2px) scale(1.04);
+    transform: translate3d(0, -2px, 0) scale(1.04);
     box-shadow: 0 22px 46px rgba(16, 211, 255, 0.38);
     filter: saturate(1.08);
 }

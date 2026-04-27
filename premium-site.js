@@ -1,10 +1,16 @@
 (function () {
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let revealObserver = null;
 
-    function uniqueElements(selectors) {
+    function uniqueElements(selectors, root) {
+        const scope = root && typeof root.querySelectorAll === "function" ? root : document;
         const set = new Set();
         selectors.forEach(function (selector) {
-            document.querySelectorAll(selector).forEach(function (element) {
+            if (scope !== document && typeof scope.matches === "function" && scope.matches(selector)) {
+                set.add(scope);
+            }
+
+            scope.querySelectorAll(selector).forEach(function (element) {
                 set.add(element);
             });
         });
@@ -193,7 +199,7 @@
         });
     }
 
-    function enhanceSurfaces() {
+    function enhanceSurfaces(root) {
         uniqueElements([
             ".hero-card",
             ".card",
@@ -230,7 +236,7 @@
             ".page-brand__mark",
             ".brand-mark",
             ".nav-logo"
-        ]).forEach(function (element, index) {
+        ], root).forEach(function (element, index) {
             element.classList.add("aa-surface", "aa-card-lift", "aa-reveal");
             element.style.setProperty("--aa-reveal-delay", String(Math.min((index % 6) * 40, 180)) + "ms");
             addReflection(element);
@@ -248,13 +254,13 @@
             ".split",
             ".split-panel",
             ".list-panel"
-        ]).forEach(function (element, index) {
+        ], root).forEach(function (element, index) {
             element.classList.add("aa-reveal");
             element.style.setProperty("--aa-reveal-delay", String(Math.min((index % 4) * 60, 180)) + "ms");
         });
     }
 
-    function enhanceButtons() {
+    function enhanceButtons(root) {
         uniqueElements([
             "button:not(.menu-toggle)",
             "input[type='submit']",
@@ -271,7 +277,7 @@
             ".helper-link",
             ".quick-amount",
             ".store-footer__links a"
-        ]).forEach(function (element) {
+        ], root).forEach(function (element) {
             const source = ((element.className || "") + " " + (element.textContent || "")).toLowerCase();
             element.classList.add("aa-button");
 
@@ -305,30 +311,65 @@
         });
     }
 
-    function setupRevealObserver() {
-        const targets = Array.from(document.querySelectorAll(".aa-reveal"));
+    function ensureRevealObserver() {
         if (reduceMotionQuery.matches || typeof IntersectionObserver !== "function") {
+            return null;
+        }
+
+        if (!revealObserver) {
+            revealObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.16,
+                rootMargin: "0px 0px -8% 0px"
+            });
+        }
+
+        return revealObserver;
+    }
+
+    function setupRevealObserver(root) {
+        const scope = root && typeof root.querySelectorAll === "function" ? root : document;
+        const targets = Array.from(scope.querySelectorAll(".aa-reveal"));
+
+        if (scope !== document && scope.classList && scope.classList.contains("aa-reveal")) {
+            targets.unshift(scope);
+        }
+
+        if (!targets.length) {
+            return;
+        }
+
+        const observer = ensureRevealObserver();
+        if (!observer) {
             targets.forEach(function (element) {
                 element.classList.add("is-visible");
             });
             return;
         }
 
-        const observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("is-visible");
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.16,
-            rootMargin: "0px 0px -8% 0px"
-        });
-
         targets.forEach(function (element) {
+            if (element.classList.contains("is-visible")) {
+                return;
+            }
+
             observer.observe(element);
         });
+    }
+
+    function enhanceCatalogGrid(root) {
+        if (!root) {
+            return;
+        }
+
+        enhanceSurfaces(root);
+        enhanceButtons(root);
+        setupRevealObserver(root);
     }
 
     function startPointerGlow(glow) {
@@ -368,7 +409,10 @@
             return;
         }
 
-        const context = canvas.getContext("2d");
+        const context = canvas.getContext("2d", {
+            alpha: true,
+            desynchronized: true
+        }) || canvas.getContext("2d");
         if (!context) {
             return;
         }
@@ -378,6 +422,7 @@
         let dpr = 1;
         let particles = [];
         let animationFrame = 0;
+        let resizeFrame = 0;
 
         function particleCount() {
             if (window.innerWidth <= 560) {
@@ -453,10 +498,21 @@
             animationFrame = window.requestAnimationFrame(draw);
         }
 
+        function scheduleResize() {
+            if (resizeFrame) {
+                return;
+            }
+
+            resizeFrame = window.requestAnimationFrame(function () {
+                resizeFrame = 0;
+                resize();
+            });
+        }
+
         resize();
         draw();
 
-        window.addEventListener("resize", resize, { passive: true });
+        window.addEventListener("resize", scheduleResize, { passive: true });
         document.addEventListener("visibilitychange", function () {
             if (document.hidden && animationFrame) {
                 window.cancelAnimationFrame(animationFrame);
@@ -487,6 +543,9 @@
         enhanceSurfaces();
         enhanceButtons();
         setupRevealObserver();
+        window.ADYAANANT_PREMIUM = {
+            enhanceCatalogGrid: enhanceCatalogGrid
+        };
     }
 
     if (document.readyState === "loading") {

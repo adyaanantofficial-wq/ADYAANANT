@@ -10,6 +10,9 @@
     --store-accent-deep: #15803d;
     --store-accent-soft: rgba(32, 178, 90, 0.14);
     --store-highlight: #fbbf24;
+    --store-price-red: #ff6673;
+    --store-off-yellow: #ffd84f;
+    --store-sell-green: #59f196;
     --store-shadow-sm: 0 10px 26px rgba(18, 32, 24, 0.08);
     --store-shadow-md: 0 18px 40px rgba(18, 32, 24, 0.12);
     --store-shadow-lg: 0 30px 70px rgba(18, 32, 24, 0.18);
@@ -72,6 +75,9 @@ input {
     background: rgba(17, 26, 19, 0.92);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+    contain: paint;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 }
 
 .store-nav__inner {
@@ -110,7 +116,17 @@ input {
     font-size: 0.74rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.62);
+    color: #dffef0;
+    text-shadow: 0 0 18px rgba(111, 244, 255, 0.16);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .store-brand__eyebrow {
+        background: linear-gradient(135deg, #ffe36f 0%, #6ff4ff 48%, #7cff9f 100%);
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
 }
 
 .store-brand__title {
@@ -148,7 +164,7 @@ input {
     background: linear-gradient(135deg, #2dd46f, #15803d);
     color: #f7fff9;
     outline: none;
-    transform: translateY(-1px);
+    transform: translate3d(0, -1px, 0);
 }
 
 .store-main {
@@ -179,7 +195,7 @@ input {
 
 .quick-action:hover,
 .quick-action:focus-visible {
-    transform: translateY(-2px);
+    transform: translate3d(0, -2px, 0);
     border-color: rgba(32, 178, 90, 0.28);
     box-shadow: var(--store-shadow-md);
     outline: none;
@@ -211,6 +227,7 @@ input {
     border: 1px solid rgba(18, 32, 24, 0.08);
     background: rgba(255, 255, 255, 0.88);
     box-shadow: var(--store-shadow-sm);
+    contain: paint style;
 }
 
 .search-wrap {
@@ -247,7 +264,7 @@ input {
     outline: none;
     border-color: var(--store-accent);
     box-shadow: 0 0 0 5px rgba(32, 178, 90, 0.16), var(--store-shadow-sm);
-    transform: translateY(-1px);
+    transform: translate3d(0, -1px, 0);
 }
 
 .toolbar-meta {
@@ -330,7 +347,7 @@ input {
 .category-link:focus-visible,
 .category-link.is-active {
     outline: none;
-    transform: translateY(-2px);
+    transform: translate3d(0, -2px, 0);
     border-color: rgba(32, 178, 90, 0.28);
     box-shadow: var(--store-shadow-md);
     color: var(--store-accent-deep);
@@ -387,9 +404,11 @@ input {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 14px;
+    contain: layout paint;
 }
 
 .product-card {
+    position: relative;
     display: grid;
     align-content: start;
     gap: 12px;
@@ -400,13 +419,22 @@ input {
     background: rgba(255, 255, 255, 0.96);
     box-shadow: var(--store-shadow-sm);
     transition: transform var(--store-transition), border-color var(--store-transition), box-shadow var(--store-transition);
+    contain: layout paint style;
+    content-visibility: auto;
+    contain-intrinsic-size: 320px 460px;
+    isolation: isolate;
 }
 
 .product-card:hover,
 .product-card:focus-within {
-    transform: translateY(-4px);
+    transform: translate3d(0, -4px, 0);
     border-color: rgba(32, 178, 90, 0.24);
     box-shadow: var(--store-shadow-md);
+}
+
+.product-card > :not(.aa-light-reflection) {
+    position: relative;
+    z-index: 1;
 }
 
 .product-thumb {
@@ -531,12 +559,32 @@ input {
     color: var(--store-accent-deep);
 }
 
+.price-cell:nth-child(1) .price-label,
+.price-cell:nth-child(1) .price-value {
+    color: var(--store-price-red);
+}
+
+.price-cell:nth-child(2) .price-label,
+.price-cell:nth-child(2) .price-value {
+    color: var(--store-off-yellow);
+}
+
+.price-cell:nth-child(3) .price-label,
+.price-cell:nth-child(3) .price-value,
+.price-cell:nth-child(3) .price-value.is-accent {
+    color: var(--store-sell-green);
+}
+
 .card-actions {
     display: grid;
     gap: 8px;
+    position: relative;
+    z-index: 2;
 }
 
 .action-btn {
+    position: relative;
+    z-index: 2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -552,12 +600,15 @@ input {
     letter-spacing: 0.04em;
     transition: transform var(--store-transition), border-color var(--store-transition), background var(--store-transition), color var(--store-transition);
     cursor: pointer;
+    pointer-events: auto;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
 }
 
 .action-btn:hover,
 .action-btn:focus-visible {
     outline: none;
-    transform: translateY(-1px);
+    transform: translate3d(0, -1px, 0);
     border-color: rgba(32, 178, 90, 0.24);
 }
 
@@ -636,14 +687,18 @@ input {
     visibility: hidden;
     transition: opacity var(--store-transition), visibility var(--store-transition);
     z-index: 40;
+    pointer-events: none;
+    will-change: opacity;
 }
 
 .details-modal.is-open {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 .details-dialog {
+    position: relative;
     width: min(760px, 100%);
     max-height: min(86vh, 820px);
     overflow: auto;
@@ -651,12 +706,14 @@ input {
     border: 1px solid rgba(18, 32, 24, 0.1);
     background: #ffffff;
     box-shadow: var(--store-shadow-lg);
-    transform: translateY(12px) scale(0.98);
+    transform: translate3d(0, 12px, 0) scale(0.98);
     transition: transform var(--store-transition);
+    contain: layout paint style;
+    will-change: transform;
 }
 
 .details-modal.is-open .details-dialog {
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
 }
 
 .details-header {
