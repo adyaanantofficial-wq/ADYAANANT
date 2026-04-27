@@ -544,6 +544,16 @@ body.aa-premium-body .product-grid {
     gap: clamp(12px, 1vw, 16px);
 }
 
+body.aa-premium-body .product-card.aa-card-lift:hover,
+body.aa-premium-body .product-card.aa-card-lift:focus-within {
+    transform: none;
+}
+
+body.aa-premium-body .product-card .action-btn.aa-button:hover,
+body.aa-premium-body .product-card .action-btn.aa-button:focus-visible {
+    transform: none;
+}
+
 .aa-bottom-showcase {
     padding: 3.4rem 0 4rem;
 }

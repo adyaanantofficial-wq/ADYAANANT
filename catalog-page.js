@@ -208,6 +208,7 @@
         const productGrid = document.getElementById("productGrid");
         const noResults = document.getElementById("noResults");
         const detailsModal = document.getElementById("detailsModal");
+        const detailsDialog = detailsModal ? detailsModal.querySelector(".details-dialog") : null;
         const modalPill = document.getElementById("modalPill");
         const modalTitle = document.getElementById("modalTitle");
         const modalSummary = document.getElementById("modalSummary");
@@ -217,7 +218,7 @@
         const modalFooterNote = document.getElementById("modalFooterNote");
         const modalClose = document.getElementById("modalClose");
 
-        if (!productGrid || !resultCount || !noResults || !detailsModal || !modalPill || !modalTitle || !modalSummary || !modalPrice || !modalBody || !modalAction || !modalFooterNote || !modalClose) {
+        if (!productGrid || !resultCount || !noResults || !detailsModal || !detailsDialog || !modalPill || !modalTitle || !modalSummary || !modalPrice || !modalBody || !modalAction || !modalFooterNote || !modalClose) {
             return;
         }
 
@@ -247,6 +248,8 @@
         let pendingQuery = "";
         let filterFrame = 0;
         let lastRenderSignature = "";
+        let pointerActivatedProductId = "";
+        let pointerActivatedAt = 0;
 
         function renderProducts(list) {
             resultCount.textContent = String(list.length);
@@ -298,8 +301,11 @@
                 modalAction.removeAttribute("rel");
             }
 
+            detailsDialog.scrollTop = 0;
+            modalBody.scrollTop = 0;
             detailsModal.classList.add("is-open");
             detailsModal.setAttribute("aria-hidden", "false");
+            detailsModal.setAttribute("data-active-product-id", product.id);
             document.body.classList.add("modal-open");
             modalClose.focus();
         }
@@ -307,6 +313,7 @@
         function closeModal() {
             detailsModal.classList.remove("is-open");
             detailsModal.setAttribute("aria-hidden", "true");
+            detailsModal.removeAttribute("data-active-product-id");
             document.body.classList.remove("modal-open");
 
             if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
@@ -357,14 +364,69 @@
             });
         }
 
-        productGrid.addEventListener("click", function (event) {
-            const detailButton = event.target && typeof event.target.closest === "function"
-                ? event.target.closest("[data-details-id]")
-                : null;
-
-            if (detailButton) {
-                openModal(detailButton.getAttribute("data-details-id"));
+        function getDetailButton(event) {
+            if (!event.target || typeof event.target.closest !== "function") {
+                return null;
             }
+
+            return event.target.closest("[data-details-id]");
+        }
+
+        function handleDetailOpen(productId) {
+            if (!productId) {
+                return;
+            }
+
+            openModal(productId);
+        }
+
+        productGrid.addEventListener("pointerdown", function (event) {
+            const detailButton = getDetailButton(event);
+
+            if (!detailButton) {
+                return;
+            }
+
+            if (typeof event.button === "number" && event.button !== 0) {
+                return;
+            }
+
+            pointerActivatedProductId = detailButton.getAttribute("data-details-id") || "";
+            pointerActivatedAt = Date.now();
+            event.preventDefault();
+            handleDetailOpen(pointerActivatedProductId);
+        });
+
+        productGrid.addEventListener("click", function (event) {
+            const detailButton = getDetailButton(event);
+
+            if (!detailButton) {
+                return;
+            }
+
+            const productId = detailButton.getAttribute("data-details-id");
+            const pointerActivatedRecently = pointerActivatedProductId === productId && Date.now() - pointerActivatedAt < 600;
+
+            if (pointerActivatedRecently) {
+                pointerActivatedProductId = "";
+                pointerActivatedAt = 0;
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+            handleDetailOpen(productId);
+        });
+
+        productGrid.addEventListener("keydown", function (event) {
+            const detailButton = getDetailButton(event);
+
+            if (!detailButton || (event.key !== "Enter" && event.key !== " ")) {
+                return;
+            }
+
+            event.preventDefault();
+            handleDetailOpen(detailButton.getAttribute("data-details-id"));
         });
 
         if (searchInput) {
